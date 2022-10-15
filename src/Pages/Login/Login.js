@@ -4,23 +4,20 @@ import { Link } from 'react-router-dom';
 import "./Login.scss"
 const Login = () => {
     const [isSignIn, setisSignIn] = useState(true);
-    const [isTeacher,setisTeacher]=useState();
-    const { register, handleSubmit,reset ,getValues } = useForm();
+    const [isTeacher, setisTeacher] = useState();
+    const { register, handleSubmit, reset, getValues } = useForm();
     const onSubmit = data => {
         // alert(JSON.stringify(data));
         console.log(data)
         reset();
     };
-    
-const output=()=>{
-    const value=getValues("profession")
-    console.log('value')
+ 
+    const output = () => {
+        const value = getValues("profession")
+        console.log(value)
 
-}
-    // const o=()=>{
-    //     e.targe.value;
+    }
 
-    // }
     return (
         <div className=''>
             <div class={isSignIn ? 'containerr mb-0' : 'containerr sign-up-mode mb-0'}>
@@ -50,11 +47,11 @@ const output=()=>{
                         <form onSubmit={handleSubmit(onSubmit)} class="sign-up-form">
                             <h2 class="title">Sign up</h2>
                             <div onFocus={output()} class="input-field d-flex text-center justify-content-between">
-                            <span className='w-100 d-flex justify-content-between text-center cs  '><i class="fas fa-chalkboard-user ci"></i>
-                                <h6 className='  text-nowrap'>sign up as</h6></span> 
-                                <span  className='text-center'><select onClick={output()}     {...register("profession")} >
-                                    <option   value="teacher">Teacher</option>
-                                    <option    value="student">Student</option>
+                                <span className='w-100 d-flex justify-content-between text-center cs  '><i class="fas fa-chalkboard-user ci"></i>
+                                    <h6 className='  text-nowrap'>sign up as</h6></span>
+                                <span className='text-center'><select {...register("profession")} >
+                                    <option value="teacher">Teacher</option>
+                                    <option value="student">Student</option>
                                 </select></span>
                             </div>
                             <div class="input-field">
@@ -69,18 +66,18 @@ const output=()=>{
                                 <i class="fas fa-lock"></i>
                                 <input type="password" placeholder="Password" {...register('password')} />
                             </div>
-                            <input type="submit" class="btnn" value="Sign up"  />
+                            <input type="submit" class="btnn" value="Sign up" />
                             <p class="social-text">Or Sign up with social platforms</p>
-                        <div class="social-media">
-                            <a href="#" class="social-icon">
-                                <i class="fab fa-google"></i>
-                            </a>
-                            <a href="#" class="social-icon">
-                                <i class="fab fa-linkedin-in"></i>
-                            </a>
-                        </div>
+                            <div class="social-media">
+                                <a href="#" class="social-icon">
+                                    <i class="fab fa-google"></i>
+                                </a>
+                                <a href="#" class="social-icon">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                            </div>
                         </form>
-                       
+
                     </div>
                 </div>
 

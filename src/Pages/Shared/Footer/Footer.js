@@ -5,60 +5,67 @@ import './Footer.scss';
 const Footer = () => {
     return (
         <div className='w-100'>
-            <footer className="footer animate__animated animate__fadeIn">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-md-5 d-flex">
-                            <h5><i className="fas fa-cubes mt-2"></i></h5>
-
-                            <div className="row">
-                                <div className="col-6 ">
-                                    <ul className="list-unstyled">
-                                        <li><Link href="">Services</Link></li>
-                                        <li><Link href="">Benefits</Link></li>
-                                        <li><Link href="">Team</Link></li>
-                                    </ul>
-                                </div>
-                                <div className="col-6">
-                                    <ul className="list-unstyled">
-                                        <li><Link href="">Documentation</Link></li>
-                                        <li><Link href="">Support</Link></li>
-                                        <li><Link href="">Legal Terms</Link></li>
-                                        <li><Link href="">About</Link></li>
-                                    </ul>
+            <footer className="new_footer_area bg_color">
+                <div className="new_footer_top">
+                    <div className="container ">
+                        <div className="row g-4">
+                            <div className="col-lg-4">
+                                <div className="f_widget company_widget wow fadeInLeft" data-wow-delay="0.2s" style={{ visibility: "visible", animationDelay: 0.2, animationName: "fadeInLeft" }} >
+                                    <h3 className="f-title f_600 t_color f_size_18">Get in Touch</h3>
+                                    <p className=''>Don't miss any updates of our new templates and extensions.!</p>
+                                    <form action="#" className="f_subscribe_two mailchimp" method="post" novalidate="true" _lpchecked="1">
+                                        <input type="text" name="EMAIL" className="form-control memail" placeholder="Email"></input>
+                                        <button className="btn btn_get btn_get_two" type="submit">Subscribe</button>
+                                        <p className="mchimp-errmessage" style={{ display: "none" }}></p>
+                                        <p className="mchimp-sucmessage" style={{ display: " none" }}></p>
+                                    </form>
                                 </div>
                             </div>
 
-                            <br />
-                        </div>
-                        <div className="col-md-2">
-                            <h5 className="text-md-right">Contact Us</h5>
-                            <hr />
-                            <ul className="nav d-flex align-items-center justify-content-center">
-                                <li className="nav-item "><Link to="" className="nav-link pl-0"><i className="fab fa-facebook fa-lg"></i></Link></li>
-                                <li className="nav-item"><Link to="" className="nav-link"><i className="fab fa-twitter fa-lg"></i></Link></li>
-                                <li className="nav-item"><Link to="" className="nav-link"><i className="fab fa-instagram fa-lg"></i></Link></li>
-                            </ul>
-                        </div>
-                        <div className="col-md-5">
-                            <form>
-                                <fieldset className="form-group pb-2 w-100">
-                                    <input type="email" className="form-control w-100" id="exampleInputEmail1" placeholder="Enter email" />
-                                </fieldset>
-                                <fieldset className="form-group w-100">
-                                    <textarea className="form-control w-100" id="exampleMessage" placeholder="Message"></textarea>
-                                </fieldset>
-                                <fieldset className="form-group text-xs-right">
-                                    <button type="button" className="btn btn-secondary btn-md mt-3 fw-bold">Send</button>
-                                </fieldset>
-                            </form>
+                            <div className="col-lg-4 col-md-6">
+                                <div className="f_widget about-widget pl_70 wow fadeInLeft" data-wow-delay="0.6s" style={{ visibility: "visible", animationDelay: 0.6, animationName: "fadeInLeft" }}>
+                                    <h3 className="f-title f_600 t_color f_size_18">Help</h3>
+                                    <ul className="list-unstyled f_list">
+                                        <li><Link to="#">FAQ</Link></li>
+                                        <li><Link to="#">Documentation</Link></li>
+                                        <li><Link to="#">Support Policy</Link></li>
+                                        <li><Link to="#">Privacy</Link></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div className="col-lg-4 col-md-6">
+                                <div className="f_widget social-widget pl_70 wow fadeInLeft" data-wow-delay="0.8s" style={{ visibility: "visible", animationDelay: 0.8, animationName: "fadeInLeft" }}>
+                                    <h3 className="f-title f_600 t_color f_size_18 mb-2">Team Solutions</h3>
+                                    <div className="f_social_icon ">
+                                        <Link to="#" className="fab fa-facebook"></Link>
+                                        <Link to="#" className="fab fa-twitter"></Link>
+                                        <Link to="#" className="fab fa-linkedin"></Link>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <div className="footer_bg">
+                        <div className="footer_bg_one"></div>
+                        <div className="footer_bg_two"></div>
+                    </div>
                 </div>
-            </footer>
+                <div className="footer_bottom">
+                    <div className="container">
+                        <p className="mb-0 mt-4 f_400 text-center">© TestOrg. 2022 All rights reserved.</p>
+                    </div>
+                </div>
+            </footer >
 
-        </div>
+
+
+
+
+        </div >
     );
 };
 
+
+
 export default Footer;
+
