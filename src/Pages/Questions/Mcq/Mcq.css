@@ -1,0 +1,36 @@
+.question-form {
+    background: rgb(192, 201, 223);
+    transition: all .3s;
+}
+
+input[type='text'] {
+    /* width: 100%; */
+    border-radius: 4px;
+    border: none;
+    padding: 10px;
+}
+
+input[type='radio'] {
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+}
+
+.option-field > .numbering {
+    width: 20px;
+    text-align: center;
+}
+.delete-option{
+    cursor: pointer;
+    font-size: 30px;
+}
+
+.option-field {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+.option-field  p {
+    font-size: 24px !important;
+    margin: 0 !important;
+}
