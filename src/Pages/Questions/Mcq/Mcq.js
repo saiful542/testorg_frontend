@@ -12,10 +12,6 @@ const Mcq = () => {
     useEffect(() => {
         const topParent = document.querySelector('.full-question-content')
         const radio_options = document.querySelector('.radio-options')
-        // item no
-        // let items = radio_options.querySelectorAll('.option-field').length
-        // item no
-
         passQuizValues(topParent, radio_options);
 
     }, [p])
@@ -40,8 +36,6 @@ const Mcq = () => {
                 e.target.nextElementSibling.addEventListener('input', (e) => {
                     setRadioValue(e.target.value)
                 })
-
-                
 
             }
             //add option
@@ -98,7 +92,7 @@ const Mcq = () => {
     return (
         <div>
             <div className="container">
-                <form onSubmit={handleSubmit(onSubmit)} className="w-100 rounded-3 question-form p-2">
+                <form onSubmit={handleSubmit(onSubmit)} className="w-100 rounded-3 question-form p-2" name='mcq'>
                     <h2 className="title fw-bolder py-3"><span className='text-danger'>m</span>cq</h2>
                     <div className="full-question-content container py-1 d-flex flex-column gap-4">
                         <div className="question-and-marks d-flex py-2  gap-5 w-100">

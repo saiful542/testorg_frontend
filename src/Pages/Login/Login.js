@@ -24,7 +24,7 @@ const Login = () => {
             console.log('hello', data);
             if (data) {
                 console.log('data found');
-                fetch('https://mighty-thicket-32319.herokuapp.com/users', {
+                fetch('https://testorg-backend.onrender.com', {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json',
@@ -33,10 +33,10 @@ const Login = () => {
                 })
                     .then(response => response.json())
                     .then(data => {
-                        console.log(data);
+                        // console.log(data);
                     })
                     .catch((error) => {
-                        console.log(error);
+                        // console.log(error);
                     })
 
             }
