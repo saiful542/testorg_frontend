@@ -33,7 +33,7 @@ const Login = () => {
           body: JSON.stringify(data),
         });
         const ret = await response.json();
-        console.log(ret);
+        console.log(ret.json());
         //   .then((response) => response.json())
         //   .then((data) => {
         //     // console.log(data);
