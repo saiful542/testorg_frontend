@@ -7,30 +7,45 @@ const Mcq = () => {
 
     const [radioValue, setRadioValue] = useState('')
     const { register, handleSubmit } = useForm();
-
+    const p = true;
     // radio value
     useEffect(() => {
         const topParent = document.querySelector('.full-question-content')
         const radio_options = document.querySelector('.radio-options')
         // item no
-        let option_no = radio_options.querySelectorAll('.option-field').length
+        // let items = radio_options.querySelectorAll('.option-field').length
         // item no
 
-        passValues(topParent, radio_options, option_no);
+        passQuizValues(topParent, radio_options);
 
-    }, [radioValue])
+    }, [p])
 
 
-    const passValues = (topParent, radio_options, option_no) => {
+    const passQuizValues = (topParent, radio_options) => {
         topParent.addEventListener('click', (e) => {
 
+
+            const optionCounter = items => {
+                let count = 1;
+                items.forEach(item => {
+                    item.firstElementChild.firstElementChild.innerText = `${count}.`
+                    item.lastElementChild.previousElementSibling.placeholder = `option ${count}`
+                    count++;
+                })
+            }
+
             //take radio value
-            if (e.target.type === "radio") {
+            if (e.target.type === "radio" &&  e.target.checked) {
                 setRadioValue(e.target.nextElementSibling.value)
+                e.target.nextElementSibling.addEventListener('input', (e) => {
+                    setRadioValue(e.target.value)
+                })
+
+                
+
             }
             //add option
             if (Array.from(e.target.classList).includes('add-option')) {
-                option_no++;
                 e.preventDefault();
                 const radio_input = document.createElement('input')
                 radio_input.type = 'radio'
@@ -39,14 +54,14 @@ const Mcq = () => {
                 const text_input = document.createElement('input')
                 text_input.type = 'text'
                 text_input.classList.add('text-field')
-                text_input.placeholder = `option ${option_no}`
+                // text_input.placeholder = `option ${option_no}`
                 radio_input.classList.add('radio-field')
                 const option_field = document.createElement('div')
                 option_field.classList.add('option-field')
                 const option_no_wrapper = document.createElement('div')
                 option_no_wrapper.classList.add('numbering')
                 const p_tag = document.createElement('p')
-                p_tag.textContent = option_no
+                // p_tag.textContent = option_no
                 const delete_wrapper = document.createElement('span')
                 delete_wrapper.textContent = 'x'
                 delete_wrapper.classList.add('delete-option')
@@ -56,19 +71,27 @@ const Mcq = () => {
                 option_field.appendChild(text_input)
                 option_field.appendChild(delete_wrapper)
                 radio_options.appendChild(option_field)
+                let items = radio_options.querySelectorAll('.option-field')
+                // console.log('after adding', option_no);
+                optionCounter(items)
             }
             // delete option
             if (e.target.className === 'delete-option') {
                 radio_options.removeChild(e.target.parentElement)
-                option_no--;
+                // option_no--;
+                let items = radio_options.querySelectorAll('.option-field')
+                optionCounter(items)
+                // console.log('after deleting', option_no);
             }
         })
 
     }
 
 
+
+
     const onSubmit = data => {
-        data.q_type = 'mcq'
+        data.question_type = 'mcq'
         data.correct_answer = radioValue
         console.log(data)
     };

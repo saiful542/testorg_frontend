@@ -1,10 +1,10 @@
 .question-form {
-    background: rgb(192, 201, 223);
+    background: rgb(174, 197, 255);
     transition: all .3s;
 }
 
 input[type='text'] {
-    /* width: 100%; */
+    width: 40%;
     border-radius: 4px;
     border: none;
     padding: 10px;
