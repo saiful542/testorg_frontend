@@ -20,39 +20,35 @@ const Login = () => {
 
 
 
-        const sendData = data => {
-            console.log('hello', data);
+        async function sendData(data) {
+
             if (data) {
-                console.log('data found');
-                fetch('https://testorg-backend.onrender.com', {
+                console.log('data found', data.method);
+                const response = await fetch(`https://testorg-backend.onrender.com/${data.method}`, {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(data),
                 })
-                    .then(response => response.json())
-                    .then(data => {
-                        // console.log(data);
-                    })
-                    .catch((error) => {
-                        // console.log(error);
-                    })
+                const show_user = await response.json()
+                console.log(show_user)
+
 
             }
             else
                 console.log('data not found')
 
         }
-        if (e.target.name == 'signin') {
+        if (e.target.name == 'login') {
             if (!loginEmailValue || !loginPasswordValue) {
                 alert('please, fill - up')
             }
             else {
                 user = {
-                    method: 'signin',
-                    loginEmail: submitted_data.loginEmail,
-                    loginPassword: submitted_data.loginPassword
+                    method: 'login',
+                    email: submitted_data.loginEmail,
+                    password: submitted_data.loginPassword
 
                 }
                 sendData(user)
@@ -70,10 +66,10 @@ const Login = () => {
                 console.log('user created');
                 user = {
                     method: 'signup',
-                    signupEmail: submitted_data.email,
-                    signupPassword: submitted_data.password,
-                    userType: submitted_data.profession,
-                    userName: submitted_data.username
+                    email: submitted_data.email,
+                    password: submitted_data.password,
+                    usertype: submitted_data.profession,
+                    username: submitted_data.username
                 }
                 sendData(user)
                 reset();
@@ -87,7 +83,7 @@ const Login = () => {
             <div className={isSignIn ? 'containerr mb-0' : 'containerr sign-up-mode mb-0'}>
                 <div className="forms-container">
                     <div className="signin-signup">
-                        <form onSubmit={handleSubmit(onSubmit)} name='signin' className="sign-in-form" id='sign-in-form'>
+                        <form onSubmit={handleSubmit(onSubmit)} name='login' className="sign-in-form" id='sign-in-form'>
                             <h2 className="title">Sign in</h2>
                             <div className="input-field">
                                 <i className="fas fa-user"></i>

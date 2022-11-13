@@ -9,8 +9,9 @@ import { Route } from 'react-router-dom';
 import Home from './Pages/Home/Home';
 import Invalid from './Pages/Invalid/Invalid';
 import Login from './Pages/Login/Login';
-import Bro from './Bro/Bro';
+
 import Mcq from './Pages/Questions/Mcq/Mcq';
+import Form_test from './Form_test/Form_test';
 
 function App() {
   return (
@@ -18,14 +19,12 @@ function App() {
       <BrowserRouter>
         <Header></Header>
         <Switch>
-          {/* <Route exact path="/">
-            <Home></Home>
-          </Route> */}
+          <Route exact path="/">
+            {/* <Home></Home> */}
+            <Form_test></Form_test>
+          </Route>
           <Route path="/Mcq">
             <Mcq></Mcq>
-          </Route>
-          <Route path="/Bro">
-            <Bro></Bro>
           </Route>
           <Route path="/Home">
             <Home></Home>
