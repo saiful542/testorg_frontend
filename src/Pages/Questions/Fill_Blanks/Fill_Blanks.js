@@ -1,27 +1,23 @@
 import React from 'react';
-import { set, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
-const True_false = (props) => {
+const Fill_Blanks = (props) => {
     const { q_id, setQuestionFormData, questionFormData } = props
-    const { register, handleSubmit } = useForm();
-
+    const { register, handleSubmit } = useForm()
     const onSubmit = (data) => {
-
         if (data.correct_answer) {
-            data.options = ['true', 'false']
-            data.question_type = 'true-false'
+            data.question_type = 'fill-blanks'
             console.log(data);
             setQuestionFormData([...questionFormData, data])
         }
         else {
-            alert('select at-least one option');
+            alert('Choose an answer')
         }
-    };
+    }
     return (
         <div>
-            {/* true-false */}
-            <form onSubmit={handleSubmit(onSubmit)} className="w-full rounded-md question-form p-5 my-5" name='true-false'>
-                <h2 className="title font-extrabold py-3"><span className=' text-slate-400'>true</span>false</h2>
+            <form onSubmit={handleSubmit(onSubmit)} className="w-full rounded-md question-form p-5 my-5" name='fill-blanks'>
+                <h2 className="title font-extrabold py-3"><span className=' text-slate-400'>fill </span>blanks</h2>
                 <div className="mcq-question-content container py-1 flex flex-col gap-10">
                     <div className="question-and-marks flex py-2  gap-5 w-full items-center">
                         <span className=' text-3xl'>{`${q_id}.`}</span>
@@ -37,24 +33,14 @@ const True_false = (props) => {
                             <div className="numbering ">
                                 <p>1.</p>
                             </div>
-                            <input type="radio" name="radio" className="radio-field" value={'true'}  {...register('correct_answer')} />
-                            <input className='text-field text-2xl bg-transparent' type="text" value={'True'} disabled />
-                        </div>
-                        <div className="option-field">
-                            <div className="numbering ">
-                                <p>2.</p>
-                            </div>
-                            <input type="radio" name="radio" className="radio-field" value='false'  {...register('correct_answer')} />
-                            <input className='text-field text-2xl bg-transparent' type="text" value={'False'} disabled />
+                            <input className='text-field text-xl' type="text" placeholder='answer' {...register('correct_answer')} />
                         </div>
                     </div>
-
                 </div>
                 <input type="submit" className="btn btn-success my-4" value="done" />
             </form>
         </div>
-
     );
 };
 
-export default True_false;
+export default Fill_Blanks;

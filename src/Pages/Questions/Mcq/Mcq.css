@@ -3,28 +3,34 @@
     transition: all .3s;
 }
 
-.option-field input[type='text'] {
-    width: 40%;
+input[type='text'] {
+    width: 100%;
     border-radius: 4px;
     border: none;
     padding: 10px;
-    min-width: 160px;
-    /* max-width: 450px; */
+
+}
+
+.disabled-input-field {
+    background: none;
+    outline: none;
 }
 
 input[type='radio'] {
-    height: 20px;
-    width: 20px;
+    height: 30px;
+    width: 30px;
     cursor: pointer;
+
 }
 
-.option-field > .numbering {
-    width: 20px;
+.option-field>.numbering {
+    width: 30px;
     text-align: center;
 }
-.delete-option{
+
+.delete-option {
     cursor: pointer;
-    font-size: 30px;
+    font-size: 20px;
 }
 
 .option-field {
@@ -32,7 +38,8 @@ input[type='radio'] {
     gap: 1.5rem;
     align-items: center;
 }
-.option-field  p {
+
+.option-field p {
     font-size: 24px !important;
     margin: 0 !important;
 }
