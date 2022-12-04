@@ -1,13 +1,14 @@
 .question-form {
-    background: rgb(174, 197, 255);
+    /* background: rgb(174, 197, 255); */
     transition: all .3s;
 }
 
 input[type='text'] {
     width: 100%;
     border-radius: 4px;
-    border: none;
+    outline: none;
     padding: 10px;
+    /* border: 2px solid rgb(197, 201, 239); */
 
 }
 
@@ -35,11 +36,15 @@ input[type='radio'] {
 
 .option-field {
     display: flex;
-    gap: 1.5rem;
+    gap: 1rem;
     align-items: center;
 }
 
 .option-field p {
     font-size: 24px !important;
     margin: 0 !important;
+}
+
+button{
+    cursor: pointer;
 }

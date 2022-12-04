@@ -4,9 +4,9 @@ import './Footer.scss';
 
 const Footer = () => {
     return (
-        <div className='w-100'>
+        <div className='w-100 border-2 border-gray-200 mt-40 '>
             <footer className="new_footer_area bg_color">
-                <div className="new_footer_top">
+                <div className="new_footer_top pt-0:important">
                     <div className="container content-center m-auto">
                         <div className="w-100 flex justify-between">
                             <div className="col-lg-4 w-100">
@@ -36,7 +36,7 @@ const Footer = () => {
                             <div className="col-lg-4 col-md-6">
                                 <div className="f_widget social-widget pl_70 wow fadeInLeft" data-wow-delay="0.8s" style={{ visibility: "visible", animationDelay: 0.8, animationName: "fadeInLeft" }}>
                                     <h3 className="f-title f_600 t_color f_size_18 mb-2">Team Solutions</h3>
-                                    <div className="f_social_icon ">
+                                    <div className="f_social_icon flex gap-5 ">
                                         <Link to="#" className="fab fa-facebook"></Link>
                                         <Link to="#" className="fab fa-twitter"></Link>
                                         <Link to="#" className="fab fa-linkedin"></Link>

@@ -1,48 +1,73 @@
 // import { data } from 'autoprefixer';
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useRef, useState } from 'react';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
+import useLogin from '../../Hooks/useLogin';
 import "./Login.scss"
 const Login = () => {
+    const { validUser, sendData } = useLogin()
     const [isSignIn, setisSignIn] = useState(true);
-    const [signinData, setSigninData] = useState();
-    // const [signupData, setSignupData] = useState();
     const { register, handleSubmit, reset } = useForm();
+    const toastId = useRef(null);
 
     // signup submit
     const onSubmit = (submitted_data, e) => {
-        const loginEmailValue = document.querySelector('.login-email').value
-        const loginPasswordValue = document.querySelector('.login-password').value
-        const signupEmailValue = document.querySelector('.signup-email').value
-        const signupPasswordValue = document.querySelector('.signup-password').value
-        const signupUsernameValue = document.querySelector('.signup-username').value
+        // const loginEmailValue = document.querySelector('.login-email').value
+        // const loginPasswordValue = document.querySelector('.login-password').value
+        // const signupEmailValue = document.querySelector('.signup-email').value
+        // const signupPasswordValue = document.querySelector('.signup-password').value
+        // const signupUsernameValue = document.querySelector('.signup-username').value
         let user;
 
+        // async function sendData(data) {
+
+        //     if (data) {
+        //         // console.log('data found', data.method);
+
+        //         await axios.post(`https://testorg-backend.onrender.com/${data.method}`, data)
+        //             .then(response => {
+        //                 // Handle response
+        //                 console.log(response.data.name);
+        //                 toast.success(`Hello`, response.data.name, {
+        //                     theme: 'colored'
+        //                 })
+
+        //             })
+        //             .catch(err => {
+        //                 // Handle errors
+        //                 // console.error(err.response.data.error);
+        //                 toast.error(err.response.data.error, {
+        //                     theme: 'colored'
+        //                 })
+        //             });
 
 
-        async function sendData(data) {
 
-            if (data) {
-                console.log('data found', data.method);
-                const response = await fetch(`https://testorg-backend.onrender.com/${data.method}`, {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data),
-                })
-                const show_user = await response.json()
-                console.log(show_user)
+        //         // const response = await fetch(`https://testorg-backend.onrender.com/${data.method}`, {
+        //         //     method: "POST",
+        //         //     headers: {
+        //         //         'Content-Type': 'application/json',
+        //         //     },
+        //         //     body: JSON.stringify(data),
+        //         // })
+        //         // const show_user = await response.json()
+        //         // console.log(show_user)
 
 
-            }
-            else
-                console.log('data not found')
+        //     }
+        //     else
+        //         toast.error('something went wrong!! try again', {
+        //             theme: 'colored'
+        //         });
 
-        }
+        // }
         if (e.target.name == 'login') {
-            if (!loginEmailValue || !loginPasswordValue) {
-                alert('please, fill - up')
+            if (!submitted_data.loginEmail || !submitted_data.loginPassword) {
+                toast.warning('please, fill-up', {
+                    theme: 'colored'
+                });
             }
             else {
                 user = {
@@ -57,10 +82,11 @@ const Login = () => {
 
         }
 
-
         else if (e.target.name == 'signup') {
-            if (!signupEmailValue || !signupPasswordValue || !signupUsernameValue) {
-                alert('please, fill - up')
+            if (!submitted_data.email || !submitted_data.password || !submitted_data.username) {
+                toast.warning('please, fill-up', {
+                    theme: 'colored'
+                });
             }
             else {
                 console.log('user created');
@@ -76,7 +102,9 @@ const Login = () => {
             }
         }
     };
-
+    if (validUser) {
+        console.log(validUser);
+    }
 
     return (
         <div className=''>
