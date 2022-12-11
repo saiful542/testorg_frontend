@@ -1,10 +1,12 @@
 import React from 'react';
 import { useState } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
-import Fill_Blanks from '../Pages/Questions/Fill_Blanks/Fill_blanks';
+import { toast } from 'react-toastify';
+import Fill_gaps from '../Pages/Questions/Fill_gaps/Fill_gaps';
+// import Fill_Blanks from '../Pages/Questions/Fill_Blanks/Fill_blanks';
+// import Fill_Blanks from '../Pages/Questions/Fill_Blanks/Fill_blanks';
 import Mcq from '../Pages/Questions/Mcq/Mcq';
 import True_false from '../Pages/Questions/True_false/True_false';
-const customId = "custom-id-yes";
+
 
 const Form_test = () => {
 
@@ -25,11 +27,11 @@ const Form_test = () => {
             return question.q_id !== q_id;
         })
 
-        let i = 1;
-        filtered_questions.forEach((question) => {
-            question.q_id = i;
-            i++;
-        })
+        // let i = 1;
+        // filtered_questions.forEach((question) => {
+        //     question.q_id = i;
+        //     i++;
+        // })
         setQuestionForm(filtered_questions)
         questionFormData.splice((q_id - 1), 1)
 
@@ -51,13 +53,13 @@ const Form_test = () => {
 
         console.log(questionFormData);
         localStorage.setItem('question', JSON.stringify(questionFormData))
-        
+
     }
 
     return (
-        <div className='m-auto'>
-            <div className="container  flex gap-10 m-auto justify-between">
-                <div className="h-1/4 flex flex-col sticky top-0 py-5 px-2 shadow-lg rounded-md">
+        <div className='m-auto mb-40'>
+            <div className="container  lg:flex gap-10 m-auto justify-between">
+                <div className="h-1/4 flex flex-col sticky top-0 py-5 px-2 shadow-lg rounded-md z-50 bg-white">
                     <div>
                         <button className='m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onClick={() => { addQuestion('mcq') }}>MCQ</button>
                         <button className='m-2 bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded' onClick={() => { addQuestion('true-false') }}>True / False</button>
@@ -65,17 +67,18 @@ const Form_test = () => {
                     </div>
                     <button className='m-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded' onClick={() => saveData()}>save question</button>
                 </div>
-                <div className="bottom flex flex-col w-2/3 gap-20">
+                <div className="bottom flex flex-col lg:w-2/3 gap-20 w-full">
                     {
-                        questionForm.map((question) => {
+                        questionForm.map((question, index) => {
                             if (question.value === 'mcq') {
-                                return <Mcq questionFormData={questionFormData} setQuestionFormData={setQuestionFormData} q_id={question.q_id} key={question.q_id} deleteQuestion={deleteQuestion}></Mcq>
+                                return <Mcq index={index + 1} questionFormData={questionFormData} setQuestionFormData={setQuestionFormData} q_id={question.q_id} key={question.q_id} deleteQuestion={deleteQuestion}></Mcq>
                             }
                             else if (question.value === 'true-false') {
-                                return <True_false questionFormData={questionFormData} setQuestionFormData={setQuestionFormData} q_id={question.q_id} key={question.q_id} deleteQuestion={deleteQuestion}></True_false>
+                                return <True_false index={index + 1} questionFormData={questionFormData} setQuestionFormData={setQuestionFormData} q_id={question.q_id} key={question.q_id} deleteQuestion={deleteQuestion}></True_false>
                             }
                             else if (question.value === 'fill-blanks') {
-                                return <Fill_Blanks questionFormData={questionFormData} setQuestionFormData={setQuestionFormData} q_id={question.q_id} key={question.q_id} deleteQuestion={deleteQuestion}></Fill_Blanks>
+
+                                return <Fill_gaps index={index + 1} questionFormData={questionFormData} setQuestionFormData={setQuestionFormData} q_id={question.q_id} key={question.q_id} deleteQuestion={deleteQuestion}></Fill_gaps>
 
                             }
                         })

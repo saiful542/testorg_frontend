@@ -237,7 +237,6 @@ button:focus {
 
 h1,
 h2,
-h3,
 h4,
 h5,
 h6 {
@@ -316,6 +315,21 @@ h6 {
   }
 }
 
+
+@media only screen and (max-width:426px) {
+  .f-content {
+    flex-direction: column;
+    justify-content: center;
+  }
+
+}
+
+@media only screen and (max-width:768px) {
+  .f-content {
+    justify-content: center;
+  }
+
+}
 
 
 

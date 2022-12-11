@@ -10,7 +10,7 @@ const Mcq = (props) => {
     const [correctAnswer, setCorrectAnswer] = useState()
     const [optionArray, setOptionArray] = useState([])
     const [options, setOptions] = useState([{ id: 1 }, { id: 2 }])
-    const { q_id, setQuestionFormData, questionFormData, deleteQuestion, key } = props
+    const { q_id, setQuestionFormData, questionFormData, deleteQuestion, key, index } = props
     const { register, handleSubmit } = useForm();
 
     // add option
@@ -24,11 +24,11 @@ const Mcq = (props) => {
         const filtered_options = options.filter((option) => {
             return option.id !== id;
         })
-        let i = 1;
-        filtered_options.forEach((option) => {
-            option.id = i;
-            i++;
-        })
+        // let i = 1;
+        // filtered_options.forEach((option) => {
+        //     option.id = i;
+        //     i++;
+        // })
         setOptions(filtered_options)
         optionArray.splice((id - 1), 1)
     }
@@ -44,8 +44,10 @@ const Mcq = (props) => {
             setDone(true)
         }
         else {
-            toast.error('select at-least one option',{
-                theme:'colored'
+            console.log('select at-least one option');
+            toast.error('select at-least one option', {
+                toastId: 'customId',
+                theme: 'colored'
             });
         }
     };
@@ -56,7 +58,7 @@ const Mcq = (props) => {
                 <h2 className="title font-extrabold pb-5"><span className=' text-slate-400'>m</span>cq</h2>
                 <div className="mcq-question-content container py-1 flex flex-col gap-10 animate__animated animate__slideInRight animate__faster">
                     <div className="question-and-marks flex py-2  gap-5 w-full items-center">
-                        <span className=' text-3xl'>{`${q_id}.`}</span>
+                        <span className=' text-3xl'>{`${index}.`}</span>
                         <div className="field-with-floating-label w-4/5">
                             <input className='w-full question rounded-md border-indigo-200 border-2 p-2 py-3 form-check' type="text" placeholder='Question here' {...register('question')} />
                         </div>
@@ -65,13 +67,20 @@ const Mcq = (props) => {
                         </div>
                     </div>
 
+                    <div className="left flex flex-col gap-2 radio-options lg:w-1/2 ">
+                        {
+                            options.map((option, index) => {
+                                return <Option index={index + 1} key={option.id} id={option.id} deleteOption={deleteOption} setCorrectAnswer={setCorrectAnswer} optionCount={options.length} optionArray={optionArray} setOptionArray={setOptionArray} done={done}></Option>
+                            })
+                        }
 
-                    <div className='className=" max-w-full flex  justify-between gap-10'>
+                    </div>
+                    {/* <div className='className=" max-w-full flex  justify-between gap-10'>
                         <div className="left flex flex-col gap-2 radio-options w-1/2">
                             {
-                                options.map((option) => {
-                                    if (option.id % 2 !== 0) {
-                                        return <Option key={option.id} id={option.id} deleteOption={deleteOption} setCorrectAnswer={setCorrectAnswer} optionCount={options.length} optionArray={optionArray} setOptionArray={setOptionArray}></Option>
+                                options.map((option, index) => {
+                                    if ((index + 1) % 2 !== 0) {
+                                        return <Option index={index + 1} key={option.id} id={option.id} deleteOption={deleteOption} setCorrectAnswer={setCorrectAnswer} optionCount={options.length} optionArray={optionArray} setOptionArray={setOptionArray}></Option>
                                     }
                                 })
                             }
@@ -79,14 +88,14 @@ const Mcq = (props) => {
                         </div>
                         <div className="right flex flex-col gap-2 radio-options w-1/2">
                             {
-                                options.map((option) => {
-                                    if (option.id % 2 === 0) {
-                                        return <Option key={option.id} id={option.id} deleteOption={deleteOption} setCorrectAnswer={setCorrectAnswer} optionCount={options.length} optionArray={optionArray} setOptionArray={setOptionArray}></Option>
+                                options.map((option, index) => {
+                                    if ((index + 1) % 2 === 0) {
+                                        return <Option index={index + 1} key={option.id} id={option.id} deleteOption={deleteOption} setCorrectAnswer={setCorrectAnswer} optionCount={options.length} optionArray={optionArray} setOptionArray={setOptionArray}></Option>
                                     }
                                 })
                             }
                         </div>
-                    </div>
+                    </div> */}
 
                     {/* <div className="radio-options max-w-xl flex flex-col gap-2 ">
                         {
@@ -97,14 +106,14 @@ const Mcq = (props) => {
                     </div> */}
                     {
                         done ? <div></div> : <div className='text-start'>
-                            <span onClick={() => addOption()} className="inline-block btn bg-green-500 hover:bg-green-700 rounded-md py-3 px-6 mx-8 add-option cursor-pointer text-white">
+                            <span onClick={() => addOption()} className="inline-flex btn bg-green-500 hover:bg-green-700 rounded-md py-3 px-6 mx-8 add-option cursor-pointer text-white text-center">
                                 add option &nbsp;&nbsp; <i class="fas fa-thin fa-square-plus"></i>
                             </span>
                         </div>
                     }
                 </div>
                 {
-                    done ? <span onClick={() => { return  deleteQuestion(q_id) }} className="cursor-pointer inline-block text-white btn bg-red-500 hover:bg-red-700 rounded-md py-3 px-6 mx-20 my-10">delete</span> : <input type="submit" className="cursor-pointer inline-block text-white btn bg-gray-500 hover:bg-gray-700 rounded-md py-3 px-6 mx-20 my-10" value="done" />
+                    done ? <span onClick={() => { return deleteQuestion(q_id) }} className="cursor-pointer inline-flex text-white btn bg-red-500 hover:bg-red-700 rounded-md py-3 px-6 mx-20 my-10">delete</span> : <input type="submit" className="cursor-pointer inline-block text-white btn bg-gray-500 hover:bg-gray-700 rounded-md py-3 px-6 mx-20 my-10" value="done" />
                 }
 
             </form>
@@ -117,7 +126,7 @@ export default Mcq;
 
 // option field
 const Option = (props) => {
-    const { id, deleteOption, setCorrectAnswer, optionArray, setOptionArray } = props
+    const { id, deleteOption, setCorrectAnswer, optionArray, setOptionArray, index, done } = props
     const inputValue = (e) => {
         let arr = [...optionArray];
         arr[id - 1] = e
@@ -128,13 +137,15 @@ const Option = (props) => {
         <div>
             <div className="option-field w-full">
                 <div className="numbering">
-                    <p>{`${id}.`}</p>
+                    <p>{`${index}.`}</p>
                 </div>
-                <input onInput={(e) => setCorrectAnswer(e.target.value)} type="radio" name="radio" className="radio-field" value={id} />
-                <input onInput={(e) => inputValue(e.target.value)} className='text-field animate__animated animate__slideInRight animate__faster rounded-md border-indigo-200 border-2  ' type="text" placeholder={`option ${id}`} />
-                <span onClick={() => deleteOption(id)} className="delete-option" title='delete'>
-                    <i class="fas fa-solid fa-trash-can text-orange-600"></i>
-                </span>
+                <input onInput={(e) => setCorrectAnswer(e.target.value)} type="radio" name="radio" className="radio-field radio border-2 border-indigo-300 radio-accent" value={id} />
+                <input onInput={(e) => inputValue(e.target.value)} className='text-field animate__animated animate__slideInRight animate__faster rounded-md border-indigo-200 border-2' type="text" placeholder={`option ${index}`} />
+                {
+                    done ? <div></div> : <span onClick={() => deleteOption(id)} className="delete-option" title='delete'>
+                        <i class="fas fa-solid fa-trash-can text-orange-600"></i>
+                    </span>
+                }
             </div>
         </div>
     )

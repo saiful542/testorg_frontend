@@ -1,72 +1,28 @@
 // import { data } from 'autoprefixer';
-import axios from 'axios';
-import React, { useRef, useState } from 'react';
+// import axios from 'axios';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import useLogin from '../../Hooks/useLogin';
+import useAuth from '../../Hooks/useAuth';
+// import useLogin from '../../Hooks/useLogin';
 import "./Login.scss"
 const Login = () => {
-    const { validUser, sendData } = useLogin()
+    const { validUser, sendData } = useAuth()
     const [isSignIn, setisSignIn] = useState(true);
     const { register, handleSubmit, reset } = useForm();
-    const toastId = useRef(null);
 
     // signup submit
     const onSubmit = (submitted_data, e) => {
-        // const loginEmailValue = document.querySelector('.login-email').value
-        // const loginPasswordValue = document.querySelector('.login-password').value
-        // const signupEmailValue = document.querySelector('.signup-email').value
-        // const signupPasswordValue = document.querySelector('.signup-password').value
-        // const signupUsernameValue = document.querySelector('.signup-username').value
         let user;
 
-        // async function sendData(data) {
-
-        //     if (data) {
-        //         // console.log('data found', data.method);
-
-        //         await axios.post(`https://testorg-backend.onrender.com/${data.method}`, data)
-        //             .then(response => {
-        //                 // Handle response
-        //                 console.log(response.data.name);
-        //                 toast.success(`Hello`, response.data.name, {
-        //                     theme: 'colored'
-        //                 })
-
-        //             })
-        //             .catch(err => {
-        //                 // Handle errors
-        //                 // console.error(err.response.data.error);
-        //                 toast.error(err.response.data.error, {
-        //                     theme: 'colored'
-        //                 })
-        //             });
-
-
-
-        //         // const response = await fetch(`https://testorg-backend.onrender.com/${data.method}`, {
-        //         //     method: "POST",
-        //         //     headers: {
-        //         //         'Content-Type': 'application/json',
-        //         //     },
-        //         //     body: JSON.stringify(data),
-        //         // })
-        //         // const show_user = await response.json()
-        //         // console.log(show_user)
-
-
-        //     }
-        //     else
-        //         toast.error('something went wrong!! try again', {
-        //             theme: 'colored'
-        //         });
-
-        // }
-        if (e.target.name == 'login') {
+        if (e.target.name === 'login') {
             if (!submitted_data.loginEmail || !submitted_data.loginPassword) {
+                console.log('please, fill-up');
                 toast.warning('please, fill-up', {
-                    theme: 'colored'
+                    toastId: 'customId',
+                    position: "bottom-right",
+                    theme: 'dark'
                 });
             }
             else {
@@ -74,7 +30,6 @@ const Login = () => {
                     method: 'login',
                     email: submitted_data.loginEmail,
                     password: submitted_data.loginPassword
-
                 }
                 sendData(user)
                 reset();
@@ -82,14 +37,17 @@ const Login = () => {
 
         }
 
-        else if (e.target.name == 'signup') {
+        else if (e.target.name === 'signup') {
             if (!submitted_data.email || !submitted_data.password || !submitted_data.username) {
+                console.log('please, fill-up');
                 toast.warning('please, fill-up', {
-                    theme: 'colored'
+                    toastId: 'customId',
+                    position: "top-left",
+                    theme: 'dark'
                 });
             }
             else {
-                console.log('user created');
+                // console.log('user created');
                 user = {
                     method: 'signup',
                     email: submitted_data.email,
@@ -102,9 +60,9 @@ const Login = () => {
             }
         }
     };
-    if (validUser) {
-        console.log(validUser);
-    }
+
+
+    console.log(validUser);
 
     return (
         <div className=''>
@@ -134,10 +92,10 @@ const Login = () => {
                         </form>
                         <form name='signup' onSubmit={handleSubmit(onSubmit)} className="sign-up-form" id='sign-up-form'>
                             <h2 className="title">Sign up</h2>
-                            <div className="input-field d-flex text-center justify-content-between">
-                                <span className='w-100 d-flex justify-content-between text-center cs  '><i className="fas fa-chalkboard-user ci"></i>
-                                    <h6 className='  text-nowrap'>sign up as</h6></span>
-                                <span className='text-center'>
+                            <div className="input-field flex text-center justify-between align-middle">
+                                <span className='w-full flex justify-between text-center cs align-middle'><i className="fas fa-chalkboard-user ci"></i>
+                                    <h6 className='whitespace-nowrap'>sign up as</h6></span>
+                                <span className='text-end'>
                                     <select {...register("profession")} >
                                         <option value="teacher">Teacher</option>
                                         <option value="student">Student</option>

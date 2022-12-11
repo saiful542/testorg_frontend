@@ -14,46 +14,43 @@ import Mcq from './Pages/Questions/Mcq/Mcq';
 import Form_test from './Form_test/Form_test';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AuthProvider from './Context/AuthProvider';
+import Exam from './Pages/Exam/Exam';
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-        <Header></Header>
-        <Switch>
-          <Route exact path="/">
-            {/* <Home></Home> */}
-            <Form_test></Form_test>
-          </Route>
-          <Route path="/Mcq">
-            <Mcq></Mcq>
-          </Route>
-          <Route path="/Home">
-            <Home></Home>
-          </Route>
-          <Route path="/Login">
-            <Login></Login>
-          </Route>
-          <Route path="*">
-            <Invalid></Invalid>
-          </Route>
-        </Switch>
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          // theme="light"
-        />
-        
-        <ToastContainer />
-        <Footer></Footer>
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <Header></Header>
+          <Switch >
+            <Route path={'/Exam'}>
+              <Exam></Exam>
+            </Route>
+            <Route exact path="/">
+              {/* <Home></Home> */}
+              <Form_test></Form_test>
+            </Route>
+            <Route path="/Mcq">
+              <Mcq></Mcq>
+            </Route>
+            <Route path="/Home">
+              <Home></Home>
+            </Route>
+            <Route path="/Login">
+              <Login></Login>
+            </Route>
+            <Route path="*">
+              <Invalid></Invalid>
+            </Route>
+          </Switch>
+
+          <Footer></Footer>
+          <ToastContainer />
+          <ToastContainer />
+        </BrowserRouter>
+      </AuthProvider>
+
     </div >
   );
 }
