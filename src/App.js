@@ -16,20 +16,24 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AuthProvider from './Context/AuthProvider';
 import Exam from './Pages/Exam/Exam';
+import ParticlesBackground from './Particle/ParticlesBackground';
+import Particles from 'react-tsparticles';
 
 function App() {
   return (
     <div className="App">
+
       <AuthProvider>
         <BrowserRouter>
           <Header></Header>
           <Switch >
             <Route path={'/Exam'}>
-              <Exam></Exam>
+              <Exam className='c-mt'></Exam>
             </Route>
             <Route exact path="/">
               {/* <Home></Home> */}
               <Form_test></Form_test>
+
             </Route>
             <Route path="/Mcq">
               <Mcq></Mcq>

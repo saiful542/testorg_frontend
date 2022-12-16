@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Exam = () => {
-    const data = [
+    const questions = [
         {
             "question": "first one",
             "marks": "2",
@@ -22,7 +22,7 @@ const Exam = () => {
         },
         {
             "question": "i am ok",
-            "marks": "",
+            "marks": "1",
             "correct_answer": "false",
             "options": [
                 "true",
@@ -33,7 +33,7 @@ const Exam = () => {
         },
         {
             "question": "tv or radio",
-            "marks": "",
+            "marks": "2",
             "options": [
                 "tv",
                 "pen",
@@ -63,28 +63,104 @@ const Exam = () => {
         }
     ]
     return (
-        <div className=''>
-            <div className='container m-auto h-80 border-2 w-1/2 border-red-400 rounded-md'>
+        <div className='container m-auto c-mt pt-10'>
+            <div className='m-auto flex flex-col gap-20 lg:w-2/3 rounded-md text-gray-800 text-xl '>
                 {
-                    data.map(d => {
-                        if(d.question_type=='true-false')
-                        {
-                            return <p>{d.question_type}</p>
+                    questions.map((element, index) => {
+                        if (element.question_type === 'true-false') {
+                            return <ShowTrue index={index + 1} question={element.question} marks={element.marks}></ShowTrue>
                         }
-                        else if(d.question_type=='mcq'){
-                            return <p>{d.question_type}</p>
+                        else if (element.question_type === 'mcq') {
+                            return <ShowQuiz index={index + 1} question={element.question} marks={element.marks} options={element.options}></ShowQuiz>
                         }
-                        else if(d.question_type=='fill-blanks'){
-                            return <p>{d.question_type}</p>
+                        else if (element.question_type === 'fill-blanks') {
+                            return <ShowGaps index={index + 1} question={element.question} marks={element.marks}></ShowGaps>
                         }
 
                     })
                 }
             </div>
 
-            <button className='btn btn-info px-20'>Next</button>
+            <div className="button-wrapper text-end lg:w-2/3 m-auto pt-10">
+                <button className='btn bg-indigo-800 text-white px-16 hover:bg-indigo-700'>Next &nbsp;&nbsp; &rarr;</button>
+            </div>
         </div>
     );
 };
 
 export default Exam;
+
+
+
+
+
+const ShowQuiz = (props) => {
+    const { index, question, marks, options } = props;
+
+    return (
+        <div className='rounded-lg flex flex-col gap-10 p-10 border-l-8 border-l-indigo-600 border-t-2 shadow-lg'>
+            <div className='flex items-center justify-between'>
+                <span className='flex gap-5 items-center'>
+                    <p>{index}.</p>
+                    <h3 className=''>{question} ?</h3>
+                </span>
+                <p className='self-end'>{marks}<span className='text-sm'> marks</span></p>
+            </div>
+            <div className='flex flex-col gap-5'>
+                {
+                    options.map((option) => {
+                        return (
+                            <div className="radio-group flex gap-4 items-center ">
+                                <input type="radio" name="radio" className="radio-field radio border-2 border-indigo-300 radio-accent" />
+                                <p>{option}</p>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+
+        </div>
+    )
+}
+const ShowGaps = (props) => {
+    const { index, question, marks } = props;
+
+    return (
+        <div className='rounded-lg flex flex-col gap-10 p-10 border-l-8 border-l-indigo-600 border-t-2 shadow-lg'>
+            <div className='flex items-center justify-between'>
+                <span className='flex gap-5 items-center'>
+                    <p>{index}.</p>
+                    <h3 className=''>{question} ?</h3>
+                </span>
+                <p className='self-end'>{marks}<span className='text-sm'> marks</span></p>
+            </div>
+            <div className="gap-4 border-indigo-400 border-b-2 w-1/2">
+                <input className='text-field border-none text-xl rounded-md' type="text" placeholder='answer' autoFocus />
+            </div>
+        </div>
+    )
+}
+const ShowTrue = (props) => {
+    const { index, question, marks } = props;
+
+    return (
+        <div className='rounded-lg flex flex-col gap-10 p-10 border-l-8 border-l-indigo-600 border-t-2 shadow-lg'>
+            <div className='flex items-center justify-between'>
+                <span className='flex gap-5 items-center'>
+                    <p>{index}.</p>
+                    <h3 className=''>{question} ?</h3>
+                </span>
+                <p className='self-end'>{marks}<span className='text-sm'> marks</span></p>
+            </div>
+            <div className='flex flex-col gap-5'>
+                <div className="radio-group flex gap-4"><input type="radio" name="radio" className="radio-field radio border-2 border-indigo-300 radio-accent" value={'true'} />
+                    <p>true</p></div>
+                <div className="radio-group flex gap-4">
+                    <input type="radio" name="radio" className="radio-field radio border-2 border-indigo-300 radio-accent" value={'false'} />
+                    <p>false</p></div>
+            </div>
+        </div>
+    )
+}
+
+

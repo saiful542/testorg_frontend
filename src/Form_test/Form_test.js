@@ -1,12 +1,11 @@
 import React from 'react';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
 import Fill_gaps from '../Pages/Questions/Fill_gaps/Fill_gaps';
-// import Fill_Blanks from '../Pages/Questions/Fill_Blanks/Fill_blanks';
-// import Fill_Blanks from '../Pages/Questions/Fill_Blanks/Fill_blanks';
+
 import Mcq from '../Pages/Questions/Mcq/Mcq';
 import True_false from '../Pages/Questions/True_false/True_false';
-
 
 const Form_test = () => {
 
@@ -27,11 +26,6 @@ const Form_test = () => {
             return question.q_id !== q_id;
         })
 
-        // let i = 1;
-        // filtered_questions.forEach((question) => {
-        //     question.q_id = i;
-        //     i++;
-        // })
         setQuestionForm(filtered_questions)
         questionFormData.splice((q_id - 1), 1)
 
@@ -39,17 +33,23 @@ const Form_test = () => {
 
     // save data
     const saveData = () => {
-        toast.success('Question created successfully!', {
-            toastId: 'customId',
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-        });
+        // toast.success('Question created successfully!', {
+        //     toastId: 'customId',
+        //     position: "top-center",
+        //     autoClose: 2000,
+        //     hideProgressBar: false,
+        //     closeOnClick: true,
+        //     pauseOnHover: true,
+        //     draggable: true,
+        //     progress: undefined,
+        //     theme: "dark",
+        // });
+        Swal.fire({
+            title: 'Created exam',
+            text:'send the exam link to your student',
+            icon: 'success',
+            confirmButtonText: 'ok'
+        })
 
         console.log(questionFormData);
         localStorage.setItem('question', JSON.stringify(questionFormData))
@@ -57,9 +57,9 @@ const Form_test = () => {
     }
 
     return (
-        <div className='m-auto mb-40'>
+        <div className='m-auto mb-40 c-mt'>
             <div className="container  lg:flex gap-10 m-auto justify-between">
-                <div className="h-1/4 flex flex-col sticky top-0 py-5 px-2 shadow-lg rounded-md z-50 bg-white">
+                <div className="h-1/4 flex flex-col sticky top-0 py-5 px-2 shadow-lg rounded-md z-20 bg-white">
                     <div>
                         <button className='m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onClick={() => { addQuestion('mcq') }}>MCQ</button>
                         <button className='m-2 bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded' onClick={() => { addQuestion('true-false') }}>True / False</button>

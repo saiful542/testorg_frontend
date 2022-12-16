@@ -13,6 +13,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.c-mt{
+  margin-top: 67px !important;
+}
 
 
 @tailwind base;

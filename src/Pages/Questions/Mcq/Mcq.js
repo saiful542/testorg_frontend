@@ -52,7 +52,7 @@ const Mcq = (props) => {
         }
     };
     return (
-        <div className='shadow-lg rounded-sm'>
+        <div className='shadow-lg rounded-lg border-l-8 border-l-indigo-500 border-t-2'>
             {/* mcq */}
             <form onSubmit={handleSubmit(onSubmit)} className="w-full rounded-md question-form px-8" name='mcq'>
                 <h2 className="title font-extrabold pb-5"><span className=' text-slate-400'>m</span>cq</h2>

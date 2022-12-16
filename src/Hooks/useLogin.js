@@ -6,7 +6,6 @@ import { toast } from 'react-toastify';
 
 const useLogin = () => {
     const [validUser, setValidUser] = useState({})
-    const [localUser, setLocalUser] = useState({})
     async function sendData(data) {
         if (data) {
             // console.log('data found', data.method);
@@ -94,21 +93,23 @@ const useLogin = () => {
         }
     }, [])
     async function logout() {
-        // await axios.get(`https://testorg-backend.onrender.com/logout`)
-        //     .then(response => {
-        //         console.log(response);
-        //         localStorage.clear()
+        await axios.get(`https://testorg-backend.onrender.com/logout`)
+            .then(response => {
+                console.log(response);
+                localStorage.clear()
+                toast.warning('logged out',{
+                    autoClose: 2000,
+                    toastId: 'customId',
 
-        //         toast.warning('logged out')
-
-        //     })
-        //     .catch(err => {
-        //         toast.error(err.response.data.error, {
-        //             toastId: 'customId',
-        //             position: 'top-right',
-        //             theme: 'colored'
-        //         })
-        //     });
+                })
+            })
+            .catch(err => {
+                toast.error(err.response.data.error, {
+                    toastId: 'customId',
+                    position: 'top-right',
+                    theme: 'colored'
+                })
+            });
         setValidUser({})
         localStorage.clear()
     }
