@@ -29,7 +29,7 @@ input {
 
 .signin-signup {
   position: absolute;
-  top: 50%;
+  top: 40%;
   transform: translate(-50%, -50%);
   left: 75%;
   width: 50%;
@@ -183,7 +183,7 @@ form.sign-in-form {
 
 .btnn:hover {
   background-color: $secondary-color ;
-  color: rgb(0, 0, 0);
+  // color: rgb(130, 176, 220);
 }
 .panels-container {
   position: absolute;

@@ -1,4 +1,6 @@
 import React from 'react';
+import { useState } from 'react';
+import Swal from 'sweetalert2';
 
 const Exam = () => {
     const questions = [
@@ -62,19 +64,41 @@ const Exam = () => {
             "q_id": 6
         }
     ]
+    const [answers, setAnswers] = useState([]);
+    const [count, setCount] = useState(1)
+    const [newQuestion, setNewQuestion] = useState([questions[0]])
+    console.log(answers);
+
+    const changeQuestion = () => {
+        const filtered_questions = questions.filter((question) => {
+            return questions.indexOf(question) === count
+        });
+        setNewQuestion(filtered_questions);
+        console.log(count);
+        if (count >= questions.length) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Good job!',
+                text: `you have answered ${count}/${count} questions!`,
+
+            })
+        }
+
+
+    }
     return (
-        <div className='container m-auto c-mt pt-10'>
+        <div className='container m-auto c-mt pt-10 pb-20 '>
             <div className='m-auto flex flex-col gap-20 lg:w-2/3 rounded-md text-gray-800 text-xl '>
                 {
-                    questions.map((element, index) => {
+                    newQuestion.map((element) => {
                         if (element.question_type === 'true-false') {
-                            return <ShowTrue index={index + 1} question={element.question} marks={element.marks}></ShowTrue>
+                            return <ShowTrue answers={answers} setAnswers={setAnswers} index={count} question={element.question} marks={element.marks}></ShowTrue>
                         }
                         else if (element.question_type === 'mcq') {
-                            return <ShowQuiz index={index + 1} question={element.question} marks={element.marks} options={element.options}></ShowQuiz>
+                            return <ShowQuiz answers={answers} setAnswers={setAnswers} index={count} question={element.question} marks={element.marks} options={element.options}></ShowQuiz>
                         }
                         else if (element.question_type === 'fill-blanks') {
-                            return <ShowGaps index={index + 1} question={element.question} marks={element.marks}></ShowGaps>
+                            return <ShowGaps answers={answers} setAnswers={setAnswers} index={count} question={element.question} marks={element.marks}></ShowGaps>
                         }
 
                     })
@@ -82,9 +106,11 @@ const Exam = () => {
             </div>
 
             <div className="button-wrapper text-end lg:w-2/3 m-auto pt-10">
-                <button className='btn bg-indigo-800 text-white px-16 hover:bg-indigo-700'>Next &nbsp;&nbsp; &rarr;</button>
+                {
+                    count <= questions.length ? <button onClick={() => { changeQuestion(); setCount(count + 1) }} className='nb-custom bg-gradient-to-r from-indigo-800 to-cyan-500 btn  text-white px-16 hover:bg-indigo-700'>Next &nbsp;&nbsp;&rarr;</button> : <button className='nb-custom bg-gradient-to-r from-indigo-800 to-cyan-500 btn  text-white px-16 hover:bg-indigo-700'>Next &nbsp;&nbsp;&rarr;</button>
+                }
             </div>
-        </div>
+        </div >
     );
 };
 
@@ -95,7 +121,12 @@ export default Exam;
 
 
 const ShowQuiz = (props) => {
-    const { index, question, marks, options } = props;
+    const { index, question, marks, options, setAnswers, answers } = props;
+    const inputValue = (e) => {
+        let arr = [...answers];
+        arr[index-1] = e
+        setAnswers(arr)
+    }
 
     return (
         <div className='rounded-lg flex flex-col gap-10 p-10 border-l-8 border-l-indigo-600 border-t-2 shadow-lg'>
@@ -111,7 +142,7 @@ const ShowQuiz = (props) => {
                     options.map((option) => {
                         return (
                             <div className="radio-group flex gap-4 items-center ">
-                                <input type="radio" name="radio" className="radio-field radio border-2 border-indigo-300 radio-accent" />
+                                <input onInput={() => { inputValue(option) }} type="radio" name="radio" className="radio-field radio border-2 border-indigo-300 radio-accent" />
                                 <p>{option}</p>
                             </div>
                         )
@@ -123,7 +154,12 @@ const ShowQuiz = (props) => {
     )
 }
 const ShowGaps = (props) => {
-    const { index, question, marks } = props;
+    const { index, question, marks, setAnswers, answers } = props;
+    const inputValue = (e) => {
+        let arr = [...answers];
+        arr[index-1] = e
+        setAnswers(arr)
+    }
 
     return (
         <div className='rounded-lg flex flex-col gap-10 p-10 border-l-8 border-l-indigo-600 border-t-2 shadow-lg'>
@@ -135,13 +171,18 @@ const ShowGaps = (props) => {
                 <p className='self-end'>{marks}<span className='text-sm'> marks</span></p>
             </div>
             <div className="gap-4 border-indigo-400 border-b-2 w-1/2">
-                <input className='text-field border-none text-xl rounded-md' type="text" placeholder='answer' autoFocus />
+                <input onInput={(e) => {inputValue(e.target.value) }} className='text-field border-none text-xl rounded-md' type="text" placeholder='answer' autoFocus />
             </div>
         </div>
     )
 }
 const ShowTrue = (props) => {
-    const { index, question, marks } = props;
+    const { index, question, marks, setAnswers, answers } = props;
+    const inputValue = (e) => {
+        let arr = [...answers];
+        arr[index-1] = e
+        setAnswers(arr)
+    }
 
     return (
         <div className='rounded-lg flex flex-col gap-10 p-10 border-l-8 border-l-indigo-600 border-t-2 shadow-lg'>
@@ -153,10 +194,11 @@ const ShowTrue = (props) => {
                 <p className='self-end'>{marks}<span className='text-sm'> marks</span></p>
             </div>
             <div className='flex flex-col gap-5'>
-                <div className="radio-group flex gap-4"><input type="radio" name="radio" className="radio-field radio border-2 border-indigo-300 radio-accent" value={'true'} />
+                <div className="radio-group flex gap-4">
+                    <input onInput={(e) => { inputValue(e.target.value) }} type="radio" name="radio" className="radio-field radio border-2 border-indigo-300 radio-accent" value={'true'} />
                     <p>true</p></div>
                 <div className="radio-group flex gap-4">
-                    <input type="radio" name="radio" className="radio-field radio border-2 border-indigo-300 radio-accent" value={'false'} />
+                    <input onInput={(e) => { inputValue(e.target.value) }} type="radio" name="radio" className="radio-field radio border-2 border-indigo-300 radio-accent" value={'false'} />
                     <p>false</p></div>
             </div>
         </div>

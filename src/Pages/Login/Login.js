@@ -65,7 +65,7 @@ const Login = () => {
     console.log(validUser);
 
     return (
-        <div className=''>
+        <div className='c-mt'>
             <div className={isSignIn ? 'containerr mb-0' : 'containerr sign-up-mode mb-0'}>
                 <div className="forms-container">
                     <div className="signin-signup">
@@ -130,7 +130,7 @@ const Login = () => {
                 </div>
 
                 <div className="panels-container">
-                    <div className="panel left-panel">
+                    <div className="panel left-panel  ">
                         <div className="content">
                             <h3>New here ?</h3>
                             <p>

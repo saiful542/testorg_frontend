@@ -48,8 +48,8 @@ function App() {
               <Invalid></Invalid>
             </Route>
           </Switch>
-
           <Footer></Footer>
+
           <ToastContainer />
           <ToastContainer />
         </BrowserRouter>

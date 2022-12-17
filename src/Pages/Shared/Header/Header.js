@@ -10,7 +10,7 @@ const Header = () => {
 
     return (
         <div className='z-50 nb-custom w-full bg-gradient-to-r from-indigo-800 via-cyan-500 to-indigo-800 fixed top-0'>
-            <div className="navbar  container m-auto w-full inset-x-0  nb-custom">
+            <div className="navbar container m-auto w-full inset-x-0  nb-custom px-0">
                 <div class="dropdown">
                     <label tabindex="0" class="btn btn-ghost lg:hidden">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
@@ -23,7 +23,9 @@ const Header = () => {
                     </ul>
                 </div>
                 <div className="flex-1 sm:navbar-center">
-                    <Link to={'/'} className="btn btn-ghost normal-case text-xl text-white">TestOrg</Link>
+                    <Link to={'/'} className="btn btn-ghost normal-case text-xl lg:text-3xl text-transparent stroke-slate-100 nav-text">
+                        TestOrg
+                    </Link>
                 </div>
 
                 <div className="navbar-center hidden lg:flex">
