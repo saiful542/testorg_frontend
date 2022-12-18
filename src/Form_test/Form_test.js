@@ -11,7 +11,6 @@ const Form_test = () => {
 
     const [questionFormData, setQuestionFormData] = useState([])
     const [questionForm, setQuestionForm] = useState([])
-
     // add question
     const addQuestion = (value) => {
         setQuestionForm((previous) => {
@@ -46,7 +45,7 @@ const Form_test = () => {
         // });
         Swal.fire({
             title: 'Created exam',
-            text:'send the exam link to your student',
+            text: 'send the exam link to your student',
             icon: 'success',
             confirmButtonText: 'ok'
         })
@@ -57,15 +56,22 @@ const Form_test = () => {
     }
 
     return (
-        <div className='m-auto mb-40 c-mt'>
-            <div className="container  lg:flex gap-10 m-auto justify-between">
-                <div className="h-1/4 flex flex-col sticky top-0 py-5 px-2 shadow-lg rounded-md z-20 bg-white">
+        <div className='m-auto mb-40 c-mt relative'>
+            <div className="container  lg:flex gap-10 m-auto justify-between relative">
+                <div className="h-1/4 flex flex-col sticky top-16 py-5 px-2 shadow-lg rounded-md z-20 bg-white">
                     <div>
                         <button className='m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onClick={() => { addQuestion('mcq') }}>MCQ</button>
                         <button className='m-2 bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded' onClick={() => { addQuestion('true-false') }}>True / False</button>
                         <button className='m-2 bg-violet-500 hover:bg-violet-700 text-white font-bold py-2 px-4 rounded' onClick={() => { addQuestion('fill-blanks') }}>Fill Blanks</button>
                     </div>
-                    <button className='m-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded' onClick={() => saveData()}>save question</button>
+                    {
+                        questionForm.length >= 5 ? <button className='m-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded' onClick={() => saveData()}>save question</button> : <button className='m-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded' onClick={() => Swal.fire({
+                            title: 'you have to make at least 5 questions',
+                            icon: 'warning',
+                            confirmButtonText: 'ok'
+                        })}>save question</button>
+                    }
+
                 </div>
                 <div className="bottom flex flex-col lg:w-2/3 gap-20 w-full">
                     {

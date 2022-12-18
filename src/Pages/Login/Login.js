@@ -11,6 +11,13 @@ const Login = () => {
     const { validUser, sendData } = useAuth()
     const [isSignIn, setisSignIn] = useState(true);
     const { register, handleSubmit, reset } = useForm();
+    const [passwordShown, setPasswordShown] = useState(false);
+    // Password toggle handler
+    const togglePassword = () => {
+        // When the handler is invoked
+        // inverse the boolean state of passwordShown
+        setPasswordShown(!passwordShown);
+    };
 
     // signup submit
     const onSubmit = (submitted_data, e) => {
@@ -62,11 +69,9 @@ const Login = () => {
     };
 
 
-    console.log(validUser);
-
     return (
         <div className='c-mt'>
-            <div className={isSignIn ? 'containerr mb-0' : 'containerr sign-up-mode mb-0'}>
+            <div className={isSignIn ? 'containerr mb-0 nb-custom' : 'containerr sign-up-mode mb-0 nb-custom'}>
                 <div className="forms-container">
                     <div className="signin-signup">
                         <form onSubmit={handleSubmit(onSubmit)} name='login' className="sign-in-form" id='sign-in-form'>
@@ -77,9 +82,13 @@ const Login = () => {
                             </div>
                             <div className="input-field">
                                 <i className="fas fa-lock"></i>
-                                <input type="password" placeholder="Password" {...register('loginPassword')} className='login-password' />
+                                <div className='m-0 p-0 flex'>
+                                    <input type={passwordShown ? "text" : "password"} placeholder="Password" {...register('loginPassword')} className='login-password p-0' />
+                                    <i title='hide password' onClick={togglePassword} class={`fas fa-solid fa-eye mr-4 cursor-pointer ${!passwordShown ? 'hidden' : ''}`}></i>
+                                    <i title='show password' onClick={togglePassword} class={`fas fa-solid fa-eye-slash ml-8 cursor-pointer ${passwordShown ? 'hidden' : ''}`}></i>
+                                </div>
                             </div>
-                            <input name='signin' type="submit" value="Login" className="btnn solid text-center" />
+                            <input name='signin' type="submit" value="Login" className="btnn bg-gradient-to-tr from-indigo-800 via-cyan-500 button-custom solid text-center" />
                             <p className="social-text">Or Sign in with social platforms</p>
                             <div className="social-media">
                                 <a href="#" className="social-icon">
@@ -112,9 +121,13 @@ const Login = () => {
                             </div>
                             <div className="input-field">
                                 <i className="fas fa-lock"></i>
-                                <input type="password" placeholder="Password" {...register('password')} className="signup-password" />
+                                <div className='m-0 p-0 flex'>
+                                    <input type={passwordShown ? "text" : "password"} placeholder="Password" {...register('password')} className='signup-password p-0' />
+                                    <i title='hide password' onClick={togglePassword} class={`fas fa-solid fa-eye mr-4 cursor-pointer ${!passwordShown ? 'hidden' : ''}`}></i>
+                                    <i title='show password' onClick={togglePassword} class={`fas fa-solid fa-eye-slash ml-8 cursor-pointer ${passwordShown ? 'hidden' : ''}`}></i>
+                                </div>
                             </div>
-                            <input name='signup' type="submit" className="btnn" value="Sign up" />
+                            <input name='signup' type="submit" className="btnn bg-gradient-to-tr from-indigo-800 via-cyan-500 button-custom" value="Sign up" />
                             <p className="social-text">Or Sign up with social platforms</p>
                             <div className="social-media">
                                 <a href="#" className="social-icon">
@@ -130,14 +143,14 @@ const Login = () => {
                 </div>
 
                 <div className="panels-container">
-                    <div className="panel left-panel  ">
+                    <div className="panel left-panel">
                         <div className="content">
                             <h3>New here ?</h3>
                             <p>
                                 Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
                                 ex ratione. Aliquid!
                             </p>
-                            <button onClick={() => setisSignIn(false)} className="btnn transparent" id="sign-up-btn">
+                            <button onClick={() => setisSignIn(false)} className="btnn transparent " id="sign-up-btn">
                                 Sign up
                             </button>
                         </div>

@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
 @import './variable';
+
 * {
   margin: 0;
   padding: 0;
@@ -66,9 +67,9 @@ form.sign-in-form {
   margin-bottom: 10px;
 }
 
-.input-field{
+.input-field {
   max-width: 380px;
-  
+
   width: 100%;
   background-color: #e4e4e4;
   margin: 10px 0;
@@ -80,32 +81,35 @@ form.sign-in-form {
   position: relative;
   overflow: hidden;
 }
+
 .input-field select {
-    margin-top: .83rem;
-    border: none;
-    background-color: #e4e4e4;
-    text-decoration: none;
-    outline: none;
-    width: 7rem;
-    color: #444;
-    font-size: 1.2rem;
-    font-weight: 700;
+  margin-top: .83rem;
+  border: none;
+  background-color: #e4e4e4;
+  text-decoration: none;
+  outline: none;
+  width: 7rem;
+  color: #444;
+  font-size: 1.2rem;
+  font-weight: 700;
 }
 
-.input-field i{
+.input-field i {
   text-align: center;
   line-height: 55px;
   color: #acacac;
   transition: 0.5s;
   font-size: 1.1rem;
-  
-}
-.input-field i.ci{
-    padding-left: 30%;
-    padding-right: 35%;
 
 }
-.signup-username{
+
+.input-field i.ci {
+  padding-left: 30%;
+  padding-right: 35%;
+
+}
+
+.signup-username {
   padding: 0 !important;
 }
 
@@ -118,14 +122,16 @@ form.sign-in-form {
   font-size: 1.1rem;
   color: #333;
 }
-.input-field h6{
-  color: #aaa ;
+
+.input-field h6 {
+  color: #aaa;
   text-align: center;
   padding: 1rem 0 0 0;
   font-weight: 500;
   font-size: 1.1rem;
   margin-right: 42%;
 }
+
 // .input-field .cs{
 //     min-width: 147px;
 
@@ -185,6 +191,7 @@ form.sign-in-form {
   background-color: $secondary-color ;
   // color: rgb(130, 176, 220);
 }
+
 .panels-container {
   position: absolute;
   height: 100%;
@@ -203,7 +210,8 @@ form.sign-in-form {
   top: -10%;
   right: 48%;
   transform: translateY(-50%);
-  background-color: $primary-color;
+  // background-color: $primary-color;
+  background-image: linear-gradient(to right, #3730a3, #009ab5, #3730a3);
   transition: 1.6s ease-in-out;
   border-radius: 50%;
   z-index: 6;
@@ -310,6 +318,7 @@ form.sign-in-form {
     min-height: 800px;
     height: 100vh;
   }
+
   .signin-signup {
     width: 100%;
     top: 95%;
@@ -416,9 +425,11 @@ form.sign-in-form {
   .image {
     display: none;
   }
+
   .panel .content {
     padding: 0.5rem 1rem;
   }
+
   .containerr {
     padding: 1.5rem;
   }
@@ -437,17 +448,17 @@ form.sign-in-form {
 // @media screen  and  (max-width:320px){
 //     .input-field select {
 //         margin-left: -0.6rem;
-       
+
 //         width: 7rem;
-        
+
 //     }
 // }
 
 // @media screen  and  (min-width:375px){
 //     .input-field select {
 //         margin-left: 2rem;
-       
+
 //         width: 7rem;
-        
+
 //     }
 // }

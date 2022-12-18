@@ -67,14 +67,15 @@ const Exam = () => {
     const [answers, setAnswers] = useState([]);
     const [count, setCount] = useState(1)
     const [newQuestion, setNewQuestion] = useState([questions[0]])
+    const [input, setInput] = useState(false)
     console.log(answers);
 
     const changeQuestion = () => {
+        setInput(false)
         const filtered_questions = questions.filter((question) => {
             return questions.indexOf(question) === count
         });
         setNewQuestion(filtered_questions);
-        console.log(count);
         if (count >= questions.length) {
             Swal.fire({
                 icon: 'success',
@@ -87,18 +88,18 @@ const Exam = () => {
 
     }
     return (
-        <div className='container m-auto c-mt pt-10 pb-20 '>
+        <div className='container m-auto c-mt pt-20 pb-10 h-screen'>
             <div className='m-auto flex flex-col gap-20 lg:w-2/3 rounded-md text-gray-800 text-xl '>
                 {
                     newQuestion.map((element) => {
                         if (element.question_type === 'true-false') {
-                            return <ShowTrue answers={answers} setAnswers={setAnswers} index={count} question={element.question} marks={element.marks}></ShowTrue>
+                            return <ShowTrue setInput={setInput} answers={answers} setAnswers={setAnswers} index={count} question={element.question} marks={element.marks}></ShowTrue>
                         }
                         else if (element.question_type === 'mcq') {
-                            return <ShowQuiz answers={answers} setAnswers={setAnswers} index={count} question={element.question} marks={element.marks} options={element.options}></ShowQuiz>
+                            return <ShowQuiz setInput={setInput} answers={answers} setAnswers={setAnswers} index={count} question={element.question} marks={element.marks} options={element.options}></ShowQuiz>
                         }
                         else if (element.question_type === 'fill-blanks') {
-                            return <ShowGaps answers={answers} setAnswers={setAnswers} index={count} question={element.question} marks={element.marks}></ShowGaps>
+                            return <ShowGaps setInput={setInput} answers={answers} setAnswers={setAnswers} index={count} question={element.question} marks={element.marks}></ShowGaps>
                         }
 
                     })
@@ -107,7 +108,8 @@ const Exam = () => {
 
             <div className="button-wrapper text-end lg:w-2/3 m-auto pt-10">
                 {
-                    count <= questions.length ? <button onClick={() => { changeQuestion(); setCount(count + 1) }} className='nb-custom bg-gradient-to-r from-indigo-800 to-cyan-500 btn  text-white px-16 hover:bg-indigo-700'>Next &nbsp;&nbsp;&rarr;</button> : <button className='nb-custom bg-gradient-to-r from-indigo-800 to-cyan-500 btn  text-white px-16 hover:bg-indigo-700'>Next &nbsp;&nbsp;&rarr;</button>
+                    input ? <button onClick={() => { changeQuestion(); setCount(count + 1) }} className='nb-custom bg-gradient-to-r from-indigo-800 to-cyan-500 btn  text-white px-16 hover:bg-indigo-700'>Next &nbsp;&nbsp;&rarr;</button> : <button disabled title='give an answer first' className='btn transition-all px-16 disabled:text-gray-600'>Next</button>
+                    // count <= questions.length ? <button onClick={() => { changeQuestion(); setCount(count + 1) }} className='nb-custom bg-gradient-to-r from-indigo-800 to-cyan-500 btn  text-white px-16 hover:bg-indigo-700'>Next &nbsp;&nbsp;&rarr;</button> : <button className='nb-custom bg-gradient-to-r from-indigo-800 to-cyan-500 btn  text-white px-16 hover:bg-indigo-700'>Next &nbsp;&nbsp;&rarr;</button>
                 }
             </div>
         </div >
@@ -121,15 +123,16 @@ export default Exam;
 
 
 const ShowQuiz = (props) => {
-    const { index, question, marks, options, setAnswers, answers } = props;
+    const { index, question, marks, options, setAnswers, answers, setInput } = props;
     const inputValue = (e) => {
         let arr = [...answers];
-        arr[index-1] = e
+        arr[index - 1] = e
         setAnswers(arr)
+        setInput(true)
     }
 
     return (
-        <div className='rounded-lg flex flex-col gap-10 p-10 border-l-8 border-l-indigo-600 border-t-2 shadow-lg'>
+        <div className='rounded-lg flex flex-col gap-10 p-10 py-16 shadow-lg border-l-8 border-l-indigo-700 bg-stone-100'>
             <div className='flex items-center justify-between'>
                 <span className='flex gap-5 items-center'>
                     <p>{index}.</p>
@@ -154,15 +157,16 @@ const ShowQuiz = (props) => {
     )
 }
 const ShowGaps = (props) => {
-    const { index, question, marks, setAnswers, answers } = props;
+    const { index, question, marks, setAnswers, answers, setInput } = props;
     const inputValue = (e) => {
         let arr = [...answers];
-        arr[index-1] = e
-        setAnswers(arr)
+        arr[index - 1] = e
+        setAnswers(arr);
+        setInput(true)
     }
 
     return (
-        <div className='rounded-lg flex flex-col gap-10 p-10 border-l-8 border-l-indigo-600 border-t-2 shadow-lg'>
+        <div className='rounded-lg flex flex-col gap-10 p-10 py-16 shadow-lg border-l-8 border-l-indigo-700 bg-stone-100'>
             <div className='flex items-center justify-between'>
                 <span className='flex gap-5 items-center'>
                     <p>{index}.</p>
@@ -171,21 +175,22 @@ const ShowGaps = (props) => {
                 <p className='self-end'>{marks}<span className='text-sm'> marks</span></p>
             </div>
             <div className="gap-4 border-indigo-400 border-b-2 w-1/2">
-                <input onInput={(e) => {inputValue(e.target.value) }} className='text-field border-none text-xl rounded-md' type="text" placeholder='answer' autoFocus />
+                <input onInput={(e) => { inputValue(e.target.value) }} className='text-field border-none text-xl rounded-md' type="text" placeholder='answer' autoFocus />
             </div>
         </div>
     )
 }
 const ShowTrue = (props) => {
-    const { index, question, marks, setAnswers, answers } = props;
+    const { index, question, marks, setAnswers, answers, setInput } = props;
     const inputValue = (e) => {
         let arr = [...answers];
-        arr[index-1] = e
-        setAnswers(arr)
+        arr[index - 1] = e
+        setAnswers(arr);
+        setInput(true)
     }
 
     return (
-        <div className='rounded-lg flex flex-col gap-10 p-10 border-l-8 border-l-indigo-600 border-t-2 shadow-lg'>
+        <div className='rounded-lg flex flex-col gap-10 p-10 py-16 shadow-lg border-l-8 border-l-indigo-700 bg-stone-100'>
             <div className='flex items-center justify-between'>
                 <span className='flex gap-5 items-center'>
                     <p>{index}.</p>
@@ -202,6 +207,7 @@ const ShowTrue = (props) => {
                     <p>false</p></div>
             </div>
         </div>
+
     )
 }
 
