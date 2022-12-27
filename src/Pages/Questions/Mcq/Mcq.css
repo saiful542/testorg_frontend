@@ -10,8 +10,8 @@ input[type='text'],input[type='number'] {
     padding: 10px;
     /* border: 2px solid rgb(197, 201, 239); */
     background: transparent;
-    color: black;
-    border-width: 3px;
+    color: rgb(46, 46, 46);
+    border-width: 1px;
 
 }
 
@@ -25,7 +25,7 @@ input[type='radio'] {
     height: 25px;
     width: 25px;
     cursor: pointer;
-
+    border-width: 1px;
 }
 
 .option-field>.numbering {

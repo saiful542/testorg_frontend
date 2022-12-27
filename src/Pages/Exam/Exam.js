@@ -68,8 +68,7 @@ const Exam = () => {
     const [count, setCount] = useState(1)
     const [newQuestion, setNewQuestion] = useState([questions[0]])
     const [input, setInput] = useState(false)
-    console.log(answers);
-
+    const [totalMarks, setTotalMarks] = useState(parseInt(newQuestion[0].marks));
     const changeQuestion = () => {
         setInput(false)
         const filtered_questions = questions.filter((question) => {
@@ -84,8 +83,8 @@ const Exam = () => {
 
             })
         }
-
-
+        setTotalMarks(totalMarks + parseInt(newQuestion[0].marks))
+        // console.log(totalMarks);
     }
     return (
         <div className='container m-auto c-mt pt-20 pb-10 h-screen'>
@@ -132,7 +131,7 @@ const ShowQuiz = (props) => {
     }
 
     return (
-        <div className='rounded-lg flex flex-col gap-10 p-10 py-16 shadow-lg border-l-8 border-l-indigo-700 bg-stone-100'>
+        <div className='rounded-lg flex flex-col gap-10 p-10 py-16 shadow-lg border-l-8 border-l-indigo-700 bg-white'>
             <div className='flex items-center justify-between'>
                 <span className='flex gap-5 items-center'>
                     <p>{index}.</p>
@@ -166,7 +165,7 @@ const ShowGaps = (props) => {
     }
 
     return (
-        <div className='rounded-lg flex flex-col gap-10 p-10 py-16 shadow-lg border-l-8 border-l-indigo-700 bg-stone-100'>
+        <div className='rounded-lg flex flex-col gap-10 p-10 py-16 shadow-lg border-l-8 border-l-indigo-700 bg-white'>
             <div className='flex items-center justify-between'>
                 <span className='flex gap-5 items-center'>
                     <p>{index}.</p>
@@ -190,7 +189,7 @@ const ShowTrue = (props) => {
     }
 
     return (
-        <div className='rounded-lg flex flex-col gap-10 p-10 py-16 shadow-lg border-l-8 border-l-indigo-700 bg-stone-100'>
+        <div className='rounded-lg flex flex-col gap-10 p-10 py-16 shadow-lg border-l-8 border-l-indigo-700 bg-white'>
             <div className='flex items-center justify-between'>
                 <span className='flex gap-5 items-center'>
                     <p>{index}.</p>

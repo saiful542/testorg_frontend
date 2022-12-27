@@ -6,7 +6,7 @@ const Footer = () => {
 
     return (
         <div>
-            <div className='w-100 border-2 border-gray-200'>
+            <div className='w-100  bg-gray-100'>
                 <footer className="new_footer_area bg_color">
                     <div className="new_footer_top pt-0:important">
                         <div className="container content-center m-auto">
@@ -15,12 +15,12 @@ const Footer = () => {
                                     <div className="f_widget company_widget wow fadeInLeft" data-wow-delay="0.2s" style={{ visibility: "visible", animationDelay: 0.2, animationName: "fadeInLeft" }} >
                                         <h3 className="f-title f_600 t_color f_size_18">Get in Touch</h3>
                                         <p className=''>Don't miss any updates of our new templates and extensions.!</p>
-                                        <form action="#" className="w-100 f_subscribe_two mailchimp" method="post" novalidate="true" _lpchecked="1">
-                                            <input type="email" name="EMAIL" className="form-control memail  p-3 border-violet-400 border-2 bg-transparent  rounded-lg w-full h-10 outline-none text-gray-700" placeholder="Email"></input>
-                                            <button className="btn  btn_get btn_get_two font-bold py-2 px-4 rounded-full bg-indigo-800" type="submit">Subscribe</button>
+                                        <div className="w-100 f_subscribe_two mailchimp">
+                                            <input type="email" name="EMAIL" className="form-control memail  p-3 border-cyan-600 border-2 bg-transparent  rounded-lg w-full h-10 outline-none text-gray-700" placeholder="Email"></input>
+                                            <button className="btn btn_get btn_get_two font-bold py-2 px-4 rounded-full bg-indigo-800" type="submit">Subscribe</button>
                                             <p className="mchimp-errmessage" style={{ display: "none" }}></p>
                                             <p className="mchimp-sucmessage" style={{ display: " none" }}></p>
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
 

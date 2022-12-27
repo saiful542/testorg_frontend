@@ -70,16 +70,6 @@ const useLogin = () => {
 
             }
 
-            // const response = await fetch(`https://excited-foal-raincoat.cyclic.app/${data.method}`, {
-            //     method: "POST",
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //     },
-            //     body: JSON.stringify(data),
-            // })
-            // const show_user = await response.json()
-            // console.log(show_user)
-
         }
         else
             toast.error('something went wrong!! try again', {
@@ -113,7 +103,6 @@ const useLogin = () => {
         toast.warning('logged out', {
             autoClose: 2000,
             toastId: 'customId',
-
         })
         setValidUser({})
         localStorage.clear()

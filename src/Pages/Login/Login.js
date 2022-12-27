@@ -23,6 +23,7 @@ const Login = () => {
             if (!submitted_data.loginEmail || !submitted_data.loginPassword) {
                 console.log('please, fill-up');
                 toast.warning('please, fill-up', {
+                    autoClose: 2000,
                     toastId: 'customId',
                     position: "bottom-right",
                     theme: 'dark'
@@ -44,6 +45,7 @@ const Login = () => {
             if (!submitted_data.email || !submitted_data.password || !submitted_data.username) {
                 console.log('please, fill-up');
                 toast.warning('please, fill-up', {
+                    autoClose: 2000,
                     toastId: 'customId',
                     position: "top-left",
                     theme: 'dark'
