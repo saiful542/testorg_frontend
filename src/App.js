@@ -30,13 +30,13 @@ function App() {
             <Route path="/Mcq" element={<Mcq />} />
             <Route path="/Login" element={<Login />} />
             <Route path="*" element={<Invalid />} />
-          </Routes >
+          </Routes>
           <Footer />
           <ToastContainer />
-        </BrowserRouter >
+        </BrowserRouter>
       </AuthProvider>
 
-    </div >
+    </div>
   );
 }
 

@@ -1,34 +1,30 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import dayjs from 'dayjs';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import Button from '@mui/joy/Button';
-import { CssVarsProvider } from '@mui/joy/styles';
-
-
-
-
-
-// import { Button } from '@material-ui/core';
+import { useNavigate, useNavigation } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
 import { Link } from 'react-router-dom';
+import Form_test from '../../Form_test/Form_test';
+import { useHistory } from "react-router-dom";
 
 
 const Room = () => {
     const [date, setDate] = React.useState(null);
+    const [relaod, setReload] = React.useState(false);
     const [startTime, setStartTime] = React.useState(null);
     const [endTime, setEndTime] = React.useState(null);
     const [courseName, setCourseName] = React.useState('');
     const [teacherName, setTeacherName] = React.useState('');
-
     const { validUser } = useAuth()
+    const navigate = useNavigate()
+    const test = () => {
+        navigate('/', { state: { date:{date}, startTime:{startTime} ,endTime:{endTime} ,courseName:{courseName} ,teacherName:{teacherName} } });
+    }
     return (
 
         <div className='container min-h-screen c-mt m-auto pb-20'>
@@ -81,17 +77,9 @@ const Room = () => {
                 </div>
             </div>
             <div className='button-wrapper pt-40'>
-                <Link to={{
-                    pathname: "/",
-                    state: {
-                        date: date,
-                        startTime: startTime,
-                        endTime: endTime,
-                        courseName: courseName,
-                        teacherName: teacherName
-                    }
-                }} className='nb-custom bg-gradient-to-r from-indigo-800 to-cyan-500 btn  text-white px-16 hover:bg-indigo-700'>Next &nbsp;&nbsp;&rarr;</Link>
+                <button onClick={() => test()} className='nb-custom bg-gradient-to-r from-indigo-800 to-cyan-500 btn  text-white px-16 hover:bg-indigo-700'>Next &nbsp;&nbsp;&rarr;</button>
             </div>
+            {relaod && <Form_test ></Form_test>}
         </div>
     );
 };

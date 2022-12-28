@@ -9,15 +9,13 @@ import Mcq from '../Pages/Questions/Mcq/Mcq';
 import True_false from '../Pages/Questions/True_false/True_false';
 
 const Form_test = () => {
-
+    const { state } = useLocation();
+    const { date } = state;
     const [questionFormData, setQuestionFormData] = useState([])
     const [questionForm, setQuestionForm] = useState([])
     const [isValidQsn, setIsValidQsn] = useState(true)
     const [totalMarks, setTotalMarks] = useState(0);
-    const { date, startTime, endTime, courseName, teacher } = useLocation('/Room');
-    console.log(date)
-    // const { date, startTime, endTime, courseName, teacher } = state;
-    // add question
+
     const addQuestion = (value) => {
         setQuestionForm((previous) => {
             return [...previous, { q_id: questionForm.length + 1, value: value }]
@@ -90,3 +88,84 @@ export default Form_test;
 
 
 
+
+
+
+
+
+
+// function waitForElem(waitFor, callback, minElements = 1, isVariable = false, timer = 10000, frequency = 25) {
+//     let elements = isVariable ? window[waitFor] : document.querySelectorAll(waitFor);
+//     if (timer <= 0) return;
+//     (!isVariable && elements.length >= minElements) || (isVariable && typeof window[waitFor] !== "undefined") ? callback(elements) : setTimeout(() => waitForElem(waitFor, callback, minElements, isVariable, timer - frequency), frequency);
+// }
+
+// waitForElem('#section-header, .Header__Wrapper, header .DesktopMenu', element => {
+//     if (element) {
+//         let SNO_403 = {
+//             init: function () {
+//                 this.mainCss();
+//                 this.mainJs();
+//             },
+//             mainCss: function () {
+//                 var styles = document.createElement('style');
+//                 styles.setAttribute('type', 'text/css');
+//                 document.head.appendChild(styles).textContent =
+//                     ``;
+//             },
+//             mainJs: function () {
+//                 document.querySelector('body').classList.add('SNO-403');
+//                 document.querySelector('.SNO-403 #Search div.Search__SearchBar > form > input.Search__Input.Heading').placeholder = 'Suche nach einem Produkt';
+//                 const searchBar = `<div class="Search__Inner new-search-inner">
+//                               <div class="Search__SearchBar">
+//                                 <div class="Search__Form">
+//                                     <div class="Search__InputIconWrapper">
+//                                       <img class="Icon Icon--search-desktop Image--lazyLoad Image--fadeIn" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="https://cdn.shopify.com/s/files/1/0048/8285/8054/files/search.png" alt="search-icon">
+//                                     </div>
+//                                     <input type="search" class="Search__Input Heading" placeholder="Suche nach einem Produkt">
+//                                 </div>
+//                                 <button title='nahe' class="Search__Close Link Link--primary" data-action="close-search">
+//                                   <svg class="Icon Icon--close" role="presentation" viewBox="0 0 16 14">
+//                                   <path d="M15 0L1 14m14 0L1 0" stroke="currentColor" fill="none" fill-rule="evenodd"></path>
+//                                   </svg>
+//                                 </button>
+//                               </div>
+//                             </div>`;
+//                 document.querySelector('.SNO-403 .PageContainer #shopify-section-header').insertAdjacentHTML('afterend', searchBar);
+//                 document.querySelector("body > div.PageContainer > div.Search__Inner.new-search-inner").classList.add('hide-dekstop')
+//                 document.querySelector(".SNO-403 #section-header > div > div.Header__FlexItem.Header__FlexItem--menu.hidden-pocket > header > nav > a:nth-child(3)").insertAdjacentHTML('afterend', searchBar);
+//                 if (sessionStorage.getItem('SNO-403-showSearchBar')) {
+//                     document.querySelector(".SNO-403 div.PageContainer>div.new-search-inner.hide-dekstop").classList.add('display-none');
+//                 }
+//                 else if (sessionStorage.getItem('SNO-403-showSearchBar')) {
+//                     document.querySelector(".SNO-403 div.PageContainer>div.new-search-inner.hide-dekstop").classList.remove('display-none');
+//                 }
+//                 document.querySelector('.SNO-403 div.PageContainer>div.Search__Inner.new-search-inner .Search__SearchBar').addEventListener('click', () => {
+//                     document.querySelector(".SNO-403 #section-header > div > div:nth-child(4) > a:nth-child(2)").click();
+//                 });
+//                 document.querySelector('.SNO-403 div.PageContainer>div.Search__Inner.new-search-inner .Search__Close').addEventListener('click', () => {
+//                     document.querySelector(".SNO-403 div.PageContainer>div.new-search-inner.hide-dekstop").classList.add('display-none');
+//                     sessionStorage.setItem('SNO-403-showSearchBar', 'false');
+//                 });
+//                 document.querySelector(".SNO-403 #section-header .Header__Wrapper .Header__FlexItem.Header__FlexItem--menu.hidden-pocket .Search__Inner.new-search-inner").addEventListener('click', () => {
+//                     document.querySelector(".SNO-403 #section-header > div > div:nth-child(4) > a:nth-child(2)").click();
+//                     document.querySelector(".SNO-403 #section-header .Header__Wrapper .Header__FlexItem.Header__FlexItem--menu.hidden-pocket .Search__Inner.new-search-inner").classList.add('custom-width');
+//                 })
+//                 document.querySelector(".SNO-403 #Search > div > div.Search__SearchBar > button").addEventListener('click', () => {
+//                     document.querySelector(".SNO-403 #section-header .Header__Wrapper .Header__FlexItem.Header__FlexItem--menu.hidden-pocket .Search__Inner.new-search-inner").classList.remove('custom-width');
+//                 })
+
+
+//                 window.addEventListener('scroll', function () {
+//                     if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
+//                         document.querySelector(".SNO-403 #section-header .Header__Wrapper .Header__FlexItem.Header__FlexItem--menu.hidden-pocket .Search__Inner.new-search-inner").classList.add('custom-width');
+
+//                     } else {
+//                         document.querySelector(".SNO-403 #section-header .Header__Wrapper .Header__FlexItem.Header__FlexItem--menu.hidden-pocket .Search__Inner.new-search-inner").classList.remove('custom-width');
+//                     }
+//                 })
+//             }
+//         };
+//         SNO_403.init();
+//     }
+// }, 3);
