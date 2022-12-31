@@ -11,11 +11,11 @@ import useAuth from '../../Hooks/useAuth';
 import { Link } from 'react-router-dom';
 import Form_test from '../../Form_test/Form_test';
 import { useHistory } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 
 const Room = () => {
     const [date, setDate] = React.useState(null);
-    const [relaod, setReload] = React.useState(false);
     const [startTime, setStartTime] = React.useState(null);
     const [endTime, setEndTime] = React.useState(null);
     const [courseName, setCourseName] = React.useState('');
@@ -23,8 +23,21 @@ const Room = () => {
     const { validUser } = useAuth()
     const navigate = useNavigate()
     const test = () => {
-        navigate('/', { state: { date:{date}, startTime:{startTime} ,endTime:{endTime} ,courseName:{courseName} ,teacherName:{teacherName} } });
+        if (date && startTime && endTime && courseName && teacherName) {
+            navigate('/Form_test', { state: { date: date.$d.toDateString(), startTime: startTime, endTime: endTime, courseName: courseName, teacherName: teacherName } });
+        }
+        else {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Please fil up all the fields',
+            })
+        }
     }
+    // console.log(startTime)
+    // toDateString() -->'Thu Dec 01 2022'
+    // toLocaleDateString() -->'12/1/2022'
+    // toLocaleTimeString() -->'2:00:00 AM'
+    // getTime() -->'2:00:00 AM' -->1672344000757 mseconds
     return (
 
         <div className='container min-h-screen c-mt m-auto pb-20'>
@@ -33,7 +46,7 @@ const Room = () => {
 
                 flex-col gap-10 lg:gap-24">
 
-                    <div className='text-start'><label htmlFor="input" className='text-2xl text-cyan-800 font-serif font-bold'>Teacher</label><input nInput={(e) => setTeacherName(e.target.value)} className='mt-5 h-14 input border-2  border-cyan-700' type="text" defaultValue={validUser?.userName} placeholder='teachers name' /></div>
+                    <div className='text-start'><label htmlFor="input" className='text-2xl text-cyan-800 font-serif font-bold'>Teacher</label><input onInput={(e) => setTeacherName(e.target.value)} className='mt-5 h-14 input border-2  border-cyan-700' type="text" defaultValue={validUser?.userName} placeholder='teachers name' /></div>
 
                     <div className='text-start'><label htmlFor="input" className='text-2xl text-cyan-800 font-serif font-bold'>Course</label><input onInput={(e) => setCourseName(e.target.value)} className='mt-5 h-14 input border-2 border-cyan-700' type="text" placeholder='course name' /></div>
 
@@ -77,9 +90,8 @@ const Room = () => {
                 </div>
             </div>
             <div className='button-wrapper pt-40'>
-                <button onClick={() => test()} className='nb-custom bg-gradient-to-r from-indigo-800 to-cyan-500 btn  text-white px-16 hover:bg-indigo-700'>Next &nbsp;&nbsp;&rarr;</button>
+                <button onClick={() => test()} className='nb-custom bg-gradient-to-r from-indigo-800 to-cyan-500 btn  text-white px-16 hover:bg-indigo-700'>Create Question &nbsp;&nbsp;&rarr;</button>
             </div>
-            {relaod && <Form_test ></Form_test>}
         </div>
     );
 };

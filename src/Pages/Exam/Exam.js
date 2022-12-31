@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
+import { useTimer } from 'react-timer-hook';
 import Swal from 'sweetalert2';
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
 const Exam = () => {
     const questions = [
@@ -86,8 +88,55 @@ const Exam = () => {
         setTotalMarks(totalMarks + parseInt(newQuestion[0].marks))
         // console.log(totalMarks);
     }
+
+    // timer
+    const expiryTimestamp = new Date();
+    expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + 300); // 10 minutes timer
+    // console.log((expiryTimestamp.getSeconds() + 10))
+    const {
+        seconds,
+        minutes,
+        hours,
+        days,
+        isRunning,
+    } = useTimer({
+        expiryTimestamp, onExpire: () => Swal.fire({ icon: 'success', title: 'Session Expired', text: 'Exam time is over' })
+    });
+    const [counter, setCounter] = React.useState((expiryTimestamp.getSeconds() + 300));
+
     return (
-        <div className='container m-auto c-mt pt-20 pb-10 h-screen'>
+        <div className='container m-auto c-mt py-10 min-h-screen'>
+            <div className="mb-20 flex justify-center gap-8 text-center auto-cols-max m-auto w-full">
+                <div id="pomodoro-timer">
+                    {" "}
+                    <CountdownCircleTimer
+                        isPlaying
+                        duration={counter}
+                        colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+                        colorsTime={[7, 5, 2, 0]}
+                    >
+                        {/* {({ remainingTime }) => remainingTime} */}
+                    </CountdownCircleTimer>
+                </div>
+                <div className=''>
+                    <span className="countdown font-mono text-5xl text-gray-600">
+                        <span style={{ "--value": hours }}></span>
+                    </span>
+                    <span className='text-gray-500 pl-2'>hours</span>
+                </div>
+                <div>
+                    <span className="countdown font-mono text-5xl text-gray-600">
+                        <span style={{ "--value": minutes }}></span>
+                    </span>
+                    <span className='text-gray-500 pl-2'>min</span>
+                </div>
+                <div>
+                    <span className="countdown font-mono text-5xl text-gray-600">
+                        <span style={{ "--value": seconds }}></span>
+                    </span>
+                    <span className='text-gray-500 pl-2'>sec</span>
+                </div>
+            </div>
             <div className='m-auto flex flex-col gap-20 lg:w-2/3 rounded-md text-gray-800 text-xl '>
                 {
                     newQuestion.map((element) => {
@@ -111,7 +160,7 @@ const Exam = () => {
                     // count <= questions.length ? <button onClick={() => { changeQuestion(); setCount(count + 1) }} className='nb-custom bg-gradient-to-r from-indigo-800 to-cyan-500 btn  text-white px-16 hover:bg-indigo-700'>Next &nbsp;&nbsp;&rarr;</button> : <button className='nb-custom bg-gradient-to-r from-indigo-800 to-cyan-500 btn  text-white px-16 hover:bg-indigo-700'>Next &nbsp;&nbsp;&rarr;</button>
                 }
             </div>
-        </div >
+        </div>
     );
 };
 

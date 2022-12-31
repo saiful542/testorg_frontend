@@ -5,7 +5,7 @@ import useLogin from '../../../Hooks/useLogin';
 
 const Fill_gaps = (props) => {
     const [done, setDone] = useState(false)
-    const { q_id, setQuestionFormData, questionFormData, deleteQuestion, key, index, setIsValidQsn,totalMarks,setTotalMarks } = props
+    const { q_id, setQuestionFormData, questionFormData, deleteQuestion, key, index, setIsValidQsn, totalMarks, setTotalMarks } = props
     const { register, handleSubmit } = useForm()
     const onSubmit = (data) => {
         if ((data.correct_answer) && (data.question) && (data.marks)) {
@@ -18,6 +18,7 @@ const Fill_gaps = (props) => {
         }
         else {
             toast.error('fill up the empty fields', {
+                autoClose: 2000,
                 toastId: 'customId',
                 theme: 'colored'
             });

@@ -54,6 +54,16 @@ code {
 }
 
 
+.css-1d3z3hw-MuiOutlinedInput-notchedOutline{
+  border-color: #0e7490 !important;
+}
+.css-i4bv87-MuiSvgIcon-root{
+  color: #0e7490
+}
+
+
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

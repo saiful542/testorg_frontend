@@ -13,19 +13,20 @@ import AuthProvider from './Context/AuthProvider';
 import Exam from './Pages/Exam/Exam';
 import { BrowserRouter, Route, Router, Routes } from 'react-router-dom';
 import Room from './Pages/Room/Room';
+import Timer from './Timer/Timer';
 
 function App() {
   return (
     <div className="App bg-gray-100">
       <AuthProvider>
-
         <BrowserRouter>
-
           <Header />
           <Routes >
-            <Route path="/" element={<Form_test />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/Timer" element={<Timer />} />
             <Route path="/Home" element={<Home />} />
             <Route path="/Room" element={<Room />} />
+            <Route path="/Form_test" element={<Form_test />} />
             <Route path="/Exam" element={<Exam />} />
             <Route path="/Mcq" element={<Mcq />} />
             <Route path="/Login" element={<Login />} />

@@ -30,6 +30,7 @@ const Header = () => {
 
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
+                        <li><Link to={'/Room'} className='text-white'>Room</Link></li>
                         <li><Link to={'/Exam'} className='text-white'>Exam</Link></li>
                         {
                             validUser.userName ? <li><p className='text-white'>{validUser.userName}</p></li> : <li><Link className='text-white' to={'/Login'}>Login</Link></li>

@@ -52,6 +52,7 @@ const Mcq = (props) => {
             }
             else {
                 toast.error('select at-least one option', {
+                    autoClose: 2000,
                     toastId: 'customId',
                     theme: 'colored'
                 });
