@@ -91,7 +91,7 @@ const Exam = () => {
 
     // timer
     const expiryTimestamp = new Date();
-    expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + 300); // 10 minutes timer
+    expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + 3599249); // 10 minutes timer
     // console.log((expiryTimestamp.getSeconds() + 10))
     const {
         seconds,
@@ -102,7 +102,7 @@ const Exam = () => {
     } = useTimer({
         expiryTimestamp, onExpire: () => Swal.fire({ icon: 'success', title: 'Session Expired', text: 'Exam time is over' })
     });
-    const [counter, setCounter] = React.useState((expiryTimestamp.getSeconds() + 300));
+    const [counter, setCounter] = React.useState(350);
 
     return (
         <div className='container m-auto c-mt py-10 min-h-screen'>

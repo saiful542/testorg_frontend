@@ -22,9 +22,15 @@ const Room = () => {
     const [teacherName, setTeacherName] = React.useState('');
     const { validUser } = useAuth()
     const navigate = useNavigate()
+    
+    // if (date && startTime) {
+    //     
+    //     // startTime = getInGlobalFormat(date, startTime)
+    // }
+    // console.log(setStartTime(getInGlobalFormat(date.$d.toDateString(), startTime.$d.toDateString())))
     const test = () => {
         if (date && startTime && endTime && courseName && teacherName) {
-            navigate('/Form_test', { state: { date: date.$d.toDateString(), startTime: startTime, endTime: endTime, courseName: courseName, teacherName: teacherName } });
+            navigate('/Form_test', { state: { date: date, startTime: startTime, endTime: endTime, courseName: courseName, teacherName: teacherName } });
         }
         else {
             Swal.fire({
@@ -33,7 +39,10 @@ const Room = () => {
             })
         }
     }
-    // console.log(startTime)
+    console.log('start time', startTime)
+    console.log('date', date)
+    // console.log('end time', endTime)
+    // console.log('remaining time', endTime - startTime)
     // toDateString() -->'Thu Dec 01 2022'
     // toLocaleDateString() -->'12/1/2022'
     // toLocaleTimeString() -->'2:00:00 AM'
@@ -58,7 +67,6 @@ const Room = () => {
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <Stack spacing={6}>
                             <DatePicker
-                                disableFuture
                                 label="Exam date"
                                 views={['year', 'month', 'day']}
                                 value={date}

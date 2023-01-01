@@ -17,6 +17,13 @@ const Form_test = () => {
     const { state } = useLocation();
     const { date, startTime, endTime, teacherName, courseName } = state;
     // console.log(date, startTime.$d, endTime.$d, teacherName, courseName)
+    const getInGlobalFormat = (date, time) => {
+        return `${date} ${time}`;
+    };
+    const newStartTime = getInGlobalFormat(date, startTime?.$d?.toLocaleTimeString());
+    const newEndTime = getInGlobalFormat(date, endTime?.$d?.toLocaleTimeString());
+    // console.log(newStartTime)
+
 
     const addQuestion = (value) => {
         setQuestionForm((previous) => {
@@ -47,8 +54,8 @@ const Form_test = () => {
         })
         let date = new Date();
         const room = {
-            startTime: startTime.$d,
-            endTime: endTime.$d,
+            startTime: newStartTime,
+            endTime: newEndTime,
             courseName: courseName,
             teacherName: teacherName,
             totalMarks: totalMarks,
@@ -56,18 +63,22 @@ const Form_test = () => {
             question: questionFormData
         }
         console.log(room);
-        axios.post(`https://excited-foal-raincoat.cyclic.app/room/add-room`, room)
-            .then(response => {
-                console.log(response);
-            })
-            .catch(err => {
-                toast.error(err, {
-                    autoClose: 2000,
-                    toastId: 'customId',
-                    position: 'top-right',
-                    theme: 'colored'
+
+        async function sendData(room) {
+            await axios.post(`https://excited-foal-raincoat.cyclic.app/room/add-room`, room)
+                .then(response => {
+                    console.log(response);
                 })
-            })
+                .catch(err => {
+                    toast.error(err, {
+                        autoClose: 2000,
+                        toastId: 'customId',
+                        position: 'top-right',
+                        theme: 'colored'
+                    })
+                })
+        }
+        sendData(room)
 
         localStorage.setItem('question', JSON.stringify(questionFormData))
     }
