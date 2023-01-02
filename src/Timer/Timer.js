@@ -1,11 +1,14 @@
 import React from 'react'
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useTimer } from 'react-timer-hook';
 import Swal from 'sweetalert2';
 
 const Timer = () => {
+    const navigate = useNavigate()
+    const { state } = useLocation();
+    const { time } = state;
     const expiryTimestamp = new Date();
-    expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + 300); // 10 minutes timer
-    // console.log((expiryTimestamp.getSeconds() + 10))
+    expiryTimestamp.setTime(expiryTimestamp.getTime() + time);
     const {
         seconds,
         minutes,
@@ -13,31 +16,35 @@ const Timer = () => {
         days,
         isRunning,
     } = useTimer({
-        expiryTimestamp, onExpire: () => Swal.fire({ icon: 'success', title: 'Session Expired', text: 'Exam time is over' }),
+        expiryTimestamp, onExpire: () => {
+            navigate('/Exam');
+        },
     });
     return (
-        <div className='c-mt m-auto min-h-screen'>
-            <div className="flex justify-center gap-5 text-center auto-cols-max m-auto w-full nb-custom bg-gradient-to-r from-indigo-800 via-cyan-500 to-indigo-800 pb-5">
-                <div className=''>
-                    <span className="countdown font-mono text-5xl text-white">
+        <div className='c-mt m-auto min-h-screen py-10'>
+            <div>
+                <h1 className="text-2xl font-bold pb-20 text-gray-700">Exam will start after</h1>
+            </div>
+            <div className="flex justify-center gap-8 text-center auto-cols-max m-auto w-full pb-5">
+                <div className='nb-custom bg-gradient-to-tr from-indigo-800 via-cyan-500 to-indigo-800 rounded-lg p-5'>
+                    <span className="countdown font-mono text-8xl text-gray-50">
                         <span style={{ "--value": hours }}></span>
                     </span>
-                    <span  className='text-gray-300'>hours</span>
+                    <span className='text-gray-100 pl-2'>hours</span>
                 </div>
-                <div>
-                    <span className="countdown font-mono text-5xl text-white">
+                <div className='nb-custom bg-gradient-to-tr from-indigo-800 via-cyan-500 to-indigo-800 rounded-lg p-5'>
+                    <span className="countdown font-mono text-8xl text-gray-50">
                         <span style={{ "--value": minutes }}></span>
                     </span>
-                    <span  className='text-gray-300'>min</span>
+                    <span className='text-gray-100 pl-2'>min</span>
                 </div>
-                <div>
-                    <span className="countdown font-mono text-5xl text-white">
+                <div className='nb-custom bg-gradient-to-tr from-indigo-800 via-cyan-500 to-indigo-800 rounded-lg p-5'>
+                    <span className="countdown font-mono text-8xl text-gray-50">
                         <span style={{ "--value": seconds }}></span>
                     </span>
-                    <span className='text-gray-300'>sec</span>
+                    <span className='text-gray-100 pl-2'>sec</span>
                 </div>
             </div>
-            {/* <p>{isRunning ? 'Running' : 'Not running'}</p> */}
         </div>
     )
 

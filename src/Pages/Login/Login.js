@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import useAuth from '../../Hooks/useAuth';
 import "./Login.scss"
 const Login = () => {
-    const { validUser, sendData } = useAuth()
+    const { validUser, sendData, token } = useAuth()
     const [isSignIn, setisSignIn] = useState(true);
     const { register, handleSubmit, reset } = useForm();
     const [passwordShown, setPasswordShown] = useState(false);
@@ -14,7 +14,7 @@ const Login = () => {
     const togglePassword = () => {
         setPasswordShown(!passwordShown);
     };
-
+    console.log(validUser.token);
     // signup submit
     const onSubmit = (submitted_data, e) => {
         let user;

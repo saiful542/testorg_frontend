@@ -5,27 +5,28 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
-
+axios.defaults.withCredentials = true
 const useLogin = () => {
     const [validUser, setValidUser] = useState({})
+    const instance = axios.create({
+        withCredentials: true
+    })
     async function sendData(data) {
         if (data) {
-            console.log('data found', data.method);
+            console.log('data found', data);
             if (data.method === 'login') {
-                await axios.post(`https://excited-foal-raincoat.cyclic.app/${data.method}`, data, {
-                    withCredentials: true,
-                    headers: { 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json' },
-                    credentials: 'include'
-                })
+                await instance.post(`https://excited-foal-raincoat.cyclic.app/${data.method}`, data, { withCredentials: true })
                     .then(response => {
                         // console.log(response);
                         setValidUser({
                             userName: response.data.name,
                             userMail: response.data.email,
+                            token: response.data.token,
                         })
                         localStorage.setItem('user', JSON.stringify({
                             userName: response.data.name,
                             userMail: response.data.email,
+                            token: response.data.token,
                         }))
 
                         toast.success(`Hello ${response.data.name}`, {
@@ -35,7 +36,6 @@ const useLogin = () => {
                             theme: 'colored'
                         })
                         cookies.set('jwt', response.data.token, { maxAge: 60 * 60 * 24 * 3 });
-
                     })
                     .catch(err => {
                         toast.error(err.response.data.error, {
@@ -67,9 +67,7 @@ const useLogin = () => {
                             theme: 'colored'
                         })
                     });
-
             }
-
         }
         else
             toast.error('something went wrong!! try again', {
@@ -81,11 +79,21 @@ const useLogin = () => {
         if (localStorage.getItem('user')) {
             setValidUser({
                 userName: JSON.parse(localStorage.getItem('user')).userName,
-                userMail: JSON.parse(localStorage.getItem('user')).userMail
+                userMail: JSON.parse(localStorage.getItem('user')).userMail,
+                token: JSON.parse(localStorage.getItem('user')).token
             })
         }
     }, [])
     async function logout() {
+
+        setValidUser(null)
+        localStorage.clear()
+        toast.warning('logged out', {
+            autoClose: 2000,
+            toastId: 'customId',
+        })
+
+
         await axios.get(`https://excited-foal-raincoat.cyclic.app//logout`)
             .then(response => {
                 // console.log(response);
@@ -99,21 +107,12 @@ const useLogin = () => {
                     autoClose: 2000,
                 })
             });
-        localStorage.clear()
-        toast.warning('logged out', {
-            autoClose: 2000,
-            toastId: 'customId',
-        })
-        setValidUser({})
-        localStorage.clear()
     }
-
-
 
     return {
         sendData,
         validUser,
-        logout
+        logout,
     };
 
 };

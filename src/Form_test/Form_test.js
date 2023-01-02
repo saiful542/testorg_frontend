@@ -16,13 +16,12 @@ const Form_test = () => {
     const [totalMarks, setTotalMarks] = useState(0);
     const { state } = useLocation();
     const { date, startTime, endTime, teacherName, courseName } = state;
-    // console.log(date, startTime.$d, endTime.$d, teacherName, courseName)
     const getInGlobalFormat = (date, time) => {
         return `${date} ${time}`;
     };
-    const newStartTime = getInGlobalFormat(date, startTime?.$d?.toLocaleTimeString());
-    const newEndTime = getInGlobalFormat(date, endTime?.$d?.toLocaleTimeString());
-    // console.log(newStartTime)
+    const newStartTime = getInGlobalFormat(date?.$d?.toDateString(), startTime?.$d?.toLocaleTimeString());
+    const newEndTime = getInGlobalFormat(date?.$d?.toDateString(), endTime?.$d?.toLocaleTimeString());
+    console.log(newStartTime)
 
 
     const addQuestion = (value) => {
@@ -52,7 +51,6 @@ const Form_test = () => {
             icon: 'success',
             confirmButtonText: 'ok'
         })
-        let date = new Date();
         const room = {
             startTime: newStartTime,
             endTime: newEndTime,
@@ -87,7 +85,7 @@ const Form_test = () => {
             <div className='lg:flex m-auto rounded-lg'>
                 <div className='border-2 border-cyan-700 px-5 py-2 bg-white flex-1 rounded-bl-lg'>
                     <p className='text-gray-500 text-xl'>Exam Date</p>
-                    <p className='text-gray-700 text-lg'>{date}</p>
+                    <p className='text-gray-700 text-lg'>{date.$d.toDateString()}</p>
                 </div>
                 <div className='border-2 border-cyan-700 px-5 py-2  bg-white flex-1'>
                     <p className='text-gray-500 text-xl'>Start at</p>

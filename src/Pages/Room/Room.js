@@ -15,19 +15,20 @@ import Swal from 'sweetalert2';
 
 
 const Room = () => {
+    const { validUser } = useAuth()
     const [date, setDate] = React.useState(null);
     const [startTime, setStartTime] = React.useState(null);
     const [endTime, setEndTime] = React.useState(null);
     const [courseName, setCourseName] = React.useState('');
-    const [teacherName, setTeacherName] = React.useState('');
-    const { validUser } = useAuth()
+    const [teacherName, setTeacherName] = React.useState(null);
+    setTimeout(() => {
+        if (validUser) {
+            setTeacherName(`${validUser?.userName}`)
+        }
+
+    }, 5)
     const navigate = useNavigate()
-    
-    // if (date && startTime) {
-    //     
-    //     // startTime = getInGlobalFormat(date, startTime)
-    // }
-    // console.log(setStartTime(getInGlobalFormat(date.$d.toDateString(), startTime.$d.toDateString())))
+
     const test = () => {
         if (date && startTime && endTime && courseName && teacherName) {
             navigate('/Form_test', { state: { date: date, startTime: startTime, endTime: endTime, courseName: courseName, teacherName: teacherName } });
@@ -39,8 +40,8 @@ const Room = () => {
             })
         }
     }
-    console.log('start time', startTime)
-    console.log('date', date)
+    // console.log('start time', startTime)
+    // console.log('date', date)
     // console.log('end time', endTime)
     // console.log('remaining time', endTime - startTime)
     // toDateString() -->'Thu Dec 01 2022'
@@ -48,14 +49,13 @@ const Room = () => {
     // toLocaleTimeString() -->'2:00:00 AM'
     // getTime() -->'2:00:00 AM' -->1672344000757 mseconds
     return (
-
         <div className='container min-h-screen c-mt m-auto pb-20'>
             <div className="flex md:flex-row justify-around gap-10 lg:pt-24 flex-col">
                 <div className="content w-full md:w-1/3 flex
 
                 flex-col gap-10 lg:gap-24">
 
-                    <div className='text-start'><label htmlFor="input" className='text-2xl text-cyan-800 font-serif font-bold'>Teacher</label><input onInput={(e) => setTeacherName(e.target.value)} className='mt-5 h-14 input border-2  border-cyan-700' type="text" defaultValue={validUser?.userName} placeholder='teachers name' /></div>
+                    <div className='text-start'><label htmlFor="input" className='text-2xl text-cyan-800 font-serif font-bold'>Teacher</label><input onInput={(e) => setTeacherName(e.target.value)} className='mt-5 h-14 input border-2  border-cyan-700' type="text" defaultValue={teacherName ? teacherName : "teachers name"} placeholder='teachers name' /></div>
 
                     <div className='text-start'><label htmlFor="input" className='text-2xl text-cyan-800 font-serif font-bold'>Course</label><input onInput={(e) => setCourseName(e.target.value)} className='mt-5 h-14 input border-2 border-cyan-700' type="text" placeholder='course name' /></div>
 
