@@ -4,12 +4,14 @@ import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
+import useAuth from '../Hooks/useAuth';
 import Fill_gaps from '../Pages/Questions/Fill_gaps/Fill_gaps';
 
 import Mcq from '../Pages/Questions/Mcq/Mcq';
 import True_false from '../Pages/Questions/True_false/True_false';
 
 const Form_test = () => {
+    const { validUser } = useAuth()
     const [questionFormData, setQuestionFormData] = useState([])
     const [questionForm, setQuestionForm] = useState([])
     const [isValidQsn, setIsValidQsn] = useState(true)
@@ -40,7 +42,7 @@ const Form_test = () => {
 
         setQuestionForm(filtered_questions)
         questionFormData.splice((q_id - 1), 1)
-
+        setTotalMarks(totalMarks - questionFormData[q_id - 1].marks)
     }
 
     // save data
@@ -52,6 +54,8 @@ const Form_test = () => {
             confirmButtonText: 'ok'
         })
         const room = {
+            roomId: '618240',
+            token: validUser?.token,
             startTime: newStartTime,
             endTime: newEndTime,
             courseName: courseName,

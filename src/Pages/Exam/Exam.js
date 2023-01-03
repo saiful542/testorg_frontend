@@ -16,8 +16,8 @@ const Exam = () => {
     // const { room } = state;
     const room = {
         room_id: '618240',
-        startTime: "mon Jan 02 2023 7:37:00 PM",
-        endTime: "mon Jan 02 2023 7:52:00 PM",
+        startTime: "wed Jan 04 2023 12:5:00 AM",
+        endTime: "wed Jan 04 2023 2:52:00 AM",
         courseName: "dasd",
         teacherName: "saiful542d",
         totalMarks: 14,

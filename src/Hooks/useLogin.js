@@ -13,20 +13,20 @@ const useLogin = () => {
     })
     async function sendData(data) {
         if (data) {
-            console.log('data found', data);
             if (data.method === 'login') {
                 await instance.post(`https://excited-foal-raincoat.cyclic.app/${data.method}`, data, { withCredentials: true })
                     .then(response => {
-                        // console.log(response);
                         setValidUser({
                             userName: response.data.name,
                             userMail: response.data.email,
                             token: response.data.token,
+                            usertype: response.data.usertype
                         })
                         localStorage.setItem('user', JSON.stringify({
                             userName: response.data.name,
                             userMail: response.data.email,
                             token: response.data.token,
+                            usertype: response.data.usertype
                         }))
 
                         toast.success(`Hello ${response.data.name}`, {
@@ -80,7 +80,8 @@ const useLogin = () => {
             setValidUser({
                 userName: JSON.parse(localStorage.getItem('user')).userName,
                 userMail: JSON.parse(localStorage.getItem('user')).userMail,
-                token: JSON.parse(localStorage.getItem('user')).token
+                token: JSON.parse(localStorage.getItem('user')).token,
+                usertype: JSON.parse(localStorage.getItem('user')).usertype,
             })
         }
     }, [])

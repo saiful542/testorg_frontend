@@ -1,12 +1,16 @@
 import React from 'react';
 import './Header.scss'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../../../Hooks/useAuth';
 import Swal from 'sweetalert2';
 
 
 const Header = () => {
     const { validUser, logout } = useAuth()
+    const navigate = useNavigate()
+    const toSignIn = () => {
+        navigate("/Login", { state: { value: true } })
+    }
 
     return (
         <div className='z-50 nb-custom w-full bg-gradient-to-r from-indigo-800 via-cyan-500 to-indigo-800 fixed top-0'>
@@ -18,7 +22,7 @@ const Header = () => {
                     <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                         <li><Link to={'/Exam'} className='text-white'>Exam</Link></li>
                         {
-                            validUser.userName ? <li><p className='text-white'>{validUser.userName}</p></li> : <li><Link className='text-white' to={'/Login'}>Login</Link></li>
+                            validUser.userName ? <li><p className='text-white'>{validUser.userName}</p></li> : <li><div className='text-white' onClick={() => { toSignIn() }}>Login</div></li>
                         }
                     </ul>
                 </div>
@@ -33,7 +37,7 @@ const Header = () => {
                         <li><Link to={'/Room'} className='text-white'>Room</Link></li>
                         <li><Link to={'/Exam'} className='text-white'>Exam</Link></li>
                         {
-                            validUser.userName ? <li><p className='text-white'>{validUser.userName}</p></li> : <li><Link className='text-white' to={'/Login'}>Login</Link></li>
+                            validUser.userName ? <li><p className='text-white'>{validUser.userName}</p></li> : <li><div className='text-white' onClick={() => { toSignIn() }}>Login</div></li>
                         }
                     </ul>
                 </div>
@@ -43,9 +47,9 @@ const Header = () => {
                         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                             {
                                 validUser.userName ? <div className="w-10 rounded-full ">
-                                    <img src="https://placeimg.com/80/80/people" />
+                                    <img src="../files/user.png" />
                                 </div> : <div className="w-10 rounded-full " onClick={() => Swal.fire('Please Login First')}>
-                                    <img src="https://placeimg.com/80/80/people" />
+                                    <img src="../files/user.png" />
                                 </div>
                             }
                         </label>

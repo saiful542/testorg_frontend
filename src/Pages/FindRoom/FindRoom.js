@@ -1,5 +1,7 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 
 const FindRoom = () => {
@@ -62,12 +64,30 @@ const FindRoom = () => {
         ]
     }
     const checkRoom = () => {
+        // async function getRoom() {
+        //     console.log('lolo')
+        //     await axios.get(`https://excited-foal-raincoat.cyclic.app/room/my-room`)
+        //         .then(response => {
+        //             console.log(response);
+        //         })
+        //         .catch(err => {
+        //             toast.error(err.response.data.error, {
+        //                 toastId: 'customId',
+        //                 position: 'top-right',
+        //                 theme: 'colored',
+        //                 autoClose: 2000,
+        //             })
+        //         });
+        // }
+        // getRoom();
+        
+console.log('sdfsaf')
 
         console.log(code, room.room_id)
         if (code == room.room_id) {
             setRoomId(true);
             setPp(true);
-            navigate('/Exam', { state: { room: room,  } });
+            navigate('/Exam', { state: { room: room, } });
         }
         else {
             Swal.fire({

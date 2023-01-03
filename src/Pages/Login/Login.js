@@ -2,31 +2,31 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import useAuth from '../../Hooks/useAuth';
 import "./Login.scss"
 const Login = () => {
+    const { state } = useLocation();
+    const { value } = state
     const { validUser, sendData, token } = useAuth()
-    const [isSignIn, setisSignIn] = useState(true);
+    const [isSignIn, setisSignIn] = useState(value);
     const { register, handleSubmit, reset } = useForm();
     const [passwordShown, setPasswordShown] = useState(false);
     // Password toggle handler
     const togglePassword = () => {
         setPasswordShown(!passwordShown);
     };
-    console.log(validUser.token);
     // signup submit
     const onSubmit = (submitted_data, e) => {
         let user;
-
         if (e.target.name === 'login') {
             if (!submitted_data.loginEmail || !submitted_data.loginPassword) {
-                console.log('please, fill-up');
-                toast.warning('please, fill-up', {
+                toast.error('please, fill-up the information', {
                     autoClose: 2000,
                     toastId: 'customId',
                     position: "bottom-right",
-                    theme: 'dark'
+                    theme: 'colored'
                 });
             }
             else {
@@ -38,17 +38,16 @@ const Login = () => {
                 sendData(user)
                 reset();
             }
-
         }
 
         else if (e.target.name === 'signup') {
             if (!submitted_data.email || !submitted_data.password || !submitted_data.username) {
-                console.log('please, fill-up');
-                toast.warning('please, fill-up', {
+                toast.error('please, fill-up the information', {
                     autoClose: 2000,
                     toastId: 'customId',
                     position: "top-left",
-                    theme: 'dark'
+                    theme: 'colored'
+
                 });
             }
             else {
@@ -145,27 +144,25 @@ const Login = () => {
                         <div className="content">
                             <h3>New here ?</h3>
                             <p>
-                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
-                                ex ratione. Aliquid!
+                                “Just believe in yourself. Even if you don’t, pretend that you do and, at some point, you will.”
                             </p>
-                            <button onClick={() => setisSignIn(false)} className="btnn transparent " id="sign-up-btn">
+                            <button onClick={() => setisSignIn(false)} className="btnn transparent hover:text-gray-800" id="sign-up-btn">
                                 Sign up
                             </button>
                         </div>
-                        <img src="../files/login.svg" className="image" alt="" />
+                        <img src="../files/Secure login-rafiki.svg" className="image" alt="" />
                     </div>
                     <div className="panel right-panel">
                         <div className="content">
                             <h3>One of us ?</h3>
                             <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-                                laboriosam ad deleniti.
+                                “Just believe in yourself. Even if you don’t, pretend that you do and, at some point, you will.”
                             </p>
-                            <button onClick={() => setisSignIn(true)} className="btnn transparent" id="sign-in-btn">
+                            <button onClick={() => setisSignIn(true)} className="btnn transparent hover:text-gray-800" id="sign-in-btn">
                                 Sign in
                             </button>
                         </div>
-                        <img src="../files/signup.svg" className="image" alt="" />
+                        <img src="../files/Sign up-amico.svg" className="image" alt="" />
                     </div>
                 </div>
             </div>
