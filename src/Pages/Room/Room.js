@@ -21,12 +21,12 @@ const Room = () => {
     const [endTime, setEndTime] = React.useState(null);
     const [courseName, setCourseName] = React.useState('');
     const [teacherName, setTeacherName] = React.useState(null);
-    setTimeout(() => {
-        if (validUser) {
-            setTeacherName(`${validUser?.userName}`)
-        }
+    // setTimeout(() => {
+    //     if (validUser) {
+    //         setTeacherName(`${validUser?.userName}`)
+    //     }
 
-    }, 5)
+    // }, 5)
     const navigate = useNavigate()
 
     const test = () => {
@@ -55,7 +55,7 @@ const Room = () => {
 
                 flex-col gap-10 lg:gap-24">
 
-                    <div className='text-start'><label htmlFor="input" className='text-2xl text-cyan-800 font-serif font-bold'>Teacher</label><input onInput={(e) => setTeacherName(e.target.value)} className='mt-5 h-14 input border-2  border-cyan-700' type="text" defaultValue={teacherName ? teacherName : "teachers name"} placeholder='teachers name' /></div>
+                    <div className='text-start'><label htmlFor="input" className='text-2xl text-cyan-800 font-serif font-bold'>Teacher</label><input onInput={(e) => setTeacherName(e.target.value)} className='mt-5 h-14 input border-2  border-cyan-700' type="text" placeholder='teachers name' /></div>
 
                     <div className='text-start'><label htmlFor="input" className='text-2xl text-cyan-800 font-serif font-bold'>Course</label><input onInput={(e) => setCourseName(e.target.value)} className='mt-5 h-14 input border-2 border-cyan-700' type="text" placeholder='course name' /></div>
 

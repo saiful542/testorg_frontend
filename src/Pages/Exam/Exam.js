@@ -16,8 +16,8 @@ const Exam = () => {
     // const { room } = state;
     const room = {
         room_id: '618240',
-        startTime: "wed Jan 04 2023 12:5:00 AM",
-        endTime: "wed Jan 04 2023 2:52:00 AM",
+        startTime: "wed Jan 04 2023 10:25:00 AM",
+        endTime: "wed Jan 04 2023 2:52:00 PM",
         courseName: "dasd",
         teacherName: "saiful542d",
         totalMarks: 14,
@@ -35,10 +35,14 @@ const Exam = () => {
                 "q_id": 1
             },
             {
-                "question": "vbfdb",
-                "marks": "3",
-                "correct_answer": "aa",
-                "question_type": "fill-blanks",
+                "question": "when the Metro Rail mega project was declared?",
+                "correct_answer": "2012",
+                "options": [
+                    "2012",
+                    "2010",
+                    "2016"
+                ],
+                "question_type": "mcq",
                 "q_id": 2
             },
             {
@@ -96,10 +100,15 @@ const Exam = () => {
             "q_id": 1
         },
         {
-            "question": "second one __",
-            "marks": "1",
-            "correct_answer": "yes",
-            "question_type": "fill-blanks",
+            
+            "question": "when the Metro Rail mega project was declared?",
+            "correct_answer": "2012",
+            "options": [
+                "2012",
+                "2010",
+                "2016"
+            ],
+            "question_type": "mcq",
             "q_id": 2
         },
         {

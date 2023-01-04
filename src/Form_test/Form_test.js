@@ -23,7 +23,7 @@ const Form_test = () => {
     };
     const newStartTime = getInGlobalFormat(date?.$d?.toDateString(), startTime?.$d?.toLocaleTimeString());
     const newEndTime = getInGlobalFormat(date?.$d?.toDateString(), endTime?.$d?.toLocaleTimeString());
-    console.log(newStartTime)
+    // console.log(newStartTime)
 
 
     const addQuestion = (value) => {
@@ -36,13 +36,15 @@ const Form_test = () => {
 
     // delete question
     const deleteQuestion = (q_id) => {
+
+        setTotalMarks(totalMarks - parseInt(questionFormData[q_id - 1].marks))
         const filtered_questions = questionForm.filter((question) => {
             return question.q_id !== q_id;
         })
 
         setQuestionForm(filtered_questions)
         questionFormData.splice((q_id - 1), 1)
-        setTotalMarks(totalMarks - questionFormData[q_id - 1].marks)
+        
     }
 
     // save data
@@ -64,7 +66,7 @@ const Form_test = () => {
             createdAt: new Date(),
             question: questionFormData
         }
-        console.log(room);
+        // console.log(room);
 
         async function sendData(room) {
             await axios.post(`https://excited-foal-raincoat.cyclic.app/room/add-room`, room)
@@ -141,8 +143,8 @@ const Form_test = () => {
                         }
                     </div>
                     <div className='px-6 py-3 rounded-lg bg-white shadow-lg flex flex-col justify-between'>
-                        <p className='text-gray-500 text-xl'>Total marks</p>
-                        <p className='text-gray-700 text-lg pb-5'>{totalMarks}</p>
+                        <p className='text-gray-500 text-lg'>Total marks of exam</p>
+                        <p className='text-gray-700 text-2xl pb-5 font-semibold'>{totalMarks}</p>
                     </div>
                 </div>
             </div>

@@ -50,15 +50,22 @@ const Home = () => {
                 </div>
                 <div className="button-group-wrapper flex md:gap-72 pt-20">
                     <div className="button-wrapper pt-10">
-                        <div onClick={() => {toSignUp()}} className="lg:text-xl sm:text-lg btn bg-transparent px-16 text-gray-300 hover:text-gray-100 hover:bg-cyan-800">Sign up</div>
+                        <div onClick={() => { toSignUp() }} className="lg:text-xl sm:text-lg btn bg-transparent px-16 text-gray-300 hover:text-gray-100 hover:bg-cyan-800">Sign up</div>
                     </div>
                     <div className="button-wrapper pt-10">
                         <div onClick={() => { toSignIn() }} className="lg:text-xl sm:text-lg btn bg-transparent px-16 text-gray-300 hover:text-gray-100 hover:bg-cyan-800">Login</div>
                     </div>
                 </div>
                 <div className="paragraph-wrapper pt-20 px-2">
-                    <p class="line-1 anim-typewriter text-2xl text-gray-300 font-semibold">
-                        Test Org is created by lame coders
+                    {/* <p class="line-1 anim-typewriter text-2xl text-gray-300 font-semibold">
+                        TestOrg is an elegant solution to revolutionize the term “online test” in E-
+                        education. Its platform that provides services concerning academic dimensions to
+                        the faculties and students.
+                    </p> */}
+                    <p class=" text-2xl text-gray-300 font-semibold md:w-2/3 m-auto">
+                        TestOrg is an elegant solution to revolutionize the term “online test” in E-
+                        education. Its platform that provides services concerning academic dimensions to
+                        the faculties and students.
                     </p>
                 </div>
             </div>
