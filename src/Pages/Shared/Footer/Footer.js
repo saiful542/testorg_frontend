@@ -6,7 +6,7 @@ const Footer = () => {
 
     return (
         <div>
-            <div className='w-100  bg-gray-100'>
+            <div className='w-100  bg-gray-100 footer-body'>
                 <footer className="new_footer_area bg_color">
                     <div className="new_footer_top pt-0:important">
                         <div className="container content-center m-auto">
@@ -57,8 +57,8 @@ const Footer = () => {
                             <p className="mb-0 mt-4 f_400 align-center">© TestOrg. 2022 All rights reserved.</p>
                         </div>
                     </div>
-                </footer >
-            </div >
+                </footer>
+            </div>
 
         </div>
 

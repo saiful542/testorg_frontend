@@ -25,8 +25,8 @@ const Home = () => {
 
     return (
 
-        <div className="nb-custom w-full bg-gradient-to-r from-indigo-800 via-cyan-500 to-indigo-800 min-h-screen c-mt">
-            <div className="custom-contents flex flex-col items-center justify-center w-full pt-48">
+        <div className="nb-custom w-full bg-gradient-to-r from-indigo-800 via-cyan-500 to-indigo-800 min-h-screen">
+            <div className="custom-contents flex flex-col items-center justify-center w-full pt-60">
                 <div className="heading-wrapper ">
                     <AnimatedText
                         type="chars" // animate words or chars

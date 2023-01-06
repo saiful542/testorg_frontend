@@ -64,24 +64,24 @@ const FindRoom = () => {
         ]
     }
     const checkRoom = () => {
-        // async function getRoom() {
-        //     console.log('lolo')
-        //     await axios.get(`https://excited-foal-raincoat.cyclic.app/room/my-room`)
-        //         .then(response => {
-        //             console.log(response);
-        //         })
-        //         .catch(err => {
-        //             toast.error(err.response.data.error, {
-        //                 toastId: 'customId',
-        //                 position: 'top-right',
-        //                 theme: 'colored',
-        //                 autoClose: 2000,
-        //             })
-        //         });
-        // }
-        // getRoom();
-        
-console.log('sdfsaf')
+        async function getRoom() {
+            console.log('lolo')
+            await axios.get(`https://excited-foal-raincoat.cyclic.app/room/my-room`)
+                .then(response => {
+                    console.log(response);
+                })
+                .catch(err => {
+                    toast.error(err.response.data.error, {
+                        toastId: 'customId',
+                        position: 'top-right',
+                        theme: 'colored',
+                        autoClose: 2000,
+                    })
+                });
+        }
+        getRoom();
+
+        console.log('sdfsaf')
 
         console.log(code, room.room_id)
         if (code == room.room_id) {

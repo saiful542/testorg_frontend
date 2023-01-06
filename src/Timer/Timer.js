@@ -21,30 +21,30 @@ const Timer = () => {
         },
     });
     return (
-        <div className='c-mt m-auto min-h-screen py-20'>
-            <div className='flex container items-center m-auto justify-evenly'>
+        <div className='m-auto min-h-screen py-20'>
+            <div className='flex container items-center m-auto justify-around lg:pt-28 flex-col-reverse lg:flex-row gap-10 lg:gap-0'>
                 <div className='image-wrapper'>
                     <img className='m-auto' src='../files/wait_exam.gif'></img>
                 </div>
-                <div>
+                <div className=''>
                     <div>
                         <h1 className="text-2xl font-bold pb-20 text-gray-700">Exam will start after</h1>
                     </div>
-                    <div className="flex justify-center gap-5 text-center auto-cols-max m-auto w-full pb-5">
-                        <div className='nb-custom bg-gradient-to-tr from-indigo-800 via-cyan-500 to-indigo-800 rounded-lg p-5'>
-                            <span className="countdown font-mono text-8xl text-gray-50">
+                    <div className="flex justify-center gap-5 text-center auto-cols-max w-full pb-5">
+                        <div className='nb-custom bg-gradient-to-tr from-indigo-700 via-cyan-500 to-indigo-700 rounded-lg px-6 py-4'>
+                            <span className="countdown font-mono md:text-8xl text-gray-50 text-4xl">
                                 <span style={{ "--value": hours }}></span>
                             </span>
                             <span className='text-gray-100 pl-2'>hours</span>
                         </div>
-                        <div className='nb-custom bg-gradient-to-tr from-indigo-800 via-cyan-500 to-indigo-800 rounded-lg p-5'>
-                            <span className="countdown font-mono text-8xl text-gray-50">
+                        <div className='nb-custom bg-gradient-to-tr from-indigo-700 via-cyan-500 to-indigo-700 rounded-lg px-6 py-4'>
+                            <span className="countdown font-mono md:text-8xl text-gray-50 text-4xl">
                                 <span style={{ "--value": minutes }}></span>
                             </span>
                             <span className='text-gray-100 pl-2'>min</span>
                         </div>
-                        <div className='nb-custom bg-gradient-to-tr from-indigo-800 via-cyan-500 to-indigo-800 rounded-lg p-5'>
-                            <span className="countdown font-mono text-8xl text-gray-50">
+                        <div className='nb-custom bg-gradient-to-tr from-indigo-700 via-cyan-500 to-indigo-700 rounded-lg px-6 py-4'>
+                            <span className="countdown font-mono md:text-8xl text-gray-50 text-4xl">
                                 <span style={{ "--value": seconds }}></span>
                             </span>
                             <span className='text-gray-100 pl-2'>sec</span>

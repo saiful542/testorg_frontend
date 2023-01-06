@@ -16,8 +16,8 @@ const Exam = () => {
     // const { room } = state;
     const room = {
         room_id: '618240',
-        startTime: "wed Jan 04 2023 10:25:00 AM",
-        endTime: "wed Jan 04 2023 2:52:00 PM",
+        startTime: "fri Jan 06 2023 8:00:00 PM",
+        endTime: "fri Jan 06 2023 9:20:00 PM",
         courseName: "dasd",
         teacherName: "saiful542d",
         totalMarks: 14,
@@ -87,7 +87,24 @@ const Exam = () => {
             })
         }
     }
-    const questions = [
+
+    // randomizing the question and options
+    const getRandom = (array) => {
+        let ranNums = [],
+            length = array.length,
+            index = 0;
+        while (length--) {
+            index = Math.floor(Math.random() * (length + 1));
+            if (array[index]?.question_type === 'mcq') {
+                array[index].options = getRandom(array[index].options)
+                console.log(array[index].options)
+            }
+            ranNums.push(array[index]);
+            array.splice(index, 1);
+        }
+        return ranNums;
+    }
+    const getQuestions = [
         {
             "question": "first one",
             "marks": "2",
@@ -100,7 +117,7 @@ const Exam = () => {
             "q_id": 1
         },
         {
-            
+
             "question": "when the Metro Rail mega project was declared?",
             "correct_answer": "2012",
             "options": [
@@ -153,6 +170,9 @@ const Exam = () => {
             "q_id": 6
         }
     ]
+    const questions = getRandom(getQuestions)
+    // randomizing the question and options
+
     const [answers, setAnswers] = useState([]);
     const [count, setCount] = useState(1)
     const [newQuestion, setNewQuestion] = useState([questions[0]])

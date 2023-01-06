@@ -13,6 +13,8 @@ import True_false from '../Pages/Questions/True_false/True_false';
 const Form_test = () => {
     const { validUser } = useAuth()
     const [questionFormData, setQuestionFormData] = useState([])
+    const [getRoomCode, setGetRoomCode] = useState([])
+
     const [questionForm, setQuestionForm] = useState([])
     const [isValidQsn, setIsValidQsn] = useState(true)
     const [totalMarks, setTotalMarks] = useState(0);
@@ -44,7 +46,7 @@ const Form_test = () => {
 
         setQuestionForm(filtered_questions)
         questionFormData.splice((q_id - 1), 1)
-        
+
     }
 
     // save data
@@ -66,12 +68,13 @@ const Form_test = () => {
             createdAt: new Date(),
             question: questionFormData
         }
-        // console.log(room);
 
         async function sendData(room) {
             await axios.post(`https://excited-foal-raincoat.cyclic.app/room/add-room`, room)
                 .then(response => {
-                    console.log(response);
+                    console.log(response.data.roomCode);
+                    alert(response.data.roomCode)
+                    setGetRoomCode(response.data.roomCode)
                 })
                 .catch(err => {
                     toast.error(err, {
@@ -86,6 +89,7 @@ const Form_test = () => {
 
         localStorage.setItem('question', JSON.stringify(questionFormData))
     }
+    // 
     return (
         <div className='m-auto mb-20 c-mt pb-5 min-h-screen container relative'>
             <div className='lg:flex m-auto rounded-lg'>
