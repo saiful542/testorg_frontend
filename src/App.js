@@ -15,7 +15,8 @@ import { BrowserRouter, Route, Router, Routes } from 'react-router-dom';
 import Room from './Pages/Room/Room';
 import Timer from './Timer/Timer';
 import FindRoom from './Pages/FindRoom/FindRoom';
-import StudentEntry from './Pages/StudentEntry/StudentEntry';
+import Student from './Pages/Student/Student';
+import MyRooms from './Pages/MyRooms/MyRooms';
 
 function App() {
   return (
@@ -25,13 +26,14 @@ function App() {
           <Header />
           <Routes >
             <Route path="/" element={<Home />} />
-            <Route path="/StudentEntry" element={<StudentEntry />} />
-            <Route path="/Timer" element={<Timer />} />
+            <Route path="/Student" element={<Student />} />
+            <Route path="/Student/MyRooms" element={<MyRooms />} />
+            <Route path="/Student/Timer" element={<Timer />} />
             <Route path="/FindRoom" element={<FindRoom />} />
             <Route path="/Home" element={<Home />} />
             <Route path="/Room" element={<Room />} />
             <Route path="/Form_test" element={<Form_test />} />
-            <Route path="/Exam" element={<Exam />} />
+            <Route path="/Student/Exam" element={<Exam />} />
             <Route path="/Mcq" element={<Mcq />} />
             <Route path="/Login" element={<Login />} />
             <Route path="*" element={<Invalid />} />

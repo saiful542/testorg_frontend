@@ -31,6 +31,14 @@ code {
   padding: 0 !important;
 }
 
+.g-text {
+  text-transform: uppercase;
+	background: linear-gradient(to right, #000000 0%, #efe2ff 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+  font-size: 50px;
+}
+
 
 
 
@@ -54,10 +62,11 @@ code {
 }
 
 
-.css-1d3z3hw-MuiOutlinedInput-notchedOutline{
+.css-1d3z3hw-MuiOutlinedInput-notchedOutline {
   border-color: #0e7490 !important;
 }
-.css-i4bv87-MuiSvgIcon-root{
+
+.css-i4bv87-MuiSvgIcon-root {
   color: #0e7490
 }
 
