@@ -52,13 +52,6 @@ const Form_test = () => {
         questionFormData.splice((q_id - 1), 1)
 
     }
-    // 
-    // const editQuestion=(id)=>{
-    //     setDone(false)
-    //     console.log(id)
-    // }
-
-    // save data
     const saveData = () => {
         console.log(questionFormData)
         // let timerInterval

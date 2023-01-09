@@ -68,6 +68,12 @@ const Mcq = (props) => {
         }
 
     };
+    const editQuestion = (q_id) => {
+        setTotalMarks(totalMarks - parseInt(questionFormData[q_id - 1].marks))
+        questionFormData.splice((q_id - 1), 1)
+        setDone(false)
+        // console.log(q_id)
+    }
     return (
         <div className='shadow-lg rounded-md border-t-8 border-t-cyan-600 text-slate-500 bg-white pt-5 animate__animated animate__fadeIn'>
             {/* mcq */}
@@ -80,7 +86,9 @@ const Mcq = (props) => {
                             done && <i tabIndex={0} class="fas fa-duotone fa-sliders cursor-pointer dropdown dropdown-left">
                                 <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-40">
                                     <li className='text-gray-400'><span onClick={() => { deleteQuestion(q_id) }}>delete</span></li>
+                                    <li onClick={() => { editQuestion(q_id) }} className='text-gray-400'><span>edit</span></li>
                                     <li onClick={()=>{addQuestion('mcq')}} className='text-gray-400'><span>copy</span></li>
+                                    
                                 </ul>
                             </i>
                         }

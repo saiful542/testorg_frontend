@@ -41,8 +41,9 @@ const Fill_gaps = (props) => {
                             done && <i tabIndex={0} class="fas fa-duotone fa-sliders cursor-pointer dropdown dropdown-left">
                                 <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-40">
                                     <li className='text-gray-400'><span onClick={() => { deleteQuestion(q_id) }}>delete</span></li>
-                                    <li onClick={() => { addQuestion('fill-blanks') }} className='text-gray-400'><span>copy</span></li>
                                     <li onClick={() => { editQuestion(q_id) }} className='text-gray-400'><span>edit</span></li>
+                                    <li onClick={() => { addQuestion('fill-blanks') }} className='text-gray-400'><span>copy</span></li>
+                                    
                                 </ul>
                             </i>
                         }
