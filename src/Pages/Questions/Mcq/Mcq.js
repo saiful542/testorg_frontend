@@ -10,7 +10,7 @@ const Mcq = (props) => {
     const [correctAnswer, setCorrectAnswer] = useState()
     const [optionArray, setOptionArray] = useState([])
     const [options, setOptions] = useState([{ id: 1 }, { id: 2 }])
-    const { q_id, setQuestionFormData, questionFormData, deleteQuestion, index, setIsValidQsn, totalMarks, setTotalMarks } = props
+    const { q_id, setQuestionFormData, questionFormData, deleteQuestion, index, setIsValidQsn, totalMarks, setTotalMarks,addQuestion } = props
     const { register, handleSubmit } = useForm();
 
     // add option
@@ -69,18 +69,31 @@ const Mcq = (props) => {
 
     };
     return (
-        <div className='shadow-lg rounded-md border-t-8 border-t-cyan-600 text-slate-500 bg-white pt-5'>
+        <div className='shadow-lg rounded-md border-t-8 border-t-cyan-600 text-slate-500 bg-white pt-5 animate__animated animate__fadeIn'>
             {/* mcq */}
             <form onSubmit={handleSubmit(onSubmit)} className="w-full rounded-md question-form px-8" name='mcq'>
-                <h2 className="title font-extrabold pb-5"><span className=' text-slate-500'>m</span>cq</h2>
+                <div className='flex items-center pb-5 w-full justify-between'>
+                    <span></span>
+                    <h2 className="title font-semibold"><span className=' text-slate-400'>M</span>CQ</h2>
+                    <div>
+                        {
+                            done && <i tabIndex={0} class="fas fa-duotone fa-sliders cursor-pointer dropdown dropdown-left">
+                                <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-40">
+                                    <li className='text-gray-400'><span onClick={() => { deleteQuestion(q_id) }}>delete</span></li>
+                                    <li onClick={()=>{addQuestion('mcq')}} className='text-gray-400'><span>copy</span></li>
+                                </ul>
+                            </i>
+                        }
+                    </div>
+                </div>
                 <div className="mcq-question-content container py-1 flex flex-col gap-10 animate__animated animate__slideInRight animate__faster">
                     <div className="question-and-marks flex py-2  gap-5 w-full items-center">
                         <span className=' text-3xl'>{`${index}.`}</span>
                         <div className="field-with-floating-label w-4/5">
-                            <input className='w-full question rounded-md border-cyan-600 p-2 py-3 form-check' type="text" placeholder='Question here' {...register('question')} />
+                            <input className={`w-full question rounded-md border-cyan-600 p-2 py-3 form-check ${done ? `pointer-events-none` : ``}`} type="text" placeholder='Question here' {...register('question')} />
                         </div>
                         <div className="field-with-floating-label w-1/5">
-                            <input className='marks rounded-md border-cyan-600 outline-0 p-2 py-3 w-full' type="number" placeholder='marks here' {...register('marks')} />
+                            <input min="1" className={`marks rounded-md border-cyan-600 outline-0 p-2 py-3 w-full ${done ? `pointer-events-none` : ``}`} type="number" placeholder='marks here' {...register('marks')} />
                         </div>
                     </div>
 
@@ -101,7 +114,7 @@ const Mcq = (props) => {
                     }
                 </div>
                 {
-                    done ? <span onClick={() => { return deleteQuestion(q_id) }} className="cursor-pointer inline-flex text-white btn bg-red-700 hover:bg-red-800 rounded-md py-3 px-6 mx-20 my-10">delete</span> : <input type="submit" className="cursor-pointer inline-block text-white btn bg-gray-500 hover:bg-gray-700 rounded-md py-3 px-6 mx-20 my-10" value="done" />
+                    done ? <span className='py-3 px-6 mx-20 my-10'></span> : <input type="submit" className="cursor-pointer inline-block text-white btn bg-gray-500 hover:bg-gray-700 rounded-md py-3 px-6 mx-20 my-10" value="done" />
                 }
 
             </form>
@@ -126,8 +139,10 @@ const Option = (props) => {
                 {/* <div className="numbering">
                     <p>{`${index}.`}</p>
                 </div> */}
-                <input onInput={(e) => setCorrectAnswer(e.target.value)} type="radio" name="radio" className="radio-field radio border-2 border-cyan-600 radio-accent" value={id} />
-                <input onInput={(e) => inputValue(e.target.value)} className='text-field animate__animated animate__slideInRight animate__faster rounded-md border-cyan-600  border-2' type="text" placeholder={`option ${index}`} />
+                <input onInput={(e) => setCorrectAnswer(e.target.value)} type="radio" name="radio" className={`radio-field radio border-2
+                
+                 border-cyan-600 radio-accent ${done ? `pointer-events-none` : ``}`} value={id} />
+                <input onInput={(e) => inputValue(e.target.value)} className={`text-field animate__animated animate__slideInRight animate__faster rounded-md border-cyan-600  ${done ? `pointer-events-none` : ``}`} type="text" placeholder={`option ${index}`} />
                 {
                     (done || options.length <= 2) ? <div></div> : <span onClick={() => deleteOption(id)} className="delete-option" title='delete'>
                         <i class="fas fa-solid fa-trash-can text-orange-600"></i>

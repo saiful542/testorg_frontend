@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import useAuth from '../Hooks/useAuth';
@@ -12,10 +12,11 @@ import True_false from '../Pages/Questions/True_false/True_false';
 
 const Form_test = () => {
     let b;
+    const navigate = useNavigate()
     const { validUser } = useAuth()
+    // const [done, setDone] = useState(false)
     const [questionFormData, setQuestionFormData] = useState([])
     const [getRoomCode, setGetRoomCode] = useState(null)
-
     const [questionForm, setQuestionForm] = useState([])
     const [isValidQsn, setIsValidQsn] = useState(true)
     const [totalMarks, setTotalMarks] = useState(0);
@@ -30,6 +31,8 @@ const Form_test = () => {
 
 
     const addQuestion = (value) => {
+        // 
+        // setDone(false)
         setQuestionForm((previous) => {
             return [...previous, { q_id: questionForm.length + 1, value: value }]
         })
@@ -49,91 +52,98 @@ const Form_test = () => {
         questionFormData.splice((q_id - 1), 1)
 
     }
+    // 
+    // const editQuestion=(id)=>{
+    //     setDone(false)
+    //     console.log(id)
+    // }
 
     // save data
     const saveData = () => {
-        let timerInterval
-        Swal.fire({
-            title: 'Saving...',
-            text: 'Please wait...',
-            didOpen: () => {
-                Swal.showLoading()
-                timerInterval = setInterval(() => {
-                }, 1000)
-            },
-            willClose: () => {
-                clearInterval(timerInterval)
-            }
-        })
-        const room = {
-            token: validUser?.token,
-            startTime: newStartTime,
-            endTime: newEndTime,
-            courseName: courseName,
-            teacherName: teacherName,
-            totalMarks: totalMarks,
-            createdAt: new Date(),
-            question: questionFormData
-        }
+        console.log(questionFormData)
+        // let timerInterval
+        // Swal.fire({
+        //     title: 'Saving...',
+        //     text: 'Please wait...',
+        //     didOpen: () => {
+        //         Swal.showLoading()
+        //         timerInterval = setInterval(() => {
+        //         }, 1000)
+        //     },
+        //     willClose: () => {
+        //         clearInterval(timerInterval)
+        //     }
+        // })
+        // const room = {
+        //     token: validUser?.token,
+        //     startTime: newStartTime,
+        //     endTime: newEndTime,
+        //     courseName: courseName,
+        //     teacherName: teacherName,
+        //     totalMarks: totalMarks,
+        //     createdAt: new Date(),
+        //     question: questionFormData
+        // }
 
-        async function sendData(room) {
-            await axios.post(`https://excited-foal-raincoat.cyclic.app/room/add-room`, room)
-                .then(response => {
-                    setGetRoomCode(response.data.roomCode)
-                    setTimeout(() => {
-                        Swal.fire({
-                            title: 'Created exam',
-                            text: 'send the exam code to your student',
-                            icon: 'success',
-                            confirmButtonText: 'generate code'
-                        }).then(() => {
-                            Swal.fire({
-                                text: 'Please wait...',
-                                didOpen: () => {
-                                    Swal.showLoading()
-                                    timerInterval = setInterval(() => {
-                                    }, 1000)
-                                },
-                                willClose: () => {
-                                    clearInterval(timerInterval)
-                                }
-                            })
-                            setTimeout(() => {
-                                Swal.fire({
-                                    title: 'Exam code',
-                                    html: `<b>${response.data.roomCode}</b>`,
-                                    icon: 'success',
-                                    confirmButtonText: 'copy',
-                                    didOpen: () => {
-                                        b = Swal.getHtmlContainer().querySelector('b').textContent
-                                    },
-                                }).then(() => {
-                                    navigator.clipboard.writeText(b);
-                                    toast.success('Code copied', {
-                                        autoClose: 2000,
-                                        toastId: 'customId',
-                                        position: 'top-right',
-                                        theme: 'colored'
-                                    })
+        // async function sendData(room) {
+        //     await axios.post(`https://excited-foal-raincoat.cyclic.app/room/add-room`, room)
+        //         .then(response => {
+        //             setGetRoomCode(response.data.roomCode)
+        //             setTimeout(() => {
+        //                 Swal.fire({
+        //                     title: 'Created exam',
+        //                     text: 'send the exam code to your student',
+        //                     icon: 'success',
+        //                     confirmButtonText: 'generate code'
+        //                 }).then(() => {
+        //                     Swal.fire({
+        //                         text: 'Please wait...',
+        //                         didOpen: () => {
+        //                             Swal.showLoading()
+        //                             timerInterval = setInterval(() => {
+        //                             }, 1000)
+        //                         },
+        //                         willClose: () => {
+        //                             clearInterval(timerInterval)
+        //                         }
+        //                     })
+        //                     setTimeout(() => {
+        //                         Swal.fire({
+        //                             title: 'Exam code',
+        //                             html: `<b>${response.data.roomCode}</b>`,
+        //                             icon: 'success',
+        //                             confirmButtonText: 'copy',
+        //                             didOpen: () => {
+        //                                 b = Swal.getHtmlContainer().querySelector('b').textContent
+        //                             },
+        //                         }).then(() => {
+        //                             navigator.clipboard.writeText(b);
+        //                             toast.success('Code copied', {
+        //                                 autoClose: 2000,
+        //                                 toastId: 'customId',
+        //                                 position: 'top-right',
+        //                                 theme: 'colored'
+        //                             })
+        //                             navigate('/Home')
 
-                                })
-                            }, 2000)
-                        })
+        //                         })
+        //                     }, 2000)
+        //                 })
 
-                    }, 1000)
-                })
-                .catch(err => {
-                    toast.error(err, {
-                        autoClose: 2000,
-                        toastId: 'customId',
-                        position: 'top-right',
-                        theme: 'colored'
-                    })
-                })
-        }
-        sendData(room)
+        //             }, 1000)
+        //         })
+        //         .catch(err => {
+        //             toast.error(err, {
+        //                 autoClose: 2000,
+        //                 toastId: 'customId',
+        //                 position: 'top-right',
+        //                 theme: 'colored'
+        //             })
+        //         })
+        // }
+        // sendData(room)
 
-        localStorage.setItem('question', JSON.stringify(questionFormData))
+        // localStorage.setItem('question', JSON.stringify(questionFormData))
     }
 
     Swal.close()
@@ -167,13 +177,13 @@ const Form_test = () => {
                     {
                         questionForm.map((question, index) => {
                             if (question.value === 'mcq') {
-                                return <Mcq className='border-2' index={index + 1} questionFormData={questionFormData} setQuestionFormData={setQuestionFormData} q_id={question.q_id} key={question.q_id} deleteQuestion={deleteQuestion} setIsValidQsn={setIsValidQsn} totalMarks={totalMarks} setTotalMarks={setTotalMarks}></Mcq>
+                                return <Mcq className='border-2' index={index + 1} questionFormData={questionFormData} setQuestionFormData={setQuestionFormData} q_id={question.q_id} key={question.q_id} deleteQuestion={deleteQuestion} setIsValidQsn={setIsValidQsn} totalMarks={totalMarks} setTotalMarks={setTotalMarks} addQuestion={addQuestion} ></Mcq>
                             }
                             else if (question.value === 'true-false') {
-                                return <True_false index={index + 1} questionFormData={questionFormData} setQuestionFormData={setQuestionFormData} q_id={question.q_id} key={question.q_id} deleteQuestion={deleteQuestion} setIsValidQsn={setIsValidQsn} totalMarks={totalMarks} setTotalMarks={setTotalMarks}></True_false>
+                                return <True_false index={index + 1} questionFormData={questionFormData} setQuestionFormData={setQuestionFormData} q_id={question.q_id} key={question.q_id} deleteQuestion={deleteQuestion} setIsValidQsn={setIsValidQsn} totalMarks={totalMarks} setTotalMarks={setTotalMarks} addQuestion={addQuestion}></True_false>
                             }
                             else if (question.value === 'fill-blanks') {
-                                return <Fill_gaps index={index + 1} questionFormData={questionFormData} setQuestionFormData={setQuestionFormData} q_id={question.q_id} key={question.q_id} deleteQuestion={deleteQuestion} setIsValidQsn={setIsValidQsn} totalMarks={totalMarks} setTotalMarks={setTotalMarks}></Fill_gaps>
+                                return <Fill_gaps index={index + 1} questionFormData={questionFormData} setQuestionFormData={setQuestionFormData} q_id={question.q_id} key={question.q_id} deleteQuestion={deleteQuestion} setIsValidQsn={setIsValidQsn} totalMarks={totalMarks} setTotalMarks={setTotalMarks} addQuestion={addQuestion}  ></Fill_gaps>
                             }
                         })
                     }

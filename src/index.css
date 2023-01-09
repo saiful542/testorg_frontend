@@ -88,10 +88,17 @@ code {
 
 .css-1d3z3hw-MuiOutlinedInput-notchedOutline {
   border-color: #0e7490 !important;
+  border-width: 2px !important;
 }
 
 .css-i4bv87-MuiSvgIcon-root {
   color: #0e7490
+}
+
+
+.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root.Mui-focused{
+  color: #0e7490 !important;
+
 }
 
 

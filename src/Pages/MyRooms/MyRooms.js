@@ -34,7 +34,7 @@ const MyRooms = () => {
                 {
                     rooms ? <div className='m-auto text-center' >
                         <h1 className='text-start font-bold text-5xl pb-20 animate__animated animate__slideInRight'>My rooms <span className='text-lg text-stone-500'> ( {rooms.length} {(rooms.length < 2) ? 'exam' : 'exams'} )</span></h1>
-                        <div className='flex flex-wrap gap-y-10 justify-between'>
+                        <div className='flex flex-wrap gap-y-10  gap-x-20'>
                             {
                                 rooms.map(room => {
                                     return (

@@ -20,7 +20,7 @@ const Room = () => {
     const [startTime, setStartTime] = React.useState(null);
     const [endTime, setEndTime] = React.useState(null);
     const [courseName, setCourseName] = React.useState('');
-    const [teacherName, setTeacherName] = React.useState(null);
+    const [teacherName, setTeacherName] = React.useState(validUser.userName);
     // setTimeout(() => {
     //     if (validUser) {
     //         setTeacherName(`${validUser?.userName}`)
@@ -30,8 +30,8 @@ const Room = () => {
     const navigate = useNavigate()
 
     const test = () => {
-        if (date && startTime && endTime && courseName && teacherName) {
-            navigate('/Form_test', { state: { date: date, startTime: startTime, endTime: endTime, courseName: courseName, teacherName: teacherName } });
+        if (date && startTime && endTime && courseName && validUser.userName) {
+            navigate('/Form_test', { state: { date: date, startTime: startTime, endTime: endTime, courseName: courseName, teacherName: validUser.userName } });
         }
         else {
             Swal.fire({
@@ -50,14 +50,14 @@ const Room = () => {
     // getTime() -->'2:00:00 AM' -->1672344000757 mseconds
     return (
         <div className='container min-h-screen c-mt m-auto pb-20'>
-            <div className="flex md:flex-row justify-around gap-10 lg:pt-24 flex-col">
+            <div className="flex md:flex-row justify-around gap-10 md:pt-24 flex-col">
                 <div className="content w-full md:w-1/3 flex
 
                 flex-col gap-10 lg:gap-24">
 
-                    <div className='text-start'><label htmlFor="input" className='text-2xl text-cyan-800 font-serif font-bold'>Teacher</label><input onInput={(e) => setTeacherName(e.target.value)} className='mt-5 h-14 input border-2  border-cyan-700' type="text" placeholder='teachers name' /></div>
+                    <div className='text-start'><label htmlFor="input" className='text-2xl text-cyan-800 font-serif font-bold'>Teacher</label><input defaultValue={validUser.userName} onInput={(e) => setTeacherName(e.target.value)} className='mt-5 h-14 input border-2  border-cyan-700 animate__animated animate__slideInLeft' type="text" placeholder='teachers name' /></div>
 
-                    <div className='text-start'><label htmlFor="input" className='text-2xl text-cyan-800 font-serif font-bold'>Course</label><input onInput={(e) => setCourseName(e.target.value)} className='mt-5 h-14 input border-2 border-cyan-700' type="text" placeholder='course name' /></div>
+                    <div className='text-start'><label htmlFor="input" className='text-2xl text-cyan-800 font-serif font-bold'>Course</label><input onInput={(e) => setCourseName(e.target.value)}   className='mt-5 h-14 input border-2 border-cyan-700 animate__animated animate__slideInLeft' type="text" placeholder='course name' /></div>
 
                 </div>
                 <div className='lg:w-1/3'>
@@ -74,6 +74,7 @@ const Room = () => {
                                     setDate(newValue);
                                 }}
                                 renderInput={(params) => <TextField {...params} />}
+                                className='animate__animated animate__slideInRight'
                             />
                             <TimePicker
                                 label="Start Time"
@@ -82,23 +83,24 @@ const Room = () => {
                                     setStartTime(newValue);
                                 }}
                                 renderInput={(params) => <TextField {...params} />}
+                                className='animate__animated animate__slideInRight'
                             />
                             <TimePicker
-
                                 label="End Time"
                                 value={endTime}
                                 onChange={(newValue) => {
                                     setEndTime(newValue);
                                 }}
                                 renderInput={(params) => <TextField {...params} />}
+                                className='animate__animated animate__slideInRight'
                             />
 
                         </Stack>
                     </LocalizationProvider>
                 </div>
             </div>
-            <div className='button-wrapper pt-40'>
-                <button onClick={() => test()} className='nb-custom bg-gradient-to-r from-indigo-800 to-cyan-500 btn  text-white px-16 hover:bg-indigo-700'>Create Question &nbsp;&nbsp;&rarr;</button>
+            <div className='button-wrapper pt-40 animate__animated animate__fadeInUp'>
+                <button onClick={() => test()} className='button-custom bg-gradient-to-tr from-indigo-800 to-cyan-500 btn  text-white px-16 hover:bg-indigo-700'>Create Question &nbsp;&nbsp;&rarr;</button>
             </div>
         </div>
     );
