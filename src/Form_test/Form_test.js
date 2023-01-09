@@ -11,9 +11,10 @@ import Mcq from '../Pages/Questions/Mcq/Mcq';
 import True_false from '../Pages/Questions/True_false/True_false';
 
 const Form_test = () => {
+    let b;
     const { validUser } = useAuth()
     const [questionFormData, setQuestionFormData] = useState([])
-    const [getRoomCode, setGetRoomCode] = useState([])
+    const [getRoomCode, setGetRoomCode] = useState(null)
 
     const [questionForm, setQuestionForm] = useState([])
     const [isValidQsn, setIsValidQsn] = useState(true)
@@ -51,14 +52,20 @@ const Form_test = () => {
 
     // save data
     const saveData = () => {
+        let timerInterval
         Swal.fire({
-            title: 'Created exam',
-            text: 'send the exam link to your student',
-            icon: 'success',
-            confirmButtonText: 'ok'
+            title: 'Saving...',
+            text: 'Please wait...',
+            didOpen: () => {
+                Swal.showLoading()
+                timerInterval = setInterval(() => {
+                }, 1000)
+            },
+            willClose: () => {
+                clearInterval(timerInterval)
+            }
         })
         const room = {
-            roomId: '618240',
             token: validUser?.token,
             startTime: newStartTime,
             endTime: newEndTime,
@@ -72,9 +79,48 @@ const Form_test = () => {
         async function sendData(room) {
             await axios.post(`https://excited-foal-raincoat.cyclic.app/room/add-room`, room)
                 .then(response => {
-                    console.log(response.data.roomCode);
-                    alert(response.data.roomCode)
                     setGetRoomCode(response.data.roomCode)
+                    setTimeout(() => {
+                        Swal.fire({
+                            title: 'Created exam',
+                            text: 'send the exam code to your student',
+                            icon: 'success',
+                            confirmButtonText: 'generate code'
+                        }).then(() => {
+                            Swal.fire({
+                                text: 'Please wait...',
+                                didOpen: () => {
+                                    Swal.showLoading()
+                                    timerInterval = setInterval(() => {
+                                    }, 1000)
+                                },
+                                willClose: () => {
+                                    clearInterval(timerInterval)
+                                }
+                            })
+                            setTimeout(() => {
+                                Swal.fire({
+                                    title: 'Exam code',
+                                    html: `<b>${response.data.roomCode}</b>`,
+                                    icon: 'success',
+                                    confirmButtonText: 'copy',
+                                    didOpen: () => {
+                                        b = Swal.getHtmlContainer().querySelector('b').textContent
+                                    },
+                                }).then(() => {
+                                    navigator.clipboard.writeText(b);
+                                    toast.success('Code copied', {
+                                        autoClose: 2000,
+                                        toastId: 'customId',
+                                        position: 'top-right',
+                                        theme: 'colored'
+                                    })
+
+                                })
+                            }, 2000)
+                        })
+
+                    }, 1000)
                 })
                 .catch(err => {
                     toast.error(err, {
@@ -89,6 +135,8 @@ const Form_test = () => {
 
         localStorage.setItem('question', JSON.stringify(questionFormData))
     }
+
+    Swal.close()
     // 
     return (
         <div className='m-auto mb-20 c-mt pb-5 min-h-screen container relative'>
@@ -139,8 +187,8 @@ const Form_test = () => {
 
                         </div>
                         {
-                            questionForm.length >= 5 ? <button title='save' className='m-2 hover:bg-green-600 button-custom bg-gradient-to-tr from-green-800 via-green-600 to-green-800 text-white font-bold py-2 px-4 rounded text-xl nb-custom ' onClick={() => saveData()}>save question&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-duotone fa-floppy-disk" /></button> : <button title='you have to make at least 5 questions' className='m-2 hover:bg-green-600 button-custom bg-gradient-to-tr from-green-800 via-green-600 to-green-800 text-white font-bold py-2 px-4 rounded text-xl nb-custom ' onClick={() => Swal.fire({
-                                title: 'you have to make at least 5 questions',
+                            questionForm.length >= 3 ? <button title='save' className='m-2 hover:bg-green-600 button-custom bg-gradient-to-tr from-green-800 via-green-600 to-green-800 text-white font-bold py-2 px-4 rounded text-xl nb-custom ' onClick={() => saveData()}>save question&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-duotone fa-floppy-disk" /></button> : <button title='you have to make at least 5 questions' className='m-2 hover:bg-green-600 button-custom bg-gradient-to-tr from-green-800 via-green-600 to-green-800 text-white font-bold py-2 px-4 rounded text-xl nb-custom ' onClick={() => Swal.fire({
+                                title: 'you have to make at least 3 questions',
                                 icon: 'warning',
                                 confirmButtonText: 'ok'
                             })}>save question&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-duotone fa-floppy-disk" /></button>

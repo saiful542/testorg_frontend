@@ -30,13 +30,37 @@ code {
 .p-0 {
   padding: 0 !important;
 }
+.border-2{
+  border-width: 2px !important;
+}
+.swal2-actions{
+  width: 100% !important;
+  justify-content: space-around !important;
+
+}
+.swal2-styled.swal2-confirm{
+  background-color: #0c8aaa !important;
+}
+.swal2-title{
+  background-color: #c7dcff;
+  padding: 10px !important;
+  margin: 20px 0 !important;
+}
+.swal2-styled{
+  padding: 10px 50px !important;
+  margin-top: 30px !important;
+}
 
 .g-text {
   text-transform: uppercase;
-	background: linear-gradient(to right, #000000 0%, #efe2ff 100%);
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
+  background: linear-gradient(to right, #000000 0%, #efe2ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-size: 50px;
+}
+
+.swal2-show {
+  animation: swal2-show .5s !important;
 }
 
 

@@ -8,86 +8,76 @@ import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 const Exam = () => {
     const navigate = useNavigate()
-    const [roomId, setRoomId] = useState(true);
-    const [code, getCode] = useState();
     const [expired, setExpired] = useState(true);
-    const [pp, setPp] = useState(true);
-    // const { state } = useLocation();
-    // const { room } = state;
-    const room = {
-        room_id: '618240',
-        startTime: "fri Jan 06 2023 8:00:00 PM",
-        endTime: "fri Jan 06 2023 9:20:00 PM",
-        courseName: "dasd",
-        teacherName: "saiful542d",
-        totalMarks: 14,
-        createdAt: "2023-01-01T07:14:59.885Z",
-        question: [
-            {
-                "question": "how are you?",
-                "marks": "3",
-                "correct_answer": "true",
-                "options": [
-                    "true",
-                    "false"
-                ],
-                "question_type": "true-false",
-                "q_id": 1
-            },
-            {
-                "question": "when the Metro Rail mega project was declared?",
-                "correct_answer": "2012",
-                "options": [
-                    "2012",
-                    "2010",
-                    "2016"
-                ],
-                "question_type": "mcq",
-                "q_id": 2
-            },
-            {
-                "question": "how are you?",
-                "marks": "3",
-                "correct_answer": "aa",
-                "question_type": "fill-blanks",
-                "q_id": 3
-            },
-            {
-                "question": "ads",
-                "marks": "2",
-                "correct_answer": "a",
-                "question_type": "fill-blanks",
-                "q_id": 4
-            },
-            {
-                "question": "vbfdb",
-                "marks": "3",
-                "correct_answer": "true",
-                "options": [
-                    "true",
-                    "false"
-                ],
-                "question_type": "true-false",
-                "q_id": 5
-            }
-        ]
-    }
-    const checkRoom = () => {
-        console.log(code, room.room_id)
-        if (code == room.room_id) {
-            setRoomId(true);
-            setPp(true);
-        }
-        else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Room ID is incorrect',
-                text: 'Please enter correct room ID',
-                confirmButtonText: 'Try again',
-            })
-        }
-    }
+    const [firstime, setFirstime] = useState(true);
+    const { state } = useLocation();
+    const { room } = state;
+    // const room = {
 
+    //     room_id: '618240',
+    //     startTime: "fri Jan 06 2023 8:00:00 PM",
+    //     endTime: "fri Jan 06 2023 9:20:00 PM",
+    //     courseName: "dasd",
+    //     teacherName: "saiful542d",
+    //     totalMarks: 14,
+    //     createdAt: "2023-01-01T07:14:59.885Z",
+    //     question: [
+    //         {
+    //             "question": "how are you?",
+    //             "marks": "3",
+    //             "correct_answer": "true",
+    //             "options": [
+    //                 "true",
+    //                 "false"
+    //             ],
+    //             "question_type": "true-false",
+    //             "q_id": 1
+    //         },
+    //         {
+    //             "question": "when the Metro Rail mega project was declared?",
+    //             "correct_answer": "2012",
+    //             "options": [
+    //                 "2012",
+    //                 "2010",
+    //                 "2016"
+    //             ],
+    //             "question_type": "mcq",
+    //             "q_id": 2
+    //         },
+    //         {
+    //             "question": "how are you?",
+    //             "marks": "3",
+    //             "correct_answer": "aa",
+    //             "question_type": "fill-blanks",
+    //             "q_id": 3
+    //         },
+    //         {
+    //             "question": "ads",
+    //             "marks": "2",
+    //             "correct_answer": "a",
+    //             "question_type": "fill-blanks",
+    //             "q_id": 4
+    //         },
+    //         {
+    //             "question": "vbfdb",
+    //             "marks": "3",
+    //             "correct_answer": "true",
+    //             "options": [
+    //                 "true",
+    //                 "false"
+    //             ],
+    //             "question_type": "true-false",
+    //             "q_id": 5
+    //         }
+    //     ]
+    // }
+
+
+
+
+
+
+    // randomizing the question and options
     // randomizing the question and options
     const getRandom = (array) => {
         let ranNums = [],
@@ -97,7 +87,6 @@ const Exam = () => {
             index = Math.floor(Math.random() * (length + 1));
             if (array[index]?.question_type === 'mcq') {
                 array[index].options = getRandom(array[index].options)
-                console.log(array[index].options)
             }
             ranNums.push(array[index]);
             array.splice(index, 1);
@@ -172,12 +161,10 @@ const Exam = () => {
     ]
     const questions = getRandom(getQuestions)
     // randomizing the question and options
-
     const [answers, setAnswers] = useState([]);
     const [count, setCount] = useState(1)
     const [newQuestion, setNewQuestion] = useState([questions[0]])
     const [input, setInput] = useState(false)
-    // const [totalMarks, setTotalMarks] = useState(parseInt(newQuestion[0].marks));
 
     const changeQuestion = () => {
         setInput(false)
@@ -200,12 +187,10 @@ const Exam = () => {
                 })
             })
         }
-        // setTotalMarks(totalMarks + parseInt(newQuestion[0].marks))
-        // console.log(totalMarks)
     }
     const expiryTimestamp = new Date();
     const remainingTime = (time) => {
-        console.log(time)
+        // console.log('from exam', time)
         expiryTimestamp.setTime(expiryTimestamp.getTime() + time);
     }
     const {
@@ -233,19 +218,8 @@ const Exam = () => {
     let startTime = new Date(`${room.startTime}`).getTime();
     let endTime = new Date(`${room.endTime}`).getTime();
     let currentTime = new Date().getTime();
-    if (pp) {
-        if (startTime > currentTime) {
-            Swal.fire({
-                width: '40vw',
-                icon: 'alert',
-                title: `Exam has not been started yet!`,
-                text: 'Exam will start at ' + new Date(`${room.startTime}`).toLocaleTimeString(),
-                confirmButtonText: "Wait...",
-            }).then(() => {
-                navigate('/Timer', { state: { time: (startTime - currentTime) } });
-            })
-        }
-        else if (currentTime >= startTime && currentTime < endTime) {
+    if (firstime) {
+        if (currentTime >= startTime && currentTime < endTime) {
             remainingTime(endTime - currentTime)
             Swal.fire({
                 width: '50vw',
@@ -256,16 +230,7 @@ const Exam = () => {
             })
             setExpired(false);
         }
-        else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Exam has been ended!',
-                confirmButtonText: "Go back to home",
-            }).then(() => {
-                navigate('/Home');
-            })
-        }
-        setPp(false)
+        setFirstime(false)
     }
     return (
         <div className='container m-auto c-mt py-10 min-h-screen'>

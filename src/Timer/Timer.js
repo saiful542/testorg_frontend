@@ -6,9 +6,15 @@ import Swal from 'sweetalert2';
 const Timer = () => {
     const navigate = useNavigate()
     const { state } = useLocation();
-    const { time } = state;
+    const { room } = state;
+    // let startTime = new Date(`${room.startTime}`).getTime();
+    let endTime = new Date(`${room.endTime}`).getTime();
+    let currentTime = new Date().getTime();
     const expiryTimestamp = new Date();
-    expiryTimestamp.setTime(expiryTimestamp.getTime() + time);
+    const remainingTime = (time) => {
+        console.log(time)
+        expiryTimestamp.setTime(expiryTimestamp.getTime() + time);
+    }
     const {
         seconds,
         minutes,
@@ -17,9 +23,10 @@ const Timer = () => {
         isRunning,
     } = useTimer({
         expiryTimestamp, onExpire: () => {
-            navigate('/Exam');
+            navigate('/Student/Exam', { state: { room: room } });
         },
     });
+    remainingTime(endTime - currentTime)
     return (
         <div className='m-auto min-h-screen py-20'>
             <div className='flex container items-center m-auto justify-around lg:pt-28 flex-col-reverse lg:flex-row gap-10 lg:gap-0'>

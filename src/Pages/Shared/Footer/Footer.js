@@ -52,9 +52,9 @@ const Footer = () => {
                             <div className="footer_bg_two"></div>
                         </div>
                     </div>
-                    <div className="footer_bottom">
+                    <div className="footer_bottom bg-indigo-100">
                         <div className="container m-auto">
-                            <p className="mb-0 mt-4 f_400 align-center">© TestOrg. 2022 All rights reserved.</p>
+                            <p className="mb-0 mt-4 f_400 align-center text-lg text-stone-700 font-semibold">© TestOrg. 2023 All rights reserved.</p>
                         </div>
                     </div>
                 </footer>
