@@ -30,23 +30,28 @@ code {
 .p-0 {
   padding: 0 !important;
 }
-.border-2{
+
+.border-2 {
   border-width: 2px !important;
 }
-.swal2-actions{
+
+.swal2-actions {
   width: 100% !important;
   justify-content: space-around !important;
 
 }
-.swal2-styled.swal2-confirm{
+
+.swal2-styled.swal2-confirm {
   background-color: #0c8aaa !important;
 }
-.swal2-title{
+
+.swal2-title {
   background-color: #c7dcff;
   padding: 10px !important;
   margin: 20px 0 !important;
 }
-.swal2-styled{
+
+.swal2-styled {
   padding: 10px 50px !important;
   margin-top: 30px !important;
 }
@@ -63,7 +68,9 @@ code {
   animation: swal2-show .5s !important;
 }
 
-
+.t-lowercase {
+  text-transform: lowercase !important ;
+}
 
 
 .button-custom {
@@ -96,7 +103,7 @@ code {
 }
 
 
-.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root.Mui-focused{
+.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root.Mui-focused {
   color: #0e7490 !important;
 
 }

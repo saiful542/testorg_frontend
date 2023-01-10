@@ -10,7 +10,7 @@ const Mcq = (props) => {
     const [correctAnswer, setCorrectAnswer] = useState()
     const [optionArray, setOptionArray] = useState([])
     const [options, setOptions] = useState([{ id: 1 }, { id: 2 }])
-    const { q_id, setQuestionFormData, questionFormData, deleteQuestion, index, setIsValidQsn, totalMarks, setTotalMarks,addQuestion } = props
+    const { q_id, setQuestionFormData, questionFormData, deleteQuestion, index, setIsValidQsn, totalMarks, setTotalMarks, addQuestion } = props
     const { register, handleSubmit } = useForm();
 
     // add option
@@ -69,8 +69,11 @@ const Mcq = (props) => {
 
     };
     const editQuestion = (q_id) => {
-        setTotalMarks(totalMarks - parseInt(questionFormData[q_id - 1].marks))
-        questionFormData.splice((q_id - 1), 1)
+        const index = questionFormData.filter(question => {
+            return question.q_id == q_id
+        })
+        setTotalMarks(totalMarks - parseInt(questionFormData[questionFormData.indexOf(index[0])].marks))
+        questionFormData.splice(questionFormData.indexOf(index[0]), 1)
         setDone(false)
         // console.log(q_id)
     }
@@ -85,10 +88,18 @@ const Mcq = (props) => {
                         {
                             done && <i tabIndex={0} class="fas fa-duotone fa-sliders cursor-pointer dropdown dropdown-left">
                                 <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-40">
-                                    <li className='text-gray-400'><span onClick={() => { deleteQuestion(q_id) }}>delete</span></li>
-                                    <li onClick={() => { editQuestion(q_id) }} className='text-gray-400'><span>edit</span></li>
-                                    <li onClick={()=>{addQuestion('mcq')}} className='text-gray-400'><span>copy</span></li>
-                                    
+                                    <li onClick={() => { deleteQuestion(q_id) }} className='text-gray-400 t-lowercase'>
+                                        <span className='flex items-center justify-between'>
+                                            <span className='text-sm tracking-[2px]'>delete</span><span><i class="fas fa-solid fa-trash-can text-cyan-500"></i></span>
+                                        </span>
+                                    </li>
+                                    <li onClick={() => { editQuestion(q_id) }} className='text-gray-400'><span className='flex items-center justify-between'><span className='text-sm tracking-[2px]'>edit</span><span><i class="fas fa-duotone fa-pen-to-square text-cyan-500"></i></span></span></li>
+                                    <li onClick={() => { addQuestion('mcq') }} className='text-gray-400'>
+                                        <span className='flex items-center justify-between'>
+                                            <span className='text-sm tracking-[2px]'>copy</span>
+                                            <span><i class="fa-duotone fa-copy text-cyan-500"></i></span>
+                                        </span>
+                                    </li>
                                 </ul>
                             </i>
                         }
