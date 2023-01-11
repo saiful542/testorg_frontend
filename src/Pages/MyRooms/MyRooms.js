@@ -9,10 +9,9 @@ const MyRooms = () => {
     const { counter, setCounter } = useState()
     const { validUser } = useAuth()
     const [rooms, setRooms] = useState(null)
-    const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2E0NTg1MzFhMDM4YjgwM2I0M2RmYmYiLCJpYXQiOjE2NzMwNzQwOTMsImV4cCI6MTY3MzMzMzI5M30.h4ntnrBzoWUCNYZ_oGYI98Ap8DLFEKh2LCII8mVsMQI`
     useEffect(() => {
         const fetchRooms = async () => {
-            await axios.post(`https://excited-foal-raincoat.cyclic.app/room/my-room`, { token: token })
+            await axios.post(`https://excited-foal-raincoat.cyclic.app/room/my-room`, { token: validUser?.token })
                 .then(response => {
                     setRooms(response.data[0].myRooms)
                 })

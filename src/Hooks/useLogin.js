@@ -9,6 +9,7 @@ const cookies = new Cookies();
 axios.defaults.withCredentials = true
 const useLogin = () => {
     const [validUser, setValidUser] = useState({})
+    const [resend, setResend] = useState(false)
     const instance = axios.create({
         withCredentials: true
     })
@@ -58,6 +59,7 @@ const useLogin = () => {
                             position: 'top-left',
                             theme: 'colored'
                         })
+                        setResend(true)
 
                     })
                     .catch(err => {
@@ -115,6 +117,8 @@ const useLogin = () => {
         sendData,
         validUser,
         logout,
+        resend,
+        setResend
     };
 
 };

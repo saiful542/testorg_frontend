@@ -6,13 +6,14 @@ import { toast } from 'react-toastify';
 import './Mcq.css'
 
 const Mcq = (props) => {
+    const [idd, setIdd] = useState()
     const [done, setDone] = useState(false)
     const [correctAnswer, setCorrectAnswer] = useState()
     const [optionArray, setOptionArray] = useState([])
     const [options, setOptions] = useState([{ id: 1 }, { id: 2 }])
     const { q_id, setQuestionFormData, questionFormData, deleteQuestion, index, setIsValidQsn, totalMarks, setTotalMarks, addQuestion } = props
     const { register, handleSubmit } = useForm();
-
+    // setTimeout(() => { setIdd(q_id) }, 100)
     // add option
     const addOption = () => {
         setOptions((previous) => {
@@ -44,6 +45,7 @@ const Mcq = (props) => {
                 data.options = optionArray;
                 data.correct_answer = optionArray[correctAnswer - 1];
                 data.question_type = 'mcq'
+                // console.log(q_id)
                 data.q_id = q_id;
                 setQuestionFormData([...questionFormData, data])
                 setDone(true)
@@ -75,7 +77,7 @@ const Mcq = (props) => {
         setTotalMarks(totalMarks - parseInt(questionFormData[questionFormData.indexOf(index[0])].marks))
         questionFormData.splice(questionFormData.indexOf(index[0]), 1)
         setDone(false)
-        // console.log(q_id)
+
     }
     return (
         <div className='shadow-lg rounded-md border-t-8 border-t-cyan-600 text-slate-500 bg-white pt-5 animate__animated animate__fadeIn'>

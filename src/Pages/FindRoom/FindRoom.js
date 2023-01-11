@@ -12,7 +12,7 @@ const FindRoom = () => {
         setIsLoading(false)
     }, 1000)
     const { validUser } = useAuth()
-    const [code, getCode] = useState();
+    const [code, getCode] = useState(null);
     const navigate = useNavigate()
     // const room = {
     //     room_id: '618240',
@@ -71,6 +71,8 @@ const FindRoom = () => {
     const checkRoom = () => {
 
         Swal.showLoading()
+        console.log(validUser.token)
+        console.log(code)
         async function getRoom() {
             await axios.post(`https://excited-foal-raincoat.cyclic.app/room/join-room`, {
                 token: validUser.token,
@@ -116,12 +118,12 @@ const FindRoom = () => {
                     // }
                 })
                 .catch(err => {
-                    // Swal.closeLoading();
-                    toast.error(err.response.data.error, {
-                        toastId: 'customId',
-                        position: 'top-right',
-                        theme: 'colored',
-                        autoClose: 2000,
+                    // if()
+                    Swal.fire({
+                        width: '30vw',
+                        icon: `${err.response.data.error == `Room Doesn't exists!!!` ? 'error' : 'warning'}`,
+                        text: `${err.response.data.error}`,
+                        confirmButtonText: `please try again`
                     })
                 });
         }

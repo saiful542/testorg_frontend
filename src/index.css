@@ -42,7 +42,17 @@ code {
 }
 
 .swal2-styled.swal2-confirm {
-  background-color: #0c8aaa !important;
+  background-color: #1690cd !important;
+  transition: all .3s;
+}
+
+.swal2-styled.swal2-cancel {
+  transition: all .3s;
+}
+
+.swal2-styled:hover {
+  letter-spacing: 2px;
+
 }
 
 .swal2-title {
@@ -69,7 +79,7 @@ code {
 }
 
 .t-lowercase {
-  text-transform: lowercase !important ;
+  text-transform: lowercase !important;
 }
 
 

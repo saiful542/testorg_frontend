@@ -1,8 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import useAuth from '../../Hooks/useAuth';
 
 const SingleRoom = (props) => {
+    const { validUser } = useAuth()
     const navigate = useNavigate()
     const { room } = props;
 
@@ -13,8 +15,9 @@ const SingleRoom = (props) => {
         {
             if (startTime > currentTime) {
                 let obj = {
-                    status: `Exam will start at ${new Date(room.startTime).toLocaleTimeString()}`,
-                    color: `accent`
+                    status: `not starded yet`,
+                    color: `badge-primary`,
+                    
                 }
                 return obj
 
@@ -22,7 +25,7 @@ const SingleRoom = (props) => {
             else if (currentTime >= startTime && currentTime < endTime) {
                 let obj = {
                     status: `running`,
-                    color: `success`,
+                    color: `badge-success`,
                     animation: `animate-pulse`
 
                 }
@@ -32,7 +35,7 @@ const SingleRoom = (props) => {
             else {
                 let obj = {
                     status: `ended`,
-                    color: `ghost`,
+                    color: `badge-ghost`,
                 }
                 return obj
             }
@@ -85,7 +88,7 @@ const SingleRoom = (props) => {
                 width: '40vw',
                 icon: 'info',
                 title: 'This exam has not started yet',
-                text: `Exam will start on  ${new Date(`${room.startTime}`).toISOString().split('T')[0]}  at  ${new Date(`${room.startTime}`).toLocaleTimeString()}`,
+                text: `Exam will start on  ${new Date(`${room.startTime}`).toDateString().split('T')[0]}  at  ${new Date(`${room.startTime}`).toLocaleTimeString()}`,
                 showCancelButton: true,
                 confirmButtonText: 'Go to waiting room',
             }).then((result) => {
@@ -106,13 +109,15 @@ const SingleRoom = (props) => {
                     <h2 className="card-title text-gray-200">
                         {room.CourseName}
                         <div className='text-end w-full'>
-                            <div className={`float-right badge badge-${getStatus(room).color}`}>{getStatus(room).status}</div>
+                            <div className={`float-right badge badge-o  ${getStatus(room).color} `}>{getStatus(room).status}</div>
                         </div>
                     </h2>
                     <div className='justify-start'>
                         <p className='text-start font-thin '>Instructor : {room.teacherName}</p>
                         <p className='text-start font-thin '>Total marks of exam : {room.totalMarks}</p>
-                        <p className='text-start font-thin'>I got : <span className='font-normal'>{room.gotMarks}</span> marks</p>
+                        {
+                            validUser.type == 'student' && <p className='text-start font-thin'>I got : <span className='font-normal'>{room.gotMarks}</span> marks</p>
+                        }
                     </div>
                     <div className="card-actions justify-start items-end h-full">
                         <div className="badge badge-outline">{new Date(`${room.startTime}`).toDateString()}</div>

@@ -9,7 +9,8 @@ import "./Login.scss"
 const Login = () => {
     const { state } = useLocation();
     const { value } = state
-    const { validUser, sendData, token } = useAuth()
+    const { validUser, sendData, token, resend, setResend } = useAuth()
+
     const [isSignIn, setisSignIn] = useState(value);
     const { register, handleSubmit, reset } = useForm();
     const [passwordShown, setPasswordShown] = useState(false);
@@ -59,8 +60,14 @@ const Login = () => {
                     usertype: submitted_data.profession,
                     username: submitted_data.username
                 }
-                sendData(user)
-                reset();
+                if (!resend) {
+                    sendData(user)
+                    reset();
+                }
+                else if(resend){
+                    console.log('resend calling')
+                }
+
             }
         }
     };
@@ -85,7 +92,7 @@ const Login = () => {
                                     <i title='hide password' onClick={togglePassword} class={`absolute right-4 fas fa-solid fa-eye cursor-pointer ${!passwordShown ? 'hidden' : ''}`}></i>
                                 </div>
                             </div>
-                            <input name='signin' type="submit" value="Login" className="btnn bg-gradient-to-tr from-indigo-800 via-cyan-500 button-custom solid text-center" />
+                            <input name='signin' type="submit" value="Login" className="btnn bg-gradient-to-tr from-indigo-800 via-cyan-500 button-custom solid text-center hover:scale-105 hover:tracking-[2px]" />
                             <p className="social-text">Or Sign in with social platforms</p>
                             <div className="social-media">
                                 <a href="#" className="social-icon">
@@ -124,7 +131,7 @@ const Login = () => {
                                     <i title='show password' onClick={togglePassword} class={`absolute right-4 fas fa-solid fa-eye-slash cursor-pointer ${passwordShown ? 'hidden' : ''}`}></i>
                                 </div>
                             </div>
-                            <input name='signup' type="submit" className="btnn bg-gradient-to-tr from-indigo-800 via-cyan-500 button-custom" value="Sign up" />
+                            <input name='signup' type="submit" className="btnn bg-gradient-to-tr from-indigo-800 via-cyan-500 button-custom hover:scale-105 hover:tracking-[2px]" value={resend ? "resend mail" : "Sign up"} />
                             <p className="social-text">Or Sign up with social platforms</p>
                             <div className="social-media">
                                 <a href="#" className="social-icon">

@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 const True_false = (props) => {
     const [done, setDone] = useState(false)
-    const { q_id, setQuestionFormData, questionFormData, deleteQuestion, key, index, setIsValidQsn, totalMarks, setTotalMarks, addQuestion } = props
+    const { q_id, setQuestionFormData, questionFormData, deleteQuestion, index, setIsValidQsn, totalMarks, setTotalMarks, addQuestion } = props
     const { register, handleSubmit } = useForm();
 
     const onSubmit = (data) => {
@@ -43,7 +43,6 @@ const True_false = (props) => {
         setTotalMarks(totalMarks - parseInt(questionFormData[questionFormData.indexOf(index[0])].marks))
         questionFormData.splice(questionFormData.indexOf(index[0]), 1)
         setDone(false)
-        // console.log(q_id)
     }
     return (
         <div className='shadow-lg rounded-md border-t-8 border-t-cyan-600 text-slate-500 bg-white pt-5 animate__animated animate__fadeIn'>
