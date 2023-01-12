@@ -74,7 +74,7 @@ const Fill_gaps = (props) => {
                             <input min="1" className={`marks rounded-md  border-cyan-600 outline-0 p-2 py-3 w-full ${done ? `pointer-events-none` : ``}`} type="number" placeholder='marks here' {...register('marks')} />
                         </div>
                     </div>
-                    <div className="radio-options max-w-xl flex flex-col gap-2 pl-9">
+                    <div className="radio-options max-w-xl flex flex-col gap-2 pl-[44px]">
                         <div className="option-field">
                             {/* <div className="numbering ">
                                 <p>1.</p>

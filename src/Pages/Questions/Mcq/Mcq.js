@@ -1,4 +1,5 @@
 
+import { SanitizerRounded } from '@mui/icons-material';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -10,27 +11,38 @@ const Mcq = (props) => {
     const [done, setDone] = useState(false)
     const [correctAnswer, setCorrectAnswer] = useState()
     const [optionArray, setOptionArray] = useState([])
-    const [options, setOptions] = useState([{ id: 1 }, { id: 2 }])
+    const [options, setOptions] = useState([{ id: 'wn2' }, { id: 'qw1' }])
     const { q_id, setQuestionFormData, questionFormData, deleteQuestion, index, setIsValidQsn, totalMarks, setTotalMarks, addQuestion } = props
     const { register, handleSubmit } = useForm();
-    // setTimeout(() => { setIdd(q_id) }, 100)
-    // add option
+
     const addOption = () => {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let result = ' ';
+        const charactersLength = characters.length;
+        for (let i = 0; i < 3; i++) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
         setOptions((previous) => {
-            return [...previous, { id: options.length + 1 }]
+            return [...previous, { id: result }]
         })
     }
     // delete option
     const deleteOption = (id) => {
+
         const filtered_options = options.filter((option) => {
             return option.id !== id;
         })
-
         setOptions(filtered_options)
-        optionArray.splice((id - 1), 1)
+
+        const filtered = optionArray.filter((option) => {
+            return option.id !== id;
+        })
+        setOptionArray(filtered)
     }
 
     const onSubmit = (data) => {
+        console.log(data)
+        console.log(optionArray)
         const test = () => {
             for (let option of optionArray) {
                 if (!option) {
@@ -41,16 +53,20 @@ const Mcq = (props) => {
             }
         }
         if (test() && (data.question) && (data.marks)) {
+            console.log(correctAnswer)
             if (correctAnswer) {
                 data.options = optionArray;
-                data.correct_answer = optionArray[correctAnswer - 1];
+                const indexForCorrect = optionArray.filter(option => {
+                    return option.id == correctAnswer
+                })
+                data.correct_answer = indexForCorrect[0].value;
                 data.question_type = 'mcq'
-                // console.log(q_id)
                 data.q_id = q_id;
                 setQuestionFormData([...questionFormData, data])
                 setDone(true)
                 setIsValidQsn(true)
                 setTotalMarks(totalMarks + parseInt(data.marks))
+                console.log(data)
             }
             else {
                 toast.error('select at-least one option', {
@@ -118,10 +134,10 @@ const Mcq = (props) => {
                         </div>
                     </div>
 
-                    <div className="left flex flex-col gap-2 radio-options lg:w-1/2 ">
+                    <div className="left flex flex-col gap-2 radio-options lg:w-1/2 pl-[1px]">
                         {
                             options.map((option, index) => {
-                                return <Option options={options} index={index + 1} id={option.id} deleteOption={deleteOption} setCorrectAnswer={setCorrectAnswer} optionCount={options.length} optionArray={optionArray} setOptionArray={setOptionArray} done={done}></Option>
+                                return <Option options={options} key={option.id} index={index + 1} id={option.id} deleteOption={deleteOption} setCorrectAnswer={setCorrectAnswer} optionCount={options.length} optionArray={optionArray} setOptionArray={setOptionArray} done={done}></Option>
                             })
                         }
 
@@ -150,9 +166,20 @@ export default Mcq;
 const Option = (props) => {
     const { id, deleteOption, setCorrectAnswer, optionArray, setOptionArray, index, done, options } = props
     const inputValue = (e) => {
+
         let arr = [...optionArray];
-        arr[id - 1] = e
+
+        const indexOfOption = optionArray.filter(option => {
+            return option.id == id
+        })
+        if (optionArray.indexOf(indexOfOption[0]) == -1) {
+            arr.push({ id: id, value: e })
+        }
+        else {
+            arr[optionArray.indexOf(indexOfOption[0])] = { id: id, value: e }
+        }
         setOptionArray(arr)
+
     }
     return (
         <div>
