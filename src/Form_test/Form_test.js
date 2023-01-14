@@ -163,9 +163,123 @@ const Form_test = () => {
     // Swal.close()
 
     return (
-        <div className='m-auto mb-20 c-mt pb-5 min-h-screen container relative'>
-            <div className='lg:flex m-auto rounded-lg'>
-                <div className='border-2 border-cyan-700 px-5 py-2 bg-white flex-1 rounded-bl-lg'>
+        <div className='m-auto mb-20 c-mt py-5 min-h-screen container relative'>
+            <div className='rounded-2xl shadow-lg text-start z-40'>
+                <div className='z-40'>
+                    <div tabIndex={0} class="cursor-pointer dropdown animate__animated animate__slideInRight z-40">
+                        <span className='shadow-inner rounded-2xl px-20 py-2 flex items-baseline gap-10 bg-gray-200 hover:bg-slate-300  hover:text-blue-600 hover:shadow-2xl transition-all'><h1 className='text-xl font-semibold'>Details</h1><i class="fas fa-duotone fa-circle-info"></i></span>
+                        <div tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-40">
+                            <div className="overflow-x-auto">
+                                <table className="table w-full">
+                                    <thead>
+                                        <tr>
+                                            <th className='text-3xl'>Exam details</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td className='text-2xl'>Exam date</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><p className='text-gray-300 text-xl'>{date.$d.toDateString()}</p></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td className='text-2xl'>Starting time</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><p className='text-gray-300 text-xl'>{startTime.$d.toLocaleTimeString()}</p></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td className='text-2xl'>Ending time</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><p className='text-gray-300 text-xl'>{endTime.$d.toLocaleTimeString()}</p></td>
+                                        </tr>
+                                        <tr>
+                                            <td className='text-2xl'>Teacher</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><p className='text-gray-300 text-xl'>{teacherName}</p></td>
+                                        </tr>
+                                        <tr>
+                                            <td className='text-2xl'>Course</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><p className='text-gray-300 text-xl'>{courseName}</p></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* <div className='border-2 border-cyan-700 px-5 py-2 bg-white flex-1 rounded-bl-lg'>
                     <p className='text-gray-500 text-xl'>Exam Date</p>
                     <p className='text-gray-700 text-lg'>{date.$d.toDateString()}</p>
                 </div>
@@ -176,6 +290,7 @@ const Form_test = () => {
                 <div className='border-2 border-cyan-700 px-5 py-2 bg-white flex-1'>
                     <p className='text-gray-500 text-xl'>End at</p>
                     <p className='text-gray-700 text-lg'>{endTime.$d.toLocaleTimeString()}</p>
+                    
                 </div>
                 <div className='border-2 border-cyan-700 px-5 py-2  bg-white flex-1'>
                     <p className='text-gray-500 text-xl'>Teacher</p>
@@ -183,10 +298,15 @@ const Form_test = () => {
                 </div>
                 <div className='border-2 border-cyan-700 px-5 py-2  bg-white flex-1 rounded-br-lg'>
                     <p className='text-gray-500 text-xl'>Course</p>
-                    <p className='text-gray-700 text-lg'>{courseName}</p>
-                </div>
+                    
+                </div> */}
             </div>
-            <div className="container flex flex-col gap-10 m-auto justify-between min-h-screen">
+
+
+
+
+
+            <div className="container flex flex-col gap-10 m-auto justify-between min-h-screen animate__animated animate__fadeInUp animate__faster">
                 <div className="bottom flex flex-col lg:w-4/5 gap-20 w-full pt-2 m-auto">
                     {
                         questionForm.map((question, index) => {

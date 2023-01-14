@@ -41,18 +41,18 @@ const Mcq = (props) => {
     }
 
     const onSubmit = (data) => {
-        console.log(data)
-        console.log(optionArray)
+
         const test = () => {
             for (let option of optionArray) {
-                if (!option) {
-                    return false;
+
+                if ((option.value.length <= 0)) {
+                    return false
                 }
-                else
-                    return true;
             }
+            return true;
         }
-        if (test() && (data.question) && (data.marks)) {
+        
+        if (test() && (data.question) && (data.marks) && (options.length == optionArray.length)) {
             console.log(correctAnswer)
             if (correctAnswer) {
                 data.options = optionArray;
@@ -192,8 +192,8 @@ const Option = (props) => {
                  border-cyan-600 radio-accent ${done ? `pointer-events-none` : ``}`} value={id} />
                 <input onInput={(e) => inputValue(e.target.value)} className={`text-field animate__animated animate__slideInRight animate__faster rounded-md border-cyan-600  ${done ? `pointer-events-none` : ``}`} type="text" placeholder={`option ${index}`} />
                 {
-                    (done || options.length <= 2) ? <div></div> : <span onClick={() => deleteOption(id)} className="delete-option" title='delete'>
-                        <i class="fas fa-solid fa-trash-can text-orange-600"></i>
+                    (done || options.length <= 2) ? <div></div> : <span onClick={() => deleteOption(id)} className="delete-option transition-all hover:scale-105 " title='delete'>
+                        <i class="fas fa-solid fa-trash-can text-orange-600 opacity-50 hover:opacity-100 hover:text-orange-600 transition-all"></i>
                     </span>
                 }
             </div>

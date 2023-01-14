@@ -11,66 +11,67 @@ const Exam = () => {
     const [expired, setExpired] = useState(true);
     const [firstime, setFirstime] = useState(true);
     const { state } = useLocation();
-    const { room } = state;
-    // const room = {
+    // const { room } = state;
+    const room = {
 
-    //     room_id: '618240',
-    //     startTime: "fri Jan 06 2023 8:00:00 PM",
-    //     endTime: "fri Jan 06 2023 9:20:00 PM",
-    //     courseName: "dasd",
-    //     teacherName: "saiful542d",
-    //     totalMarks: 14,
-    //     createdAt: "2023-01-01T07:14:59.885Z",
-    //     question: [
-    //         {
-    //             "question": "how are you?",
-    //             "marks": "3",
-    //             "correct_answer": "true",
-    //             "options": [
-    //                 "true",
-    //                 "false"
-    //             ],
-    //             "question_type": "true-false",
-    //             "q_id": 1
-    //         },
-    //         {
-    //             "question": "when the Metro Rail mega project was declared?",
-    //             "correct_answer": "2012",
-    //             "options": [
-    //                 "2012",
-    //                 "2010",
-    //                 "2016"
-    //             ],
-    //             "question_type": "mcq",
-    //             "q_id": 2
-    //         },
-    //         {
-    //             "question": "how are you?",
-    //             "marks": "3",
-    //             "correct_answer": "aa",
-    //             "question_type": "fill-blanks",
-    //             "q_id": 3
-    //         },
-    //         {
-    //             "question": "ads",
-    //             "marks": "2",
-    //             "correct_answer": "a",
-    //             "question_type": "fill-blanks",
-    //             "q_id": 4
-    //         },
-    //         {
-    //             "question": "vbfdb",
-    //             "marks": "3",
-    //             "correct_answer": "true",
-    //             "options": [
-    //                 "true",
-    //                 "false"
-    //             ],
-    //             "question_type": "true-false",
-    //             "q_id": 5
-    //         }
-    //     ]
-    // }
+        room_id: '618240',
+        startTime: "fri Jan 13 2023 8:00:00 PM",
+        endTime: "fri Jan 13 2023 9:20:00 PM",
+        courseName: "dasd",
+        teacherName: "saiful542d",
+        totalMarks: 14,
+        createdAt: "2023-01-01T07:14:59.885Z",
+        question: [
+            {
+                "question": "how are you?",
+                "marks": "3",
+                "correct_answer": "true",
+                "options": [
+                    "true",
+                    "false"
+                ],
+                "question_type": "true-false",
+                "q_id": 1
+            },
+            {
+                "question": "when the Metro Rail mega project was declared?",
+                "correct_answer": "2012",
+                "options": [
+                    "2012",
+                    "2010",
+                    "2016"
+                ],
+                "question_type": "mcq",
+                "marks": "3",
+                "q_id": 2
+            },
+            {
+                "question": "how are you?",
+                "marks": "3",
+                "correct_answer": "aa",
+                "question_type": "fill-blanks",
+                "q_id": 3
+            },
+            {
+                "question": "ads",
+                "marks": "2",
+                "correct_answer": "a",
+                "question_type": "fill-blanks",
+                "q_id": 4
+            },
+            {
+                "question": "vbfdb",
+                "marks": "3",
+                "correct_answer": "true",
+                "options": [
+                    "true",
+                    "false"
+                ],
+                "question_type": "true-false",
+                "q_id": 5
+            }
+        ]
+    }
 
 
 
@@ -207,9 +208,10 @@ const Exam = () => {
                         icon: 'info',
                         title: `you have got ${7} marks out of ${room.totalMarks}!`,
                         confirmButtonText: "Go back to home"
-                    }).then(() => {
-                        navigate('/Home');
                     })
+                    // .then(() => {
+                    //     navigate('/Home');
+                    // })
                 })
 
             }
@@ -233,7 +235,128 @@ const Exam = () => {
         setFirstime(false)
     }
     return (
-        <div className='container m-auto c-mt py-10 min-h-screen'>
+        <div className='container m-auto c-mt py-5 min-h-screen'>
+            <div className='rounded-2xl shadow-lg text-start z-40 mb-16'>
+                <div className='z-40'>
+                    <div tabIndex={0} class="cursor-pointer dropdown animate__animated animate__slideInRight z-40 transition-all">
+                        <span className='shadow-inner rounded-2xl px-20 py-2 flex items-baseline gap-10 bg-gray-200 hover:bg-slate-300  hover:text-blue-600 hover:shadow-2xl transition-all'><h1 className='text-xl font-semibold'>Details</h1><i class="fas fa-duotone fa-circle-info"></i></span>
+                        <div tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-40 transition-all">
+                            <div className="overflow-x-auto">
+                                <table className="table w-full">
+                                    <thead>
+                                        <tr>
+                                            <th className='text-3xl'>Exam details</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td className='text-2xl'>Total marks</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><p className='text-gray-300 text-xl pr-20'>{room.totalMarks}</p></td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td className='text-2xl'>Teacher</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><p className='text-gray-300 text-xl pr-20'>{room.teacherName}</p></td>
+                                        </tr>
+                                        <tr>
+                                            <td className='text-2xl'>Course</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><p className='text-gray-300 text-xl pr-20'>{room.courseName}</p></td>
+                                        </tr>
+                                        <tr>
+                                            <td className='text-2xl'>Ending at</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><p className='text-gray-300 text-xl pr-20'>{new Date(room.endTime).toLocaleTimeString()}</p></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* <div className='border-2 border-cyan-700 px-5 py-2 bg-white flex-1 rounded-bl-lg'>
+                    <p className='text-gray-500 text-xl'>Exam Date</p>
+                    <p className='text-gray-700 text-lg'>{date.$d.toDateString()}</p>
+                </div>
+                <div className='border-2 border-cyan-700 px-5 py-2  bg-white flex-1'>
+                    <p className='text-gray-500 text-xl'>Start at</p>
+                    <p className='text-gray-700 text-lg'>{startTime.$d.toLocaleTimeString()}</p>
+                </div>
+                <div className='border-2 border-cyan-700 px-5 py-2 bg-white flex-1'>
+                    <p className='text-gray-500 text-xl'>End at</p>
+                    <p className='text-gray-700 text-lg'>{endTime.$d.toLocaleTimeString()}</p>
+                    
+                </div>
+                <div className='border-2 border-cyan-700 px-5 py-2  bg-white flex-1'>
+                    <p className='text-gray-500 text-xl'>Teacher</p>
+                    <p className='text-gray-700 text-lg'>{teacherName}</p>
+                </div>
+                <div className='border-2 border-cyan-700 px-5 py-2  bg-white flex-1 rounded-br-lg'>
+                    <p className='text-gray-500 text-xl'>Course</p>
+                    
+                </div> */}
+            </div>
             {
                 isRunning ? <div >
                     <div className="mb-20 flex justify-center gap-8 text-center auto-cols-max m-auto w-full">
@@ -260,13 +383,13 @@ const Exam = () => {
                         {
                             newQuestion.map((element) => {
                                 if (element.question_type === 'true-false') {
-                                    return <ShowTrue setInput={setInput} answers={answers} setAnswers={setAnswers} index={count} question={element.question} marks={element.marks}></ShowTrue>
+                                    return <ShowTrue key={count} setInput={setInput} answers={answers} setAnswers={setAnswers} index={count} question={element.question} marks={element.marks}></ShowTrue>
                                 }
                                 else if (element.question_type === 'mcq') {
-                                    return <ShowQuiz setInput={setInput} answers={answers} setAnswers={setAnswers} index={count} question={element.question} marks={element.marks} options={element.options}></ShowQuiz>
+                                    return <ShowQuiz key={count} setInput={setInput} answers={answers} setAnswers={setAnswers} index={count} question={element.question} marks={element.marks} options={element.options}></ShowQuiz>
                                 }
                                 else if (element.question_type === 'fill-blanks') {
-                                    return <ShowGaps setInput={setInput} answers={answers} setAnswers={setAnswers} index={count} question={element.question} marks={element.marks}></ShowGaps>
+                                    return <ShowGaps key={count} setInput={setInput} answers={answers} setAnswers={setAnswers} index={count} question={element.question} marks={element.marks}></ShowGaps>
                                 }
 
                             })
@@ -277,8 +400,8 @@ const Exam = () => {
                             input ? <button onClick={() => { changeQuestion(); setCount(count + 1) }} className='nb-custom bg-gradient-to-r from-indigo-800 via-cyan-500 to-indigo-800 btn  text-white px-16 hover:bg-indigo-700'>Next &nbsp;&nbsp;&rarr;</button> : <button disabled title='give an answer first' className='btn transition-all px-16 disabled:text-gray-600'>Next &nbsp;&nbsp;&rarr;</button>
                         }
                     </div>
-                </div> : <div>
-
+                </div> : <div className='pt-48'>
+                    <Link to={'/Home'} className=' transition-all button-custom bg-gradient-to-tr from-indigo-800 via-cyan-500 to-indigo-800 btn  text-white px-16 hover:bg-indigo-700 hover:tracking-widest'>Go back to Home</Link>
                 </div>
             }
 
@@ -302,10 +425,10 @@ const ShowQuiz = (props) => {
     }
 
     return (
-        <div className='rounded-lg flex flex-col gap-10 p-10 py-16 shadow-lg border-l-8 border-l-cyan-600 bg-white'>
+        <div className='rounded-lg flex flex-col gap-10 p-10 py-16 shadow-lg border-l-8 border-l-cyan-600 bg-white animate__animated animate__fadeIn'>
             <div className='flex items-center justify-between'>
                 <span className='flex gap-5 items-center'>
-                    <p>{index}.</p>
+                    <p className='text-2xl'>{index}.</p>
                     <h3 className=''>{question} ?</h3>
                 </span>
                 <p className='self-end'>{marks}<span className='text-sm'> marks</span></p>
@@ -335,7 +458,7 @@ const ShowGaps = (props) => {
     }
 
     return (
-        <div className='rounded-lg flex flex-col gap-10 p-10 py-16 shadow-lg border-l-8 border-l-cyan-600 bg-white'>
+        <div className='rounded-lg flex flex-col gap-10 p-10 py-16 shadow-lg border-l-8 border-l-cyan-600 bg-white animate__animated animate__fadeIn'>
             <div className='flex items-center justify-between'>
                 <span className='flex gap-5 items-center'>
                     <p>{index}.</p>
@@ -359,7 +482,7 @@ const ShowTrue = (props) => {
     }
 
     return (
-        <div className='rounded-lg flex flex-col gap-10 p-10 py-16 shadow-lg border-l-8 border-l-cyan-600 bg-white'>
+        <div className='rounded-lg flex flex-col gap-10 p-10 py-16 shadow-lg border-l-8 border-l-cyan-600 bg-white animate__animated animate__fadeIn'>
             <div className='flex items-center justify-between'>
                 <span className='flex gap-5 items-center'>
                     <p>{index}.</p>

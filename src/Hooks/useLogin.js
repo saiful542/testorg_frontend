@@ -10,6 +10,7 @@ axios.defaults.withCredentials = true
 const useLogin = () => {
     const [validUser, setValidUser] = useState({})
     const [resend, setResend] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
     const instance = axios.create({
         withCredentials: true
     })
@@ -18,6 +19,7 @@ const useLogin = () => {
             if (data.method === 'login') {
                 await instance.post(`https://excited-foal-raincoat.cyclic.app/${data.method}`, data, { withCredentials: true })
                     .then(response => {
+                        setIsLoading(false);
                         setValidUser({
                             userName: response.data.name,
                             userMail: response.data.email,
@@ -40,6 +42,7 @@ const useLogin = () => {
                         cookies.set('jwt', response.data.token, { maxAge: 60 * 60 * 24 * 3 });
                     })
                     .catch(err => {
+                        setIsLoading(false);
                         toast.error(err.response.data.error, {
                             autoClose: 2000,
                             toastId: 'customId',
@@ -53,6 +56,7 @@ const useLogin = () => {
                 await axios.post(`https://excited-foal-raincoat.cyclic.app/${data.method}`, data)
                     .then(response => {
                         // console.log(response.data.msg);
+                        setIsLoading(false);
                         toast.success(response.data.msg, {
                             autoClose: 2000,
                             toastId: 'customId',
@@ -63,6 +67,7 @@ const useLogin = () => {
 
                     })
                     .catch(err => {
+                        setIsLoading(false);
                         toast.error(err.response.data.error, {
                             autoClose: 2000,
                             toastId: 'customId',
@@ -118,7 +123,9 @@ const useLogin = () => {
         validUser,
         logout,
         resend,
-        setResend
+        setResend,
+        isLoading,
+        setIsLoading
     };
 
 };

@@ -137,7 +137,7 @@ const FindRoom = () => {
                         <h1 className='text-3xl font-bold'>Find Your Exam</h1>
                         <div className='text-start pt-20 animate__animated animate__fadeIn'><label htmlFor="input" className='text-xl text-gray-400 font-semibold'>Enter the code that you have given by your teacher</label><input onInput={(e) => getCode(e.target.value)} className='text-xl mt-5 h-14 input border-2  border-cyan-700' type="text" placeholder='ex : 6b42ae56f47tr' /></div>
                         <div className='pt-40 animate__animated animate__fadeInDown'>
-                            <button onClick={() => checkRoom()} className='border-none button-custom bg-gradient-to-tr from-indigo-800 via-cyan-500 to-indigo-800 btn  text-white px-16 hover:bg-indigo-700'>Join &nbsp;room</button>
+                            <button onClick={() => checkRoom()} className='transition-all hover:tracking-widest border-none button-custom bg-gradient-to-tr from-indigo-800 via-cyan-500 to-indigo-800 btn  text-white px-16 hover:bg-indigo-700'>Join &nbsp;room</button>
                         </div>
                     </div>
             }

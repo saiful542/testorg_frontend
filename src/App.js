@@ -17,8 +17,10 @@ import Timer from './Timer/Timer';
 import FindRoom from './Pages/FindRoom/FindRoom';
 import Student from './Pages/Student/Student';
 import MyRooms from './Pages/MyRooms/MyRooms';
+import useAuth from './Hooks/useAuth';
 
 function App() {
+
   return (
     <div className="App bg-gray-100">
       <AuthProvider>

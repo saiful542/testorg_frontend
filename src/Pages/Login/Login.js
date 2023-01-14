@@ -9,7 +9,7 @@ import "./Login.scss"
 const Login = () => {
     const { state } = useLocation();
     const { value } = state
-    const { validUser, sendData, token, resend, setResend } = useAuth()
+    const { validUser, sendData, token, resend, setResend, isLoading, setIsLoading } = useAuth()
 
     const [isSignIn, setisSignIn] = useState(value);
     const { register, handleSubmit, reset } = useForm();
@@ -20,9 +20,11 @@ const Login = () => {
     };
     // signup submit
     const onSubmit = (submitted_data, e) => {
+        setIsLoading(true)
         let user;
         if (e.target.name === 'login') {
             if (!submitted_data.loginEmail || !submitted_data.loginPassword) {
+                setIsLoading(false);
                 toast.error('please, fill-up the information', {
                     autoClose: 2000,
                     toastId: 'customId',
@@ -43,6 +45,7 @@ const Login = () => {
 
         else if (e.target.name === 'signup') {
             if (!submitted_data.email || !submitted_data.password || !submitted_data.username) {
+                setIsLoading(false);
                 toast.error('please, fill-up the information', {
                     autoClose: 2000,
                     toastId: 'customId',
@@ -64,7 +67,7 @@ const Login = () => {
                     sendData(user)
                     reset();
                 }
-                else if(resend){
+                else if (resend) {
                     console.log('resend calling')
                 }
 
@@ -92,7 +95,15 @@ const Login = () => {
                                     <i title='hide password' onClick={togglePassword} class={`absolute right-4 fas fa-solid fa-eye cursor-pointer ${!passwordShown ? 'hidden' : ''}`}></i>
                                 </div>
                             </div>
-                            <input name='signin' type="submit" value="Login" className="btnn bg-gradient-to-tr from-indigo-800 via-cyan-500 button-custom solid text-center hover:scale-105 hover:tracking-[2px]" />
+                            <div className=" mt-10 mb-5 p-0 relative overflow-hidden bg-gray-500 rounded-[49px] h-[49px]">
+                                <input name='signin' type="submit" value="Login" className='btnn solid text-center hover:scale-105 hover:tracking-[2px] bg-gradient-to-tr from-indigo-800 via-cyan-500 button-custom overflow-hidden' />
+                                {
+                                    isLoading && <div class="loaderb m-0 absolute bottom-[-3px]">
+                                        <div class="loaderBar"></div>
+                                    </div>
+                                }
+                            </div>
+
                             <p className="social-text">Or Sign in with social platforms</p>
                             <div className="social-media">
                                 <a href="#" className="social-icon">
@@ -131,7 +142,15 @@ const Login = () => {
                                     <i title='show password' onClick={togglePassword} class={`absolute right-4 fas fa-solid fa-eye-slash cursor-pointer ${passwordShown ? 'hidden' : ''}`}></i>
                                 </div>
                             </div>
-                            <input name='signup' type="submit" className="btnn bg-gradient-to-tr from-indigo-800 via-cyan-500 button-custom hover:scale-105 hover:tracking-[2px]" value={resend ? "resend mail" : "Sign up"} />
+                            <div className="mt-10 mb-5 p-0 relative overflow-hidden bg-gray-500 rounded-[49px] h-[49px]">
+                                <input name='signup' type="submit" className="btnn bg-gradient-to-tr from-indigo-800 via-cyan-500 button-custom hover:scale-105 hover:tracking-[2px]" value={resend ? "resend mail" : "Sign up"} />
+                                {
+                                    isLoading && <div class="loaderb m-0 absolute bottom-[-3px]">
+                                        <div class="loaderBar"></div>
+                                    </div>
+                                }
+                            </div>
+
                             <p className="social-text">Or Sign up with social platforms</p>
                             <div className="social-media">
                                 <a href="#" className="social-icon">
@@ -151,9 +170,9 @@ const Login = () => {
                         <div className="content">
                             <h3>New here ?</h3>
                             <p>
-                                “Just believe in yourself. Even if you don’t, pretend that you do and, at some point, you will.”
+                                “ Welcome to the TestOrg Family! You are just a step away from getting an elite experience of the best online exam portal! ”
                             </p>
-                            <button onClick={() => setisSignIn(false)} className="btnn transparent hover:text-gray-800" id="sign-up-btn">
+                            <button onClick={() => setisSignIn(false)} className="btnn transparent hover:text-gray-800 animate-pulse" id="sign-up-btn">
                                 Sign up
                             </button>
                         </div>
@@ -163,9 +182,9 @@ const Login = () => {
                         <div className="content">
                             <h3>One of us ?</h3>
                             <p>
-                                “Just believe in yourself. Even if you don’t, pretend that you do and, at some point, you will.”
+                                “ Welcome Back! Sign in to feel our smoothest experience! ”
                             </p>
-                            <button onClick={() => setisSignIn(true)} className="btnn transparent hover:text-gray-800" id="sign-in-btn">
+                            <button onClick={() => setisSignIn(true)} className="btnn transparent hover:text-gray-800 animate-pulse" id="sign-in-btn">
                                 Sign in
                             </button>
                         </div>

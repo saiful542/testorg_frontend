@@ -26,7 +26,7 @@ const Home = () => {
     return (
 
         <div className="nb-custom w-full bg-gradient-to-r from-indigo-800 via-cyan-500 to-indigo-800 min-h-screen">
-            <div className="custom-contents flex flex-col items-center justify-center w-full pt-60">
+            <div className="custom-contents flex flex-col items-center justify-center w-full pt-40">
                 <div className="heading-wrapper ">
                     <AnimatedText
                         type="chars" // animate words or chars
@@ -48,26 +48,28 @@ const Home = () => {
                         TestOrg
                     </AnimatedText>
                 </div>
-                <div className="button-group-wrapper flex md:gap-72 pt-20 flex-col sm:flex-row">
-                    <div className="button-wrapper pt-10">
-                        <div onClick={() => { toSignUp() }} className="lg:text-xl sm:text-lg btn bg-transparent px-16 text-gray-300 hover:text-gray-100 hover:bg-cyan-800 hover:scale-110 hover:tracking-[4px] hover:bg-transparent hover:border-white transition-all w-72">Sign up</div>
-                    </div>
-                    <div className="button-wrapper pt-10">
-                        <div onClick={() => { toSignIn() }} className="lg:text-xl sm:text-lg btn bg-transparent px-16 text-gray-300 hover:text-gray-100 hover:bg-cyan-800 hover:scale-110 hover:tracking-[4px] hover:bg-transparent hover:border-white transition-all w-72">Login</div>
-                    </div>
-                </div>
-                <div className="paragraph-wrapper pt-20 px-2">
+                <div className="paragraph-wrapper pt-20 px-2 mt-10">
                     {/* <p class="line-1 anim-typewriter text-2xl text-gray-300 font-semibold">
                         TestOrg is an elegant solution to revolutionize the term “online test” in E-
                         education. Its platform that provides services concerning academic dimensions to
                         the faculties and students.
                     </p> */}
-                    <p class=" text-2xl text-gray-300 font-semibold md:w-2/3 m-auto">
+                    <p class=" text-2xl text-gray-300  md:w-2/3 m-auto">
+                        <span className='text-3xl font-semibold'>Welcome to TestOrg!</span> <br></br><br></br>  The all-in-one Online Exam Solution platform with features you never experienced before. TestOrg makes exams fun, easy and making questions hassle-free. Online exams will never make you bore again!
                         TestOrg is an elegant solution to revolutionize the term “online test” in E-
                         education. Its platform that provides services concerning academic dimensions to
                         the faculties and students.
                     </p>
                 </div>
+                <div className="button-group-wrapper flex md:gap-72 pt-20 flex-col sm:flex-row">
+                    <div className="button-wrapper pt-10">
+                        <div onClick={() => { toSignUp() }} className="lg:text-xl sm:text-lg btn bg-transparent px-16 text-gray-300 hover:text-gray-100 hover:bg-cyan-800 hover:scale-110 hover:tracking-[4px] hover:bg-transparent hover:border-white transition-all w-72 h-16">Sign up</div>
+                    </div>
+                    <div className="button-wrapper pt-10">
+                        <div onClick={() => { toSignIn() }} className="lg:text-xl sm:text-lg btn bg-transparent px-16 text-gray-300 hover:text-gray-100 hover:bg-cyan-800 hover:scale-110 hover:tracking-[4px] hover:bg-transparent hover:border-white transition-all w-72 h-16">Login</div>
+                    </div>
+                </div>
+
             </div>
 
             <ParticlesBackground></ParticlesBackground>

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import dayjs from 'dayjs';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
@@ -12,26 +12,22 @@ import { Link } from 'react-router-dom';
 import Form_test from '../../Form_test/Form_test';
 import { useHistory } from "react-router-dom";
 import Swal from 'sweetalert2';
+import { set } from 'date-fns';
 
 
 const Room = () => {
+    const [a, setA] = useState(true)
     const { validUser } = useAuth()
-    const [date, setDate] = React.useState(null);
-    const [startTime, setStartTime] = React.useState(null);
-    const [endTime, setEndTime] = React.useState(null);
-    const [courseName, setCourseName] = React.useState('');
-    const [teacherName, setTeacherName] = React.useState(validUser.userName);
-    // setTimeout(() => {
-    //     if (validUser) {
-    //         setTeacherName(`${validUser?.userName}`)
-    //     }
-
-    // }, 5)
+    const [date, setDate] = useState(null);
+    const [startTime, setStartTime] = useState(null);
+    const [endTime, setEndTime] = useState(null);
+    const [courseName, setCourseName] = useState('');
+    const [teacherName, setTeacherName] = useState(null);
     const navigate = useNavigate()
 
     const test = () => {
-        if (date && startTime && endTime && courseName && (validUser?.userName || teacherName)) {
-            navigate('/Form_test', { state: { date: date, startTime: startTime, endTime: endTime, courseName: courseName, teacherName: validUser?.userName || teacherName } });
+        if (date && startTime && endTime && courseName && (teacherName || validUser?.userName)) {
+            navigate('/Form_test', { state: { date: date, startTime: startTime, endTime: endTime, courseName: courseName, teacherName: teacherName ? teacherName : validUser?.userName } });
         }
         else {
             Swal.fire({
@@ -51,9 +47,7 @@ const Room = () => {
     return (
         <div className='container min-h-screen c-mt m-auto pb-20'>
             <div className="flex md:flex-row justify-around gap-10 md:pt-24 flex-col">
-                <div className="content w-full md:w-1/3 flex
-
-                flex-col gap-10 lg:gap-24">
+                <div className="content w-full md:w-1/3 flex flex-col gap-10 lg:gap-24">
 
                     <div className='text-start'><label htmlFor="input" className='text-2xl text-cyan-800 font-serif font-bold'>Teacher</label><input defaultValue={validUser?.userName} onInput={(e) => setTeacherName(e.target.value)} className='mt-5 h-14 input border-2  border-cyan-700 animate__animated animate__slideInLeft' type="text" placeholder='teachers name' /></div>
 

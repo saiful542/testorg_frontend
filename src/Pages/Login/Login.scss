@@ -12,6 +12,8 @@ input {
   font-family: "Poppins", sans-serif;
 }
 
+
+
 .containerr {
   position: relative;
   width: 100%;
@@ -114,13 +116,21 @@ form.sign-in-form {
 }
 
 .input-field input {
-  background: none;
+  background: rgb(228, 228, 228);
   outline: none;
   border: none;
   line-height: 1;
   font-weight: 600;
   font-size: 1.1rem;
-  color: #333;
+  color: #333 !important;
+  box-shadow: none;
+}
+
+.input-field input:-webkit-autofill {
+  -webkit-box-shadow: 200px 200px 100px rgb(228, 228, 228) inset;
+  box-shadow: 200px 200px 100px rgb(228, 228, 228) inset;
+  // color: black !important;
+
 }
 
 .input-field h6 {
@@ -173,7 +183,7 @@ form.sign-in-form {
 }
 
 .btnn {
-  width: 150px;
+  width: 250px;
   background-color: $primary-color ;
   border: none;
   outline: none;
@@ -182,7 +192,7 @@ form.sign-in-form {
   color: #fff;
   text-transform: uppercase;
   font-weight: 600;
-  margin: 10px 0;
+  // margin: 10px 0;
   cursor: pointer;
   transition: 0.5s;
 }
