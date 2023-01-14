@@ -35,8 +35,8 @@ const Header = () => {
 
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
-                        <li><Link to={'/Room'} className='text-white'>Room</Link></li>
-                        <li><Link to={'/FindRoom'} className='text-white'>Find Room</Link></li>
+                    <li><Link className='text-white'>Dashboard</Link></li>
+                        <li><Link to={'/Room'} className='text-white'>Create Exam</Link></li>
                         <li><Link to={'/Exam'} className='text-white'>Exam</Link></li>
                         {
                             validUser?.userName ? <li><p className='text-white'>{validUser?.userName}</p></li> : <li><div className='text-white' onClick={() => { toSignIn() }}>Login</div></li>
@@ -58,11 +58,12 @@ const Header = () => {
                         {
                             validUser?.userName && <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                                 <li>
-                                    <Link className="justify-between text-white">
+                                    <Link to={'/MyProfile'} className="justify-between text-white">
                                         Profile
                                     </Link>
                                 </li>
-                                <li><Link className='text-white'>Dashboard</Link></li>
+                                <li><Link to={'/Join_Room'} className='text-white'>Join Room</Link></li>
+                                <li><Link to={'/MyRooms'} className='text-white'>My Rooms</Link></li>
                                 {
                                     validUser?.userName && <li><p className='text-white' onClick={() => { logout(); navigate('/Home') }}>Logout</p></li>
                                 }

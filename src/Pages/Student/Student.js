@@ -12,10 +12,10 @@ const StudentEntry = () => {
             </div>
             <div className='flex flex-col md:flex-row md:justify-around md:pt-20 gap-10 animate__animated animate__fadeInDown'>
                 <div>
-                    <Link to={'/Student/MyRooms'} className='border-0 button-custom bg-gradient-to-bl from-indigo-800 via-cyan-500 to-indigo-800 btn  text-white px-16 hover:bg-indigo-700'>My Rooms</Link>
+                    <Link to={'/MyRooms'} className='border-0 button-custom bg-gradient-to-bl from-indigo-800 via-cyan-500 to-indigo-800 btn  text-white px-16 hover:bg-indigo-700'>My Rooms</Link>
                 </div>
                 <div>
-                    <Link to={"/Student/Join_Room"} className='border-0 button-custom bg-gradient-to-bl from-indigo-800 via-cyan-500 to-indigo-800 btn  text-white px-16 hover:bg-indigo-700'>Join Room</Link>
+                    <Link to={"/Join_Room"} className='border-0 button-custom bg-gradient-to-bl from-indigo-800 via-cyan-500 to-indigo-800 btn  text-white px-16 hover:bg-indigo-700'>Join Room</Link>
                 </div>
             </div>
         </div>

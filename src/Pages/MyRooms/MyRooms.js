@@ -25,19 +25,21 @@ const MyRooms = () => {
                 });
         }
         fetchRooms()
-    }, [])
+    }, [rooms])
 
     return (
-        <div className='c-mt container m-auto min-h-screen pt-10 pb-20'>
+        <div className='c-mt container m-auto min-h-screen pt-10 pb-48'>
             <div className=''>
                 {
                     rooms ? <div className='m-auto text-center' >
-                        <h1 className='text-start font-bold text-5xl pb-20 animate__animated animate__slideInRight'>My rooms <span className='text-lg text-stone-500'> ( {rooms.length} {(rooms.length < 2) ? 'exam' : 'exams'} )</span></h1>
-                        <div className='flex flex-wrap gap-y-10  gap-x-20'>
+                        <div className='w-full shadow-md rounded-lg p-4 text-start mb-20 border-l-cyan-700 border-l-8 '>
+                            <h1 className='animate__animated  animate__fadeInRight text-4xl font-semibold'>My rooms <span className='text-lg text-stone-500'> ( {rooms.length} {(rooms.length < 2) ? 'exam' : 'exams'} )</span></h1>
+                        </div>
+                        <div className='flex flex-wrap gap-y-10 gap-x-20 justify-evenly'>
                             {
                                 rooms.map(room => {
                                     return (
-                                        <SingleRoom room={room}></SingleRoom>
+                                        <SingleRoom room={room} setRooms={setRooms}></SingleRoom>
                                     )
                                 })
                             }

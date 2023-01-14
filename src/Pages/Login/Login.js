@@ -1,4 +1,5 @@
 
+import axios from 'axios';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -68,7 +69,21 @@ const Login = () => {
                     reset();
                 }
                 else if (resend) {
+                    isLoading(true)
                     console.log('resend calling')
+                    const reSend = async () => {
+                        axios.post(`https://excited-foal-raincoat.cyclic.app/resend-mail`, { email: submitted_data.email })
+                            .then(response => {
+                                isLoading(false)
+                                console.log(response)
+
+                            })
+                            .catch(error => {
+                                isLoading(false)
+                                console.log(error)
+                            })
+                    }
+                    reSend();
                 }
 
             }

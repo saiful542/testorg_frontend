@@ -7,71 +7,87 @@ import { ButtonRoot } from '@mui/joy/Button/Button';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 const Exam = () => {
+    const { validUser } = useState()
     const navigate = useNavigate()
     const [expired, setExpired] = useState(true);
+    const [isFinished, setIsFinished] = useState(false);
     const [firstime, setFirstime] = useState(true);
-    const { state } = useLocation();
-    // const { room } = state;
-    const room = {
-
-        room_id: '618240',
-        startTime: "fri Jan 13 2023 8:00:00 PM",
-        endTime: "fri Jan 13 2023 9:20:00 PM",
-        courseName: "dasd",
-        teacherName: "saiful542d",
-        totalMarks: 14,
-        createdAt: "2023-01-01T07:14:59.885Z",
-        question: [
-            {
-                "question": "how are you?",
-                "marks": "3",
-                "correct_answer": "true",
-                "options": [
-                    "true",
-                    "false"
-                ],
-                "question_type": "true-false",
-                "q_id": 1
-            },
-            {
-                "question": "when the Metro Rail mega project was declared?",
-                "correct_answer": "2012",
-                "options": [
-                    "2012",
-                    "2010",
-                    "2016"
-                ],
-                "question_type": "mcq",
-                "marks": "3",
-                "q_id": 2
-            },
-            {
-                "question": "how are you?",
-                "marks": "3",
-                "correct_answer": "aa",
-                "question_type": "fill-blanks",
-                "q_id": 3
-            },
-            {
-                "question": "ads",
-                "marks": "2",
-                "correct_answer": "a",
-                "question_type": "fill-blanks",
-                "q_id": 4
-            },
-            {
-                "question": "vbfdb",
-                "marks": "3",
-                "correct_answer": "true",
-                "options": [
-                    "true",
-                    "false"
-                ],
-                "question_type": "true-false",
-                "q_id": 5
-            }
-        ]
+    if (!useLocation().state) {
+        Swal.fire({
+            title: 'Something went wrong',
+            icon: 'error',
+            text: 'please try again later',
+            confirmButtonText: 'back to homepage',
+        }).then(() => {
+            window.location.assign(`${window.location.origin}/Home`);
+        })
     }
+    const { state } = useLocation();
+    const { room } = state;
+
+
+
+
+    // const room = {
+
+    //     room_id: '618240',
+    //     startTime: "fri Jan 13 2023 8:00:00 PM",
+    //     endTime: "fri Jan 13 2023 9:20:00 PM",
+    //     courseName: "dasd",
+    //     teacherName: "saiful542d",
+    //     totalMarks: 14,
+    //     createdAt: "2023-01-01T07:14:59.885Z",
+    //     question: [
+    //         {
+    //             "question": "how are you?",
+    //             "marks": "3",
+    //             "correct_answer": "true",
+    //             "options": [
+    //                 "true",
+    //                 "false"
+    //             ],
+    //             "question_type": "true-false",
+    //             "q_id": 1
+    //         },
+    //         {
+    //             "question": "when the Metro Rail mega project was declared?",
+    //             "correct_answer": "2012",
+    //             "options": [
+    //                 "2012",
+    //                 "2010",
+    //                 "2016"
+    //             ],
+    //             "question_type": "mcq",
+    //             "marks": "3",
+    //             "q_id": 2
+    //         },
+    //         {
+    //             "question": "how are you?",
+    //             "marks": "3",
+    //             "correct_answer": "aa",
+    //             "question_type": "fill-blanks",
+    //             "q_id": 3
+    //         },
+    //         {
+    //             "question": "ads",
+    //             "marks": "2",
+    //             "correct_answer": "a",
+    //             "question_type": "fill-blanks",
+    //             "q_id": 4
+    //         },
+    //         {
+    //             "question": "vbfdb",
+    //             "marks": "3",
+    //             "correct_answer": "true",
+    //             "options": [
+    //                 "true",
+    //                 "false"
+    //             ],
+    //             "question_type": "true-false",
+    //             "q_id": 5
+    //         }
+    //     ]
+    // }
 
 
 
@@ -167,27 +183,35 @@ const Exam = () => {
     const [newQuestion, setNewQuestion] = useState([questions[0]])
     const [input, setInput] = useState(false)
 
+    const submitResult = () => {
+        const result = {
+            token: validUser.token,
+            negMark: room.negMark,
+            roomID: room.roomID,
+            studentAnswer: answers
+        }
+    }
+
     const changeQuestion = () => {
         setInput(false)
+
+        if (count >= questions.length) {
+            submitResult();
+            setIsFinished(true);
+            Swal.fire({
+                icon: 'success',
+                title: 'Good job!',
+                html: `<h1><b>You have answred ${answers.length} questions! out of ${questions.length}</b></h1>
+                <br>
+                <p className='animate-pulse'>You can find your result in your room</p>`,
+                confirmButtonText: 'Ok',
+            })
+            return;
+        }
         const filtered_questions = questions.filter((question) => {
             return questions.indexOf(question) === count
         });
         setNewQuestion(filtered_questions);
-        if (count >= questions.length) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Good job!',
-                text: `You have answred ${answers.length} questions! out of ${questions.length}`,
-                confirmButtonText: 'see result',
-            }).then(() => {
-                Swal.fire({
-                    icon: 'info',
-                    title: `you have got ${7} marks out of ${room.totalMarks}!`,
-                }).then(() => {
-                    navigate('/Home')
-                })
-            })
-        }
     }
     const expiryTimestamp = new Date();
     const remainingTime = (time) => {
@@ -203,17 +227,16 @@ const Exam = () => {
     } = useTimer({
         expiryTimestamp, onExpire: () => {
             if (!expired) {
-                Swal.fire({ icon: 'success', title: 'Exam over!!', text: `You have answred ${answers.length} questions! out of ${questions.length}`, confirmButtonText: "see result", }).then(() => {
-                    Swal.fire({
-                        icon: 'info',
-                        title: `you have got ${7} marks out of ${room.totalMarks}!`,
-                        confirmButtonText: "Go back to home"
-                    })
-                    // .then(() => {
-                    //     navigate('/Home');
-                    // })
+                submitResult();
+                setIsFinished(true);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Good job!',
+                    html: `<h1><b>You have answred ${answers.length} questions! out of ${questions.length}</b></h1>
+                    <br>
+                    <p className='animate-pulse'>You can find your result in your room</p>`,
+                    confirmButtonText: 'Ok',
                 })
-
             }
         }
     });
@@ -222,6 +245,7 @@ const Exam = () => {
     let currentTime = new Date().getTime();
     if (firstime) {
         if (currentTime >= startTime && currentTime < endTime) {
+            setIsFinished(false);
             remainingTime(endTime - currentTime)
             Swal.fire({
                 width: '50vw',
@@ -231,6 +255,27 @@ const Exam = () => {
                     'Continue Exam',
             })
             setExpired(false);
+        }
+        else if (startTime > currentTime) {
+            setIsFinished(true);
+            Swal.fire({
+                width: '40vw',
+                icon: 'info',
+                title: 'This exam has not started yet',
+                text: `Exam will start on  ${new Date(`${room.startTime}`).toDateString().split('T')[0]}  at  ${new Date(`${room.startTime}`).toLocaleTimeString()}`,
+                showCancelButton: true,
+                confirmButtonText: 'Go to waiting room',
+            })
+
+        }
+        else {
+            setIsFinished(true);
+            Swal.fire({
+                width: '40%',
+                title: 'This exam has already ended',
+                text: 'to see result go to your room!',
+                icon: 'error',
+            })
         }
         setFirstime(false)
     }
@@ -358,7 +403,7 @@ const Exam = () => {
                 </div> */}
             </div>
             {
-                isRunning ? <div >
+                !isFinished ? <div >
                     <div className="mb-20 flex justify-center gap-8 text-center auto-cols-max m-auto w-full">
                         <div className=''>
                             <span className="countdown font-mono text-5xl text-gray-600">
@@ -379,6 +424,7 @@ const Exam = () => {
                             <span className='text-gray-500 pl-2'>sec</span>
                         </div>
                     </div>
+
                     <div className='m-auto flex flex-col gap-20 lg:w-2/3 rounded-md text-gray-800 text-xl '>
                         {
                             newQuestion.map((element) => {
@@ -400,8 +446,8 @@ const Exam = () => {
                             input ? <button onClick={() => { changeQuestion(); setCount(count + 1) }} className='nb-custom bg-gradient-to-r from-indigo-800 via-cyan-500 to-indigo-800 btn  text-white px-16 hover:bg-indigo-700'>Next &nbsp;&nbsp;&rarr;</button> : <button disabled title='give an answer first' className='btn transition-all px-16 disabled:text-gray-600'>Next &nbsp;&nbsp;&rarr;</button>
                         }
                     </div>
-                </div> : <div className='pt-48'>
-                    <Link to={'/Home'} className=' transition-all button-custom bg-gradient-to-tr from-indigo-800 via-cyan-500 to-indigo-800 btn  text-white px-16 hover:bg-indigo-700 hover:tracking-widest'>Go back to Home</Link>
+                </div> : <div className='pt-72'>
+                    <Link to={'/Home'} className=' transition-all button-custom bg-gradient-to-tr from-indigo-800 via-cyan-500 to-indigo-800 btn  text-white px-16 hover:bg-indigo-700 hover:tracking-widest border-none'>Go back to Home</Link>
                 </div>
             }
 

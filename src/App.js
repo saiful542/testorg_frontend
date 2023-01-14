@@ -18,6 +18,7 @@ import FindRoom from './Pages/FindRoom/FindRoom';
 import Student from './Pages/Student/Student';
 import MyRooms from './Pages/MyRooms/MyRooms';
 import useAuth from './Hooks/useAuth';
+import MyProfile from './Pages/MyProfile/MyProfile';
 
 function App() {
 
@@ -28,10 +29,11 @@ function App() {
           <Header />
           <Routes >
             <Route path="/" element={<Home />} />
+            <Route path="/MyProfile" element={<MyProfile />} />
             <Route path="/Student" element={<Student />} />
-            <Route path="/Student/MyRooms" element={<MyRooms />} />
+            <Route path="/MyRooms" element={<MyRooms />} />
             <Route path="/Student/Timer" element={<Timer />} />
-            <Route path="/Student/Join_Room" element={<FindRoom />} />
+            <Route path="/Join_Room" element={<FindRoom />} />
             <Route path="/Home" element={<Home />} />
             <Route path="/Room" element={<Room />} />
             <Route path="/Form_test" element={<Form_test />} />

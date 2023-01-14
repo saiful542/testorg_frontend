@@ -118,6 +118,7 @@ const FindRoom = () => {
                     // }
                 })
                 .catch(err => {
+                    console.log(err)
                     // if()
                     Swal.fire({
                         width: '30vw',

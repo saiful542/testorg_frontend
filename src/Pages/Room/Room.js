@@ -13,6 +13,7 @@ import Form_test from '../../Form_test/Form_test';
 import { useHistory } from "react-router-dom";
 import Swal from 'sweetalert2';
 import { set } from 'date-fns';
+import { Checkbox } from 'react-miui';
 
 
 const Room = () => {
@@ -23,11 +24,15 @@ const Room = () => {
     const [endTime, setEndTime] = useState(null);
     const [courseName, setCourseName] = useState('');
     const [teacherName, setTeacherName] = useState(null);
+    const [markingType, setMarkingType] = useState(false);
     const navigate = useNavigate()
 
+    // const setMarkingType = (e) => {
+    //     setNegative(e.target.checked)
+    // }
     const test = () => {
         if (date && startTime && endTime && courseName && (teacherName || validUser?.userName)) {
-            navigate('/Form_test', { state: { date: date, startTime: startTime, endTime: endTime, courseName: courseName, teacherName: teacherName ? teacherName : validUser?.userName } });
+            navigate('/Form_test', { state: { date: date, startTime: startTime, endTime: endTime, courseName: courseName, teacherName: teacherName ? teacherName : validUser?.userName, negativeMarking: markingType } });
         }
         else {
             Swal.fire({
@@ -52,7 +57,12 @@ const Room = () => {
                     <div className='text-start'><label htmlFor="input" className='text-2xl text-cyan-800 font-serif font-bold'>Teacher</label><input defaultValue={validUser?.userName} onInput={(e) => setTeacherName(e.target.value)} className='mt-5 h-14 input border-2  border-cyan-700 animate__animated animate__slideInLeft' type="text" placeholder='teachers name' /></div>
 
                     <div className='text-start'><label htmlFor="input" className='text-2xl text-cyan-800 font-serif font-bold'>Course</label><input onInput={(e) => setCourseName(e.target.value)} className='mt-5 h-14 input border-2 border-cyan-700 animate__animated animate__slideInLeft' type="text" placeholder='course name' /></div>
-
+                    <div className="form-control w-2/3 animate__animated animate__slideInLeft mt-[-30px]">
+                        <label className="cursor-pointer label">
+                            <input onInput={(e) => { setMarkingType(e.target.checked) }} type="checkbox" className="checkbox checkbox-info  border-4" />
+                            <span className="label-text text-gray-500 font-semibold text-xl">Negative Marking <span className=" text-gray-400 font-light text-lg">(optional)</span></span>
+                        </label>
+                    </div>
                 </div>
                 <div className='lg:w-1/3'>
                     <div className='pb-5 text-start'>
@@ -94,7 +104,7 @@ const Room = () => {
                 </div>
             </div>
             <div className='button-wrapper pt-40 animate__animated animate__fadeInUp'>
-                <button onClick={() => test()} className='button-custom bg-gradient-to-tr from-indigo-800 to-cyan-500 btn  text-white px-16 hover:bg-indigo-700'>Create Question &nbsp;&nbsp;&rarr;</button>
+                <button onClick={() => test()} className='button-custom bg-gradient-to-tr from-indigo-800 to-cyan-500 btn  text-white px-16 hover:bg-indigo-700 border-none hover:tracking-widest transition-all'>Create Question &nbsp;&nbsp;&rarr;</button>
             </div>
         </div>
     );

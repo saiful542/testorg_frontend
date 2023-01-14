@@ -23,7 +23,7 @@ const Form_test = () => {
     const [isValidQsn, setIsValidQsn] = useState(true)
     const [totalMarks, setTotalMarks] = useState(0);
     const { state } = useLocation();
-    const { date, startTime, endTime, teacherName, courseName } = state;
+    const { date, startTime, endTime, teacherName, courseName, markingType } = state;
     const getInGlobalFormat = (date, time) => {
         return `${date} ${time}`;
     };
@@ -95,6 +95,7 @@ const Form_test = () => {
             courseName: courseName,
             teacherName: teacherName,
             totalMarks: totalMarks,
+            negeMark: markingType,
             createdAt: new Date(),
             question: questionFormData
         }

@@ -53,9 +53,12 @@ const useLogin = () => {
 
             }
             else if (data.method === 'signup') {
+                // await axios.get(`https://excited-foal-raincoat.cyclic.app/resend-mail`, {
+                //     "email" : "mahinhossen001@gmail.com"
+                // })
                 await axios.post(`https://excited-foal-raincoat.cyclic.app/${data.method}`, data)
                     .then(response => {
-                        // console.log(response.data.msg);
+                        console.log(response);
                         setIsLoading(false);
                         toast.success(response.data.msg, {
                             autoClose: 2000,
