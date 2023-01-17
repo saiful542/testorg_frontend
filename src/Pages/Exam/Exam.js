@@ -1,17 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { useTimer } from 'react-timer-hook';
 import Swal from 'sweetalert2';
-import { CountdownCircleTimer } from "react-countdown-circle-timer";
-import { ButtonRoot } from '@mui/joy/Button/Button';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import useAuth from '../../Hooks/useAuth';
+import ExamTimer from './ExamTimer/ExamTimer';
+import Loader from '../../Loader/Loader';
+import axios from 'axios';
 
 const Exam = () => {
-    const { validUser } = useState()
+    const { validUser } = useAuth()
     const navigate = useNavigate()
     const [expired, setExpired] = useState(true);
+    const [running, setRunning] = useState(false);
     const [isFinished, setIsFinished] = useState(false);
     const [firstime, setFirstime] = useState(true);
+    const [remainingTime, setRemainingTime] = useState();
+    const [newQuestion, setNewQuestion] = useState([])
+
     if (!useLocation().state) {
         Swal.fire({
             title: 'Something went wrong',
@@ -23,177 +28,55 @@ const Exam = () => {
         })
     }
     const { state } = useLocation();
-    const { room } = state;
+    const { room, questions } = state;
 
+    if (firstime) {
+        setTimeout(() => {
+            setNewQuestion(oldArray => [...oldArray, questions[0]]);
+        }, 100)
 
+        setTimeout(() => {
+            setRunning(true)
+        }, 1000)
 
-
-    // const room = {
-
-    //     room_id: '618240',
-    //     startTime: "fri Jan 13 2023 8:00:00 PM",
-    //     endTime: "fri Jan 13 2023 9:20:00 PM",
-    //     courseName: "dasd",
-    //     teacherName: "saiful542d",
-    //     totalMarks: 14,
-    //     createdAt: "2023-01-01T07:14:59.885Z",
-    //     question: [
-    //         {
-    //             "question": "how are you?",
-    //             "marks": "3",
-    //             "correct_answer": "true",
-    //             "options": [
-    //                 "true",
-    //                 "false"
-    //             ],
-    //             "question_type": "true-false",
-    //             "q_id": 1
-    //         },
-    //         {
-    //             "question": "when the Metro Rail mega project was declared?",
-    //             "correct_answer": "2012",
-    //             "options": [
-    //                 "2012",
-    //                 "2010",
-    //                 "2016"
-    //             ],
-    //             "question_type": "mcq",
-    //             "marks": "3",
-    //             "q_id": 2
-    //         },
-    //         {
-    //             "question": "how are you?",
-    //             "marks": "3",
-    //             "correct_answer": "aa",
-    //             "question_type": "fill-blanks",
-    //             "q_id": 3
-    //         },
-    //         {
-    //             "question": "ads",
-    //             "marks": "2",
-    //             "correct_answer": "a",
-    //             "question_type": "fill-blanks",
-    //             "q_id": 4
-    //         },
-    //         {
-    //             "question": "vbfdb",
-    //             "marks": "3",
-    //             "correct_answer": "true",
-    //             "options": [
-    //                 "true",
-    //                 "false"
-    //             ],
-    //             "question_type": "true-false",
-    //             "q_id": 5
-    //         }
-    //     ]
-    // }
-
-
-
-
-
-
-    // randomizing the question and options
-    // randomizing the question and options
-    const getRandom = (array) => {
-        let ranNums = [],
-            length = array.length,
-            index = 0;
-        while (length--) {
-            index = Math.floor(Math.random() * (length + 1));
-            if (array[index]?.question_type === 'mcq') {
-                array[index].options = getRandom(array[index].options)
-            }
-            ranNums.push(array[index]);
-            array.splice(index, 1);
-        }
-        return ranNums;
     }
-    const getQuestions = [
-        {
-            "question": "first one",
-            "marks": "2",
-            "options": [
-                "song",
-                "dance"
-            ],
-            "correct_answer": "song",
-            "question_type": "mcq",
-            "q_id": 1
-        },
-        {
 
-            "question": "when the Metro Rail mega project was declared?",
-            "correct_answer": "2012",
-            "options": [
-                "2012",
-                "2010",
-                "2016"
-            ],
-            "question_type": "mcq",
-            "q_id": 2
-        },
-        {
-            "question": "i am ok",
-            "marks": "1",
-            "correct_answer": "false",
-            "options": [
-                "true",
-                "false"
-            ],
-            "question_type": "true-false",
-            "q_id": 3
-        },
-        {
-            "question": "tv or radio",
-            "marks": "2",
-            "options": [
-                "tv",
-                "pen",
-                "radio"
-            ],
-            "correct_answer": "tv",
-            "question_type": "mcq",
-            "q_id": 4
-        },
-        {
-            "question": "not __ be true",
-            "marks": "3",
-            "correct_answer": "to",
-            "question_type": "fill-blanks",
-            "q_id": 5
-        },
-        {
-            "question": "yellow shirt",
-            "marks": "1",
-            "correct_answer": "true",
-            "options": [
-                "true",
-                "false"
-            ],
-            "question_type": "true-false",
-            "q_id": 6
-        }
-    ]
-    const questions = getRandom(getQuestions)
-    // randomizing the question and options
     const [answers, setAnswers] = useState([]);
     const [count, setCount] = useState(1)
-    const [newQuestion, setNewQuestion] = useState([questions[0]])
     const [input, setInput] = useState(false)
 
-    const submitResult = () => {
+    const submitResult = async () => {
+        Swal.showLoading()
         const result = {
             token: validUser.token,
-            negMark: room.negMark,
+            negMarks: room.negMarks,
             roomID: room.roomID,
             studentAnswer: answers
         }
+        // console.log('result', result)
+
+        await axios.post(`https://excited-foal-raincoat.cyclic.app/room/submit-result`, result)
+            .then((response) => {
+                // console.log(response)
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Great!',
+                    text: 'result submitted successfully',
+            
+                })
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+
     }
 
     const changeQuestion = () => {
-        setInput(false)
+
+        const filtered_questions = questions.filter((question) => {
+            return questions.indexOf(question) === count
+        });
+        setNewQuestion(filtered_questions)
 
         if (count >= questions.length) {
             submitResult();
@@ -206,57 +89,16 @@ const Exam = () => {
                 <p className='animate-pulse'>You can find your result in your room</p>`,
                 confirmButtonText: 'Ok',
             })
-            return;
+
         }
-        const filtered_questions = questions.filter((question) => {
-            return questions.indexOf(question) === count
-        });
-        setNewQuestion(filtered_questions);
     }
-    const expiryTimestamp = new Date();
-    const remainingTime = (time) => {
-        // console.log('from exam', time)
-        expiryTimestamp.setTime(expiryTimestamp.getTime() + time);
-    }
-    const {
-        seconds,
-        minutes,
-        hours,
-        days,
-        isRunning,
-    } = useTimer({
-        expiryTimestamp, onExpire: () => {
-            if (!expired) {
-                submitResult();
-                setIsFinished(true);
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Good job!',
-                    html: `<h1><b>You have answred ${answers.length} questions! out of ${questions.length}</b></h1>
-                    <br>
-                    <p className='animate-pulse'>You can find your result in your room</p>`,
-                    confirmButtonText: 'Ok',
-                })
-            }
-        }
-    });
+
     let startTime = new Date(`${room.startTime}`).getTime();
     let endTime = new Date(`${room.endTime}`).getTime();
     let currentTime = new Date().getTime();
+
     if (firstime) {
-        if (currentTime >= startTime && currentTime < endTime) {
-            setIsFinished(false);
-            remainingTime(endTime - currentTime)
-            Swal.fire({
-                width: '50vw',
-                title: `Exam has been started ${new Date(currentTime)?.getHours() - new Date(startTime)?.getHours()} hours  ${new Date(currentTime - startTime).getMinutes()} minutes ago`,
-                html: `<p style='color:green'>you have ${new Date(endTime)?.getHours() - new Date(currentTime)?.getHours()} hours ${new Date(endTime - currentTime)?.getMinutes()} minutes to finish the exam</p>`,
-                confirmButtonText:
-                    'Continue Exam',
-            })
-            setExpired(false);
-        }
-        else if (startTime > currentTime) {
+        if (startTime > currentTime) {
             setIsFinished(true);
             Swal.fire({
                 width: '40vw',
@@ -268,6 +110,19 @@ const Exam = () => {
             })
 
         }
+        else if (currentTime >= startTime && currentTime < endTime) {
+            setIsFinished(false);
+            setRemainingTime(endTime - currentTime)
+            Swal.fire({
+                width: '50vw',
+                title: `Exam has been started ${new Date(currentTime)?.getHours() - new Date(startTime)?.getHours()} hours  ${new Date(currentTime - startTime).getMinutes()} minutes ago`,
+                // html: `<p style='color:green'>you have ${new Date(endTime)?.getHours() - new Date(currentTime)?.getHours()} hours ${new Date(endTime - currentTime)?.getMinutes()} minutes to finish the exam</p>`,
+                confirmButtonText:
+                    'Continue Exam',
+            })
+            setExpired(false);
+        }
+
         else {
             setIsFinished(true);
             Swal.fire({
@@ -355,7 +210,7 @@ const Exam = () => {
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            <td><p className='text-gray-300 text-xl pr-20'>{room.courseName}</p></td>
+                                            <td><p className='text-gray-300 text-xl pr-20'>{room.CourseName}</p></td>
                                         </tr>
                                         <tr>
                                             <td className='text-2xl'>Ending at</td>
@@ -403,53 +258,44 @@ const Exam = () => {
                 </div> */}
             </div>
             {
-                !isFinished ? <div >
-                    <div className="mb-20 flex justify-center gap-8 text-center auto-cols-max m-auto w-full">
-                        <div className=''>
-                            <span className="countdown font-mono text-5xl text-gray-600">
-                                <span style={{ "--value": hours }}></span>
-                            </span>
-                            <span className='text-gray-500 pl-2'>hours</span>
-                        </div>
-                        <div>
-                            <span className="countdown font-mono text-5xl text-gray-600">
-                                <span style={{ "--value": minutes }}></span>
-                            </span>
-                            <span className='text-gray-500 pl-2'>min</span>
-                        </div>
-                        <div>
-                            <span className="countdown font-mono text-5xl text-gray-600">
-                                <span style={{ "--value": seconds }}></span>
-                            </span>
-                            <span className='text-gray-500 pl-2'>sec</span>
-                        </div>
-                    </div>
+                running ? <div>{
+                    !isFinished ? <div >
+                        <ExamTimer key={12345} remainingTime={remainingTime} setIsFinished={setIsFinished} submitResult={submitResult} expired={expired}></ExamTimer>
 
-                    <div className='m-auto flex flex-col gap-20 lg:w-2/3 rounded-md text-gray-800 text-xl '>
-                        {
-                            newQuestion.map((element) => {
-                                if (element.question_type === 'true-false') {
-                                    return <ShowTrue key={count} setInput={setInput} answers={answers} setAnswers={setAnswers} index={count} question={element.question} marks={element.marks}></ShowTrue>
-                                }
-                                else if (element.question_type === 'mcq') {
-                                    return <ShowQuiz key={count} setInput={setInput} answers={answers} setAnswers={setAnswers} index={count} question={element.question} marks={element.marks} options={element.options}></ShowQuiz>
-                                }
-                                else if (element.question_type === 'fill-blanks') {
-                                    return <ShowGaps key={count} setInput={setInput} answers={answers} setAnswers={setAnswers} index={count} question={element.question} marks={element.marks}></ShowGaps>
-                                }
+                        <div className='m-auto flex flex-col gap-20 lg:w-2/3 rounded-md text-gray-800 text-xl '>
+                            {
+                                newQuestion.map((element) => {
+                                    if (element.question_type === 'true-false') {
+                                        return (
+                                            <ShowTrue setInput={setInput} answers={answers} setAnswers={setAnswers} index={count} question={element.question} marks={element.marks} correct_answer={element.correct_answer} q_id={element.q_id} key={count}></ShowTrue>
+                                        )
+                                    }
+                                    else if (element.question_type === 'mcq') {
+                                        return (
+                                            <ShowQuiz key={count} setInput={setInput} answers={answers} setAnswers={setAnswers} index={count} question={element.question} marks={element.marks} options={element.options} correct_answer={element.correct_answer} q_id={element.q_id}></ShowQuiz>
+                                        )
+                                    }
+                                    else if (element.question_type === 'fill-blanks') {
+                                        return (
+                                            <ShowGaps key={count} setInput={setInput} answers={answers} setAnswers={setAnswers} index={count} question={element.question} marks={element.marks} correct_answer={element.correct_answer} q_id={element.q_id}></ShowGaps>
+                                        )
+                                    }
 
-                            })
-                        }
+                                })
+                            }
+                        </div>
+                        <div className="button-wrapper text-end lg:w-2/3 m-auto pt-10">
+                            {
+                                input ? <button onClick={() => { changeQuestion(); setCount(count + 1) }} className='nb-custom bg-gradient-to-r from-indigo-800 via-cyan-500 to-indigo-800 btn  text-white px-16 hover:bg-indigo-700'>Next &nbsp;&nbsp;&rarr;</button> : <button disabled title='give an answer first' className='btn transition-all px-16 disabled:text-gray-600'>Next &nbsp;&nbsp;&rarr;</button>
+                            }
+                        </div>
+                    </div> : <div className='pt-72'>
+                        <Link to={'/Home'} className=' transition-all button-custom bg-gradient-to-tr from-indigo-800 via-cyan-500 to-indigo-800 btn  text-white px-16 hover:bg-indigo-700 hover:tracking-widest border-none'>Go back to Home</Link>
                     </div>
-                    <div className="button-wrapper text-end lg:w-2/3 m-auto pt-10">
-                        {
-                            input ? <button onClick={() => { changeQuestion(); setCount(count + 1) }} className='nb-custom bg-gradient-to-r from-indigo-800 via-cyan-500 to-indigo-800 btn  text-white px-16 hover:bg-indigo-700'>Next &nbsp;&nbsp;&rarr;</button> : <button disabled title='give an answer first' className='btn transition-all px-16 disabled:text-gray-600'>Next &nbsp;&nbsp;&rarr;</button>
-                        }
-                    </div>
-                </div> : <div className='pt-72'>
-                    <Link to={'/Home'} className=' transition-all button-custom bg-gradient-to-tr from-indigo-800 via-cyan-500 to-indigo-800 btn  text-white px-16 hover:bg-indigo-700 hover:tracking-widest border-none'>Go back to Home</Link>
-                </div>
+                }</div> : <div className='pt-56 m-auto flex flex-col items-center justify-center gap-10'><Loader /> <h1>please wait ...</h1></div>
+
             }
+
 
         </div>
     );
@@ -462,31 +308,37 @@ export default Exam;
 
 
 const ShowQuiz = (props) => {
-    const { index, question, marks, options, setAnswers, answers, setInput } = props;
+    const { index, question, marks, options, setAnswers, answers, setInput, correct_answer, q_id } = props;
     const inputValue = (e) => {
         let arr = [...answers];
-        arr[index - 1] = e
+        arr[index - 1] = {
+            q_id: q_id,
+            correct_answer: correct_answer,
+            student_answer: e,
+            marks: marks
+        }
         setAnswers(arr)
         setInput(true)
+        // let arr = [...answers];
+        // arr[index - 1] = e
+        // setAnswers(arr)
+        // setInput(true)
     }
 
     return (
         <div className='rounded-lg flex flex-col gap-10 p-10 py-16 shadow-lg border-l-8 border-l-cyan-600 bg-white animate__animated animate__fadeIn'>
-            <div className='flex items-center justify-between'>
-                <span className='flex gap-5 items-center'>
+            <div className='flex justify-between'>
+                <span className='flex gap-5 text-start'>
                     <p className='text-2xl'>{index}.</p>
-                    <h3 className=''>{question} ?</h3>
+                    <h3 className='break-all pr-10'>{question} ?</h3>
                 </span>
-                <p className='self-end'>{marks}<span className='text-sm'> marks</span></p>
+                <p className='text-success'>{marks}<span className='text-sm'> marks</span></p>
             </div>
             <div className='flex flex-col gap-5'>
                 {
-                    options.map((option) => {
+                    options.map((option, index) => {
                         return (
-                            <div className="radio-group flex gap-4 items-center ">
-                                <input onInput={() => { inputValue(option) }} type="radio" name="radio" className="radio-field radio border-2 border-cyan-600 radio-accent" />
-                                <p>{option}</p>
-                            </div>
+                            <Option option={option.value} key={index} inputValue={inputValue}></Option>
                         )
                     })
                 }
@@ -494,23 +346,59 @@ const ShowQuiz = (props) => {
         </div>
     )
 }
+
+const Option = (props) => {
+    const { option, inputValue } = props;
+
+    return (
+        <div className="radio-group flex gap-4 items-center ">
+            <input onInput={() => { inputValue(option) }} type="radio" name="radio" className="radio-field radio border-2 border-cyan-600 radio-accent" />
+            <p>{option}</p>
+        </div>
+    )
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const ShowGaps = (props) => {
-    const { index, question, marks, setAnswers, answers, setInput } = props;
+    const { index, question, marks, setAnswers, answers, setInput, correct_answer, q_id } = props;
     const inputValue = (e) => {
+        // let arr = [...answers];
+        // arr[index - 1] = e
+        // setAnswers(arr);
+        // setInput(true)
         let arr = [...answers];
-        arr[index - 1] = e
-        setAnswers(arr);
+        arr[index - 1] = {
+            q_id: q_id,
+            correct_answer: correct_answer,
+            student_answer: e,
+            marks: marks
+        }
+        setAnswers(arr)
         setInput(true)
     }
 
     return (
         <div className='rounded-lg flex flex-col gap-10 p-10 py-16 shadow-lg border-l-8 border-l-cyan-600 bg-white animate__animated animate__fadeIn'>
-            <div className='flex items-center justify-between'>
-                <span className='flex gap-5 items-center'>
+            <div className='flex justify-between'>
+                <span className='flex gap-5 text-start'>
                     <p>{index}.</p>
-                    <h3 className=''>{question} ?</h3>
+                    <h3 className='break-all pr-10'>{question} ?</h3>
                 </span>
-                <p className='self-end'>{marks}<span className='text-sm'> marks</span></p>
+                <p className='text-success'>{marks}<span className='text-sm'> marks</span></p>
             </div>
             <div className="gap-4 border-cyan-600 border-b-2 w-1/2">
                 <input onInput={(e) => { inputValue(e.target.value) }} className='text-field border-none text-xl rounded-md' type="text" placeholder='answer' autoFocus />
@@ -518,23 +406,48 @@ const ShowGaps = (props) => {
         </div>
     )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const ShowTrue = (props) => {
-    const { index, question, marks, setAnswers, answers, setInput } = props;
+    const { index, question, marks, setAnswers, answers, setInput, correct_answer, q_id } = props;
     const inputValue = (e) => {
+        // let arr = [...answers];
+        // arr[index - 1] = e
+        // setAnswers(arr);
+        // setInput(true)
+
         let arr = [...answers];
-        arr[index - 1] = e
-        setAnswers(arr);
+        arr[index - 1] = {
+            q_id: q_id,
+            correct_answer: correct_answer,
+            student_answer: e,
+            marks: marks
+        }
+        setAnswers(arr)
         setInput(true)
     }
 
     return (
         <div className='rounded-lg flex flex-col gap-10 p-10 py-16 shadow-lg border-l-8 border-l-cyan-600 bg-white animate__animated animate__fadeIn'>
-            <div className='flex items-center justify-between'>
-                <span className='flex gap-5 items-center'>
+            <div className='flex justify-between'>
+                <span className='flex gap-5 text-start'>
                     <p>{index}.</p>
-                    <h3 className=''>{question} ?</h3>
+                    <h3 className='break-all pr-10'>{question} ?</h3>
                 </span>
-                <p className='self-end'>{marks}<span className='text-sm'> marks</span></p>
+                <p className='text-success'>{marks}<span className='text-sm'> marks</span></p>
             </div>
             <div className='flex flex-col gap-5'>
                 <div className="radio-group flex gap-4">

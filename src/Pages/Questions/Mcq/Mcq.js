@@ -53,7 +53,7 @@ const Mcq = (props) => {
         }
         
         if (test() && (data.question) && (data.marks) && (options.length == optionArray.length)) {
-            console.log(correctAnswer)
+            // console.log(correctAnswer)
             if (correctAnswer) {
                 data.options = optionArray;
                 const indexForCorrect = optionArray.filter(option => {
@@ -66,7 +66,7 @@ const Mcq = (props) => {
                 setDone(true)
                 setIsValidQsn(true)
                 setTotalMarks(totalMarks + parseInt(data.marks))
-                console.log(data)
+                // console.log(data)
             }
             else {
                 toast.error('select at-least one option', {

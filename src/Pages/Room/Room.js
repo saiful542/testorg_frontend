@@ -27,12 +27,15 @@ const Room = () => {
     const [markingType, setMarkingType] = useState(false);
     const navigate = useNavigate()
 
-    // const setMarkingType = (e) => {
-    //     setNegative(e.target.checked)
-    // }
+    const neg = (e) => {
+        if (e.target.checked)
+            setMarkingType(true)
+        else
+            setMarkingType(false)
+    }
     const test = () => {
         if (date && startTime && endTime && courseName && (teacherName || validUser?.userName)) {
-            navigate('/Form_test', { state: { date: date, startTime: startTime, endTime: endTime, courseName: courseName, teacherName: teacherName ? teacherName : validUser?.userName, negativeMarking: markingType } });
+            navigate('/Form_test', { state: { date: date, startTime: startTime, endTime: endTime, courseName: courseName, teacherName: teacherName ? teacherName : validUser?.userName, markingType: markingType } });
         }
         else {
             Swal.fire({
@@ -59,7 +62,7 @@ const Room = () => {
                     <div className='text-start'><label htmlFor="input" className='text-2xl text-cyan-800 font-serif font-bold'>Course</label><input onInput={(e) => setCourseName(e.target.value)} className='mt-5 h-14 input border-2 border-cyan-700 animate__animated animate__slideInLeft' type="text" placeholder='course name' /></div>
                     <div className="form-control w-2/3 animate__animated animate__slideInLeft mt-[-30px]">
                         <label className="cursor-pointer label">
-                            <input onInput={(e) => { setMarkingType(e.target.checked) }} type="checkbox" className="checkbox checkbox-info  border-4" />
+                            <input onInput={(e) => { neg(e) }} type="checkbox" className="checkbox checkbox-info  border-4" />
                             <span className="label-text text-gray-500 font-semibold text-xl">Negative Marking <span className=" text-gray-400 font-light text-lg">(optional)</span></span>
                         </label>
                     </div>
@@ -104,7 +107,7 @@ const Room = () => {
                 </div>
             </div>
             <div className='button-wrapper pt-40 animate__animated animate__fadeInUp'>
-                <button onClick={() => test()} className='button-custom bg-gradient-to-tr from-indigo-800 to-cyan-500 btn  text-white px-16 hover:bg-indigo-700 border-none hover:tracking-widest transition-all'>Create Question &nbsp;&nbsp;&rarr;</button>
+                <button onClick={() => test()} className='button-custom bg-gradient-to-tr from-indigo-800 via-cyan-500 to-indigo-800 btn  text-white px-16 hover:bg-indigo-700 border-none hover:tracking-widest transition-all'>Create Question &nbsp;&nbsp;&rarr;</button>
             </div>
         </div>
     );

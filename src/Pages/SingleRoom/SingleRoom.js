@@ -8,7 +8,6 @@ const SingleRoom = (props) => {
     const { validUser } = useAuth()
     const navigate = useNavigate()
     const { room, setRooms } = props;
-
     const getStatus = (room) => {
         let startTime = new Date(`${room.startTime}`).getTime();
         let endTime = new Date(`${room.endTime}`).getTime();
@@ -53,12 +52,35 @@ const SingleRoom = (props) => {
                 confirmButtonText: 'Continue examining',
             }).then((result) => {
                 if (result.isConfirmed) {
+                    Swal.showLoading()
                     const sendRoom = async () => {
                         await axios.post(`https://excited-foal-raincoat.cyclic.app/room/view-room`, { token: validUser.token, roomID: room.roomID })
                             .then(response => {
-                                console.log(response);
-                                setRooms(null)
-                                navigate('/Student/Exam', { state: { room: response.data } })
+                                // console.log(response.data.questions);
+
+                                const getRandom = (array) => {
+                                    let ranNums = [],
+                                        length = array.length,
+                                        index = 0;
+                                    while (length--) {
+                                        index = Math.floor(Math.random() * (length + 1));
+                                        if (array[index]?.question_type === 'mcq') {
+                                            array[index].options = getRandom(array[index].options)
+                                        }
+                                        ranNums.push(array[index]);
+                                        array.splice(index, 1);
+                                    }
+                                    return ranNums;
+                                }
+                                const question = getRandom(response.data.questions)
+                                navigate('/Student/Exam', { state: { room: room, questions: question } })
+                            })
+                            .catch(error => {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'something went wrong',
+                                    text: 'please try again later'
+                                })
                             })
                     }
                     sendRoom();
@@ -120,7 +142,7 @@ const SingleRoom = (props) => {
                     <h2 className="card-title text-gray-200">
                         {room.CourseName}
                         <div className='text-end w-full'>
-                            <div className={`float-right badge badge-o  ${getStatus(room).color} `}>{getStatus(room).status}</div>
+                            <div className={`float-right badge ${getStatus(room).color} `}>{getStatus(room).status}</div>
                         </div>
                     </h2>
                     <div className='justify-start'>
@@ -133,7 +155,7 @@ const SingleRoom = (props) => {
                     </div>
                     <div className="card-actions justify-start items-end h-full">
                         <div className="badge badge-outline">{new Date(`${room.startTime}`).toDateString()}</div>
-                        <div className="badge badge-outline items-end">{new Date(`${room.startTime}`).toLocaleTimeString()}</div>
+                        <div className="badge badge-outline">{new Date(`${room.startTime}`).toLocaleTimeString()}</div>
                     </div>
                 </div>
             </div>

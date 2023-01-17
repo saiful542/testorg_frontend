@@ -10,9 +10,9 @@ const MyProfile = () => {
                     <h1 className='animate__animated  animate__fadeInRight text-4xl font-semibold '>My Profile</h1>
                 </div>
                 <div className='flex flex-col items-center lg:flex-row rounded-lg overflow-hidden mt-20 animate__animated  animate__fadeIn gap-5'>
-                    <div className='lg:w-1/3 w-full rounded-md overflow-hidden'>
-                        <div>
-                            <img className='rounded-md' src='../files/profile.jpg' />
+                    <div className='lg:w-1/3 w-full rounded-md overflow-hidden '>
+                        <div className=''>
+                            <img className='rounded-md ' src='../files/profile.jpg' />
                         </div>
                     </div>
                     <div className='lg:w-2/3 w-full py-0  flex flex-col gap-7'>

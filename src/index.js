@@ -11,6 +11,6 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
-ServiceWorker.unregister();
+// ServiceWorker.unregister();
 
 reportWebVitals();

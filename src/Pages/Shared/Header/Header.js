@@ -35,7 +35,7 @@ const Header = () => {
 
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
-                    <li><Link className='text-white'>Dashboard</Link></li>
+                        <li><Link className='text-white'>Dashboard</Link></li>
                         <li><Link to={'/Room'} className='text-white'>Create Exam</Link></li>
                         <li><Link to={'/Exam'} className='text-white'>Exam</Link></li>
                         {
@@ -46,15 +46,28 @@ const Header = () => {
 
                 <div className="flex-none">
                     <div className="dropdown dropdown-end">
-                        <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                        <label tabIndex={0} className="btn btn-ghost btn-circle">
                             {
-                                validUser?.userName ? <div className="w-10 rounded-full ">
+                                validUser?.userName ? <div className="avatar online" title='online'>
+                                    <div className="w-12 rounded-full ">
+                                        <img src="../files/user.png" />
+                                    </div>
+                                </div> : <div className="avatar" title='offline' onClick={() => Swal.fire('Please Login First')}>
+                                    <div className="w-12 rounded-full">
+                                        <img src="../files/user.png" />
+                                    </div>
+                                </div>
+                            }
+                        </label>
+                        {/* <label tabIndex={0} className="btn btn-ghost btn-circle avatar online">
+                            {
+                                validUser?.userName ? <div className="w-10 rounded-full">
                                     <img src="../files/user.png" />
                                 </div> : <div className="w-10 rounded-full " onClick={() => Swal.fire('Please Login First')}>
                                     <img src="../files/user.png" />
                                 </div>
                             }
-                        </label>
+                        </label> */}
                         {
                             validUser?.userName && <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                                 <li>

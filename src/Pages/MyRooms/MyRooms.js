@@ -25,7 +25,7 @@ const MyRooms = () => {
                 });
         }
         fetchRooms()
-    }, [rooms])
+    }, [rooms,validUser])
 
     return (
         <div className='c-mt container m-auto min-h-screen pt-10 pb-48'>

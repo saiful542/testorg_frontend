@@ -24,6 +24,7 @@ const Form_test = () => {
     const [totalMarks, setTotalMarks] = useState(0);
     const { state } = useLocation();
     const { date, startTime, endTime, teacherName, courseName, markingType } = state;
+    console.log('form',markingType);
     const getInGlobalFormat = (date, time) => {
         return `${date} ${time}`;
     };
@@ -72,96 +73,118 @@ const Form_test = () => {
         // console.log("form data", filterForData);
     }
 
-
+useEffect(() => {
+    
+}, [validUser]);
     const saveData = () => {
-        console.log(questionFormData)
-        let timerInterval
         Swal.fire({
-            title: 'Saving...',
-            text: 'Please wait...',
-            didOpen: () => {
-                Swal.showLoading()
-                timerInterval = setInterval(() => {
-                }, 1000)
-            },
-            willClose: () => {
-                clearInterval(timerInterval)
-            }
+            html: `This exam is consist of total <b>${questionFormData.length}</b> questions`,
+            title: 'Are you sure you want to save this question?',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No',
+            icon: 'warning',
         })
-        const room = {
-            token: validUser?.token,
-            startTime: newStartTime,
-            endTime: newEndTime,
-            courseName: courseName,
-            teacherName: teacherName,
-            totalMarks: totalMarks,
-            negeMark: markingType,
-            createdAt: new Date(),
-            question: questionFormData
-        }
-
-        async function sendData(room) {
-            await axios.post(`https://excited-foal-raincoat.cyclic.app/room/add-room`, room)
-                .then(response => {
-                    setGetRoomCode(response.data.roomCode)
-                    setTimeout(() => {
-                        Swal.fire({
-                            title: 'Created exam',
-                            text: 'send the exam code to your student',
-                            icon: 'success',
-                            confirmButtonText: 'generate code'
-                        }).then(() => {
-                            Swal.fire({
-                                text: 'Please wait...',
-                                didOpen: () => {
-                                    Swal.showLoading()
-                                    timerInterval = setInterval(() => {
-                                    }, 1000)
-                                },
-                                willClose: () => {
-                                    clearInterval(timerInterval)
-                                }
-                            })
-                            setTimeout(() => {
-                                Swal.fire({
-                                    title: 'Exam code',
-                                    html: `<b>${response.data.roomCode}</b>`,
-                                    icon: 'success',
-                                    confirmButtonText: 'copy',
-                                    didOpen: () => {
-                                        b = Swal.getHtmlContainer().querySelector('b').textContent
-                                    },
-                                }).then(() => {
-                                    navigator.clipboard.writeText(b);
-                                    toast.success('Code copied', {
-                                        autoClose: 2000,
-                                        toastId: 'customId',
-                                        position: 'top-right',
-                                        theme: 'colored'
-                                    })
-                                    navigate('/Home')
-
-                                })
-                            }, 2000)
-                        })
-
-                    }, 1000)
-                })
-                .catch(err => {
-                    toast.error(err, {
-                        autoClose: 2000,
-                        toastId: 'customId',
-                        position: 'top-right',
-                        theme: 'colored'
+            .then((result) => {
+                if (result.isConfirmed) {
+                    // save the confirmation
+                    let timerInterval
+                    Swal.fire({
+                        title: 'Saving...',
+                        text: 'Please wait...',
+                        didOpen: () => {
+                            Swal.showLoading()
+                            timerInterval = setInterval(() => {
+                            }, 1000)
+                        },
+                        willClose: () => {
+                            clearInterval(timerInterval)
+                        }
                     })
-                })
-        }
-        sendData(room)
+                    const room = {
+                        token: validUser?.token,
+                        startTime: newStartTime,
+                        endTime: newEndTime,
+                        courseName: courseName,
+                        teacherName: teacherName,
+                        totalMarks: totalMarks,
+                        negMarks: markingType,
+                        createdAt: new Date(),
+                        questions: questionFormData
+                    }
+                    console.log(room)
 
-        localStorage.setItem('question', JSON.stringify(questionFormData))
+                    async function sendData(room) {
+                        console.log('called')
+                        await axios.post(`https://excited-foal-raincoat.cyclic.app/room/add-room`, room)
+                            .then(response => {
+                                console.log('weqweq')
+                                setGetRoomCode(response.data.roomCode)
+                                setTimeout(() => {
+                                    Swal.fire({
+                                        title: 'Created exam',
+                                        text: 'send the exam code to your student',
+                                        icon: 'success',
+                                        confirmButtonText: 'generate code'
+                                    }).then(() => {
+                                        Swal.fire({
+                                            text: 'Please wait...',
+                                            didOpen: () => {
+                                                Swal.showLoading()
+                                                timerInterval = setInterval(() => {
+                                                }, 1000)
+                                            },
+                                            willClose: () => {
+                                                clearInterval(timerInterval)
+                                            }
+                                        })
+                                        setTimeout(() => {
+                                            Swal.fire({
+                                                title: 'Exam code',
+                                                html: `<b>${response.data.roomCode}</b><br>you can find this code in your room`,
+                                                icon: 'success',
+                                                confirmButtonText: 'copy',
+                                                didOpen: () => {
+                                                    b = Swal.getHtmlContainer().querySelector('b').textContent
+                                                },
+                                            }).then(() => {
+                                                navigator.clipboard.writeText(b);
+                                                toast.success('Code copied', {
+                                                    autoClose: 2000,
+                                                    toastId: 'customId',
+                                                    position: 'top-right',
+                                                    theme: 'colored'
+                                                })
+                                                navigate('/Home')
+
+                                            })
+                                        }, 2000)
+                                    })
+
+                                }, 1000)
+                            })
+                            .catch(err => {
+                                toast.error(err, {
+                                    autoClose: 2000,
+                                    toastId: 'customId',
+                                    position: 'top-right',
+                                    theme: 'colored'
+                                })
+                            })
+                    }
+                    sendData(room)
+
+                    localStorage.setItem('question', JSON.stringify(questionFormData))
+                    // save the confirmation
+
+                }
+                else {
+                    return;
+                }
+            })
     }
 
-    // Swal.close()
+
 
     return (
         <div className='m-auto mb-20 c-mt py-5 min-h-screen container relative'>
@@ -338,8 +361,8 @@ const Form_test = () => {
 
                         </div>
                         {
-                            (questionForm.length >= 1) ? <button title='save' className='m-2 hover:bg-green-600 button-custom bg-gradient-to-tr from-green-800 via-green-600 to-green-800 text-white font-bold py-2 px-4 rounded text-xl button-custom hover:tracking-[2px] transition-all' onClick={() => saveData()}>save question&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-duotone fa-floppy-disk" /></button> : <button title='you have to make at least 5 questions' className='m-2 hover:bg-green-600 button-custom bg-gradient-to-tr from-green-800 via-green-600 to-green-800 text-white font-bold py-2 px-4 rounded text-xl button-custom hover:tracking-[2px] transition-all' onClick={() => Swal.fire({
-                                title: 'you have to make at least 3 questions',
+                            (questionForm.length >= 2) ? <button title='save' className='m-2 hover:bg-green-600 button-custom bg-gradient-to-tr from-green-800 via-green-600 to-green-800 text-white font-bold py-2 px-4 rounded text-xl button-custom hover:tracking-[2px] transition-all' onClick={() => saveData()}>save question&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-duotone fa-floppy-disk" /></button> : <button title='you have to make at least 5 questions' className='m-2 hover:bg-green-600 button-custom bg-gradient-to-tr from-green-800 via-green-600 to-green-800 text-white font-bold py-2 px-4 rounded text-xl button-custom hover:tracking-[2px] transition-all' onClick={() => Swal.fire({
+                                title: 'you have to make at least 2 questions',
                                 icon: 'warning',
                                 confirmButtonText: 'ok'
                             })}>save question&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-duotone fa-floppy-disk" /></button>

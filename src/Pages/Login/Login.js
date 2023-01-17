@@ -80,7 +80,7 @@ const Login = () => {
                             })
                             .catch(error => {
                                 isLoading(false)
-                                console.log(error)
+
                             })
                     }
                     reSend();
@@ -110,7 +110,7 @@ const Login = () => {
                                     <i title='hide password' onClick={togglePassword} class={`absolute right-4 fas fa-solid fa-eye cursor-pointer ${!passwordShown ? 'hidden' : ''}`}></i>
                                 </div>
                             </div>
-                            <div className=" mt-10 mb-5 p-0 relative overflow-hidden bg-gray-500 rounded-[49px] h-[49px]">
+                            <div className=" mt-10 mb-5 p-0 relative overflow-hidden rounded-[49px] h-[49px]">
                                 <input name='signin' type="submit" value="Login" className='btnn solid text-center hover:scale-105 hover:tracking-[2px] bg-gradient-to-tr from-indigo-800 via-cyan-500 button-custom overflow-hidden' />
                                 {
                                     isLoading && <div class="loaderb m-0 absolute bottom-[-3px]">
@@ -157,7 +157,10 @@ const Login = () => {
                                     <i title='show password' onClick={togglePassword} class={`absolute right-4 fas fa-solid fa-eye-slash cursor-pointer ${passwordShown ? 'hidden' : ''}`}></i>
                                 </div>
                             </div>
-                            <div className="mt-10 mb-5 p-0 relative overflow-hidden bg-gray-500 rounded-[49px] h-[49px]">
+                            {
+                                resend && <div className='mb-[-20px] mt-5 text-lg'><p className='text-gray-500'>didn't get a mail?</p></div>
+                            }
+                            <div className="mt-10 mb-5 p-0 relative overflow-hidde rounded-[49px] h-[49px]">
                                 <input name='signup' type="submit" className="btnn bg-gradient-to-tr from-indigo-800 via-cyan-500 button-custom hover:scale-105 hover:tracking-[2px]" value={resend ? "resend mail" : "Sign up"} />
                                 {
                                     isLoading && <div class="loaderb m-0 absolute bottom-[-3px]">
