@@ -8,37 +8,41 @@ const SingleRoom = (props) => {
     const { validUser } = useAuth()
     const navigate = useNavigate()
     const { room, setRooms } = props;
+    // const moment = require("moment-timezone");
+    // const st = new Date(`${room.startTime}`);
+    // st.setHours(st.getHours() - 6);
+    // const startTime = st.getTime()
+    const startTime = new Date(`${room.startTime}`).getTime();
+    // console.log(startTime)
+    const endTime = new Date(`${room.endTime}`).getTime();
+    const currentTime = new Date().getTime();
+    // console.log(room)
+
     const getStatus = (room) => {
-        let startTime = new Date(`${room.startTime}`).getTime();
-        let endTime = new Date(`${room.endTime}`).getTime();
-        let currentTime = new Date().getTime();
-        {
-            if (startTime > currentTime) {
-                let obj = {
-                    status: `not starded yet`,
-                    color: `badge-primary`,
+        if (startTime > currentTime) {
+            let obj = {
+                status: `not starded yet`,
+                color: `badge-primary`,
+            }
+            return obj
 
-                }
-                return obj
+        }
+        else if (currentTime >= startTime && currentTime < endTime) {
+            let obj = {
+                status: `running`,
+                color: `badge-success`,
+                animation: `animate-pulse`
 
             }
-            else if (currentTime >= startTime && currentTime < endTime) {
-                let obj = {
-                    status: `running`,
-                    color: `badge-success`,
-                    animation: `animate-pulse`
+            return obj
 
-                }
-                return obj
-
+        }
+        else {
+            let obj = {
+                status: `ended`,
+                color: `badge-ghost`,
             }
-            else {
-                let obj = {
-                    status: `ended`,
-                    color: `badge-ghost`,
-                }
-                return obj
-            }
+            return obj
         }
     }
 
@@ -52,7 +56,18 @@ const SingleRoom = (props) => {
                 confirmButtonText: 'Continue examining',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Swal.showLoading()
+                    let timerInterval
+                    Swal.fire({
+                        text: 'Please wait...',
+                        didOpen: () => {
+                            Swal.showLoading()
+                            timerInterval = setInterval(() => {
+                            }, 1000)
+                        },
+                        willClose: () => {
+                            clearInterval(timerInterval)
+                        }
+                    })
                     const sendRoom = async () => {
                         await axios.post(`https://excited-foal-raincoat.cyclic.app/room/view-room`, { token: validUser.token, roomID: room.roomID })
                             .then(response => {
@@ -121,7 +136,7 @@ const SingleRoom = (props) => {
                 width: '40vw',
                 icon: 'info',
                 title: 'This exam has not started yet',
-                text: `Exam will start on  ${new Date(`${room.startTime}`).toDateString().split('T')[0]}  at  ${new Date(`${room.startTime}`).toLocaleTimeString()}`,
+                text: `Exam will start on  ${new Date(`${room.startTime}`).toDateString()}  at  ${new Date(`${room.startTime}`).toLocaleTimeString()}`,
                 showCancelButton: true,
                 confirmButtonText: 'Go to waiting room',
             }).then((result) => {

@@ -19,6 +19,7 @@ import Student from './Pages/Student/Student';
 import MyRooms from './Pages/MyRooms/MyRooms';
 import useAuth from './Hooks/useAuth';
 import MyProfile from './Pages/MyProfile/MyProfile';
+import Confirmed from './Pages/Confirmed/Confirmed';
 
 function App() {
 
@@ -29,17 +30,17 @@ function App() {
           <Header />
           <Routes >
             <Route path="/" element={<Home />} />
-            <Route path="/MyProfile" element={<MyProfile />} />
-            <Route path="/Student" element={<Student />} />
-            <Route path="/MyRooms" element={<MyRooms />} />
-            <Route path="/Student/Timer" element={<Timer />} />
-            <Route path="/Join_Room" element={<FindRoom />} />
-            <Route path="/Home" element={<Home />} />
-            <Route path="/Room" element={<Room />} />
-            <Route path="/Form_test" element={<Form_test />} />
-            <Route path="/Student/Exam" element={<Exam />} />
-            <Route path="/Mcq" element={<Mcq />} />
-            <Route path="/Login" element={<Login />} />
+            <Route path="/myProfile" element={<MyProfile />} />
+            <Route path="/student" element={<Student />} />
+            <Route path="/myRooms" element={<MyRooms />} />
+            <Route path="/student/timer" element={<Timer />} />
+            <Route path="/join_Room" element={<FindRoom />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/room" element={<Room />} />
+            <Route path="/form_test" element={<Form_test />} />
+            <Route path="/student/exam" element={<Exam />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/confirmed" element={<Confirmed />} />
             <Route path="*" element={<Invalid />} />
           </Routes>
           <Footer />

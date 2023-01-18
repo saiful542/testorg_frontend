@@ -19,13 +19,21 @@ const Header = () => {
                     <label tabindex="0" class="btn btn-ghost lg:hidden">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                     </label>
-                    <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                        <li><Link to={'/FindRoom'} className='text-white'>Find Room</Link></li>
-                        <li><Link to={'/Exam'} className='text-white'>Exam</Link></li>
-                        {
-                            validUser?.userName ? <li><p className='text-white'>{validUser?.userName}</p></li> : <li><div className='text-white' onClick={() => { toSignIn() }}>Login</div></li>
-                        }
-                    </ul>
+                    {
+                        (validUser?.usertype == "teacher") ? <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                            <li><Link to={'/Dashboard'} className='text-white'>Dashboard</Link></li>
+                            <li><Link to={'/Room'} className='text-white'>Create Exam</Link></li>
+                            {
+                                validUser?.userName ? <li><p className='text-white'>{validUser?.userName}</p></li> : <li><div className='text-white' onClick={() => { toSignIn() }}>Login</div></li>
+                            }
+                        </ul> : <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                            <li><Link to={'/Student'} className='text-white'>Dashboard</Link></li>
+                            <li><Link to={'/join_room'} className='text-white'>Join Exam</Link></li>
+                            {
+                                validUser?.userName ? <li><p className='text-white'>{validUser?.userName}</p></li> : <li><div className='text-white' onClick={() => { toSignIn() }}>Login</div></li>
+                            }
+                        </ul>
+                    }
                 </div>
                 <div className="flex-1 sm:navbar-center">
                     <Link to={'/'} className="btn btn-ghost normal-case text-xl lg:text-3xl text-transparent stroke-slate-100 nav-text">
@@ -34,14 +42,21 @@ const Header = () => {
                 </div>
 
                 <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal px-1">
-                        <li><Link className='text-white'>Dashboard</Link></li>
-                        <li><Link to={'/Room'} className='text-white'>Create Exam</Link></li>
-                        <li><Link to={'/Exam'} className='text-white'>Exam</Link></li>
-                        {
-                            validUser?.userName ? <li><p className='text-white'>{validUser?.userName}</p></li> : <li><div className='text-white' onClick={() => { toSignIn() }}>Login</div></li>
-                        }
-                    </ul>
+                    {
+                        (validUser?.usertype == "teacher") ? <ul className="menu menu-horizontal px-1">
+                            <li><Link className='text-white'>Dashboard</Link></li>
+                            <li><Link to={'/Room'} className='text-white'>Create Exam</Link></li>
+                            {
+                                validUser?.userName ? <li><p className='text-white'>{validUser?.userName}</p></li> : <li><div className='text-white' onClick={() => { toSignIn() }}>Login</div></li>
+                            }
+                        </ul> : <ul className="menu menu-horizontal px-1">
+                        <li><Link to={'/Student'} className='text-white'>Dashboard</Link></li>
+                            <li><Link to={'/join_room'} className='text-white'>Join Exam</Link></li>
+                            {
+                                validUser?.userName ? <li><p className='text-white'>{validUser?.userName}</p></li> : <li><div className='text-white' onClick={() => { toSignIn() }}>Login</div></li>
+                            }
+                        </ul>
+                    }
                 </div>
 
                 <div className="flex-none">
@@ -59,30 +74,19 @@ const Header = () => {
                                 </div>
                             }
                         </label>
-                        {/* <label tabIndex={0} className="btn btn-ghost btn-circle avatar online">
-                            {
-                                validUser?.userName ? <div className="w-10 rounded-full">
-                                    <img src="../files/user.png" />
-                                </div> : <div className="w-10 rounded-full " onClick={() => Swal.fire('Please Login First')}>
-                                    <img src="../files/user.png" />
-                                </div>
-                            }
-                        </label> */}
                         {
                             validUser?.userName && <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                                 <li>
-                                    <Link to={'/MyProfile'} className="justify-between text-white">
+                                    <Link to={'/myProfile'} className="justify-between text-white">
                                         Profile
                                     </Link>
                                 </li>
-                                <li><Link to={'/Join_Room'} className='text-white'>Join Room</Link></li>
-                                <li><Link to={'/MyRooms'} className='text-white'>My Rooms</Link></li>
+                                <li><Link to={'/join_Room'} className='text-white'>Join Room</Link></li>
+                                <li><Link to={'/myRooms'} className='text-white'>My Rooms</Link></li>
                                 {
                                     validUser?.userName && <li><p className='text-white' onClick={() => { logout(); navigate('/Home') }}>Logout</p></li>
                                 }
                             </ul>
-
-
                         }
                     </div>
                 </div>

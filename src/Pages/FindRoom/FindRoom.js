@@ -71,15 +71,15 @@ const FindRoom = () => {
     const checkRoom = () => {
 
         Swal.showLoading()
-        console.log(validUser.token)
-        console.log(code)
+        // console.log(validUser.token)
+        // console.log(code)
         async function getRoom() {
             await axios.post(`https://excited-foal-raincoat.cyclic.app/room/join-room`, {
                 token: validUser.token,
                 roomCode: code,
             })
                 .then(response => {
-                    console.log(response);
+                    // console.log(response);
                     Swal.fire({
                         width: '40vw',
                         icon: 'success',
@@ -118,7 +118,7 @@ const FindRoom = () => {
                     // }
                 })
                 .catch(err => {
-                    console.log(err)
+                    // console.log(err)
                     // if()
                     Swal.fire({
                         width: '30vw',

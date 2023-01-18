@@ -3,18 +3,43 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
 import useAuth from '../../Hooks/useAuth';
 import "./Login.scss"
 const Login = () => {
+    const navigate = useNavigate()
     const { state } = useLocation();
     const { value } = state
+
     const { validUser, sendData, token, resend, setResend, isLoading, setIsLoading } = useAuth()
 
     const [isSignIn, setisSignIn] = useState(value);
     const { register, handleSubmit, reset } = useForm();
     const [passwordShown, setPasswordShown] = useState(false);
+    if (!useLocation().state) {
+        Swal.fire({
+            title: 'Something went wrong',
+            icon: 'error',
+            text: 'please try again later',
+            confirmButtonText: 'back to homepage',
+        }).then(() => {
+            window.location.assign(`${window.location.origin}/home`);
+        })
+    }
+
+    useEffect(() => {
+        if (validUser?.userName) {
+            if (validUser?.usertype == "student") {
+                navigate("/student")
+            }
+            else {
+                navigate("/home")
+            }
+        }
+    }, [validUser])
+
     // Password toggle handler
     const togglePassword = () => {
         setPasswordShown(!passwordShown);
@@ -69,17 +94,24 @@ const Login = () => {
                     reset();
                 }
                 else if (resend) {
-                    isLoading(true)
+                    setIsLoading(true)
                     console.log('resend calling')
                     const reSend = async () => {
                         axios.post(`https://excited-foal-raincoat.cyclic.app/resend-mail`, { email: submitted_data.email })
                             .then(response => {
-                                isLoading(false)
+                                setIsLoading(false)
                                 console.log(response)
+                                toast.success(`${response.data.msg}`, {
+                                    position: "top-left",
+                                    autoClose: 2000,
+                                    theme: "light",
+                                })
 
                             })
                             .catch(error => {
-                                isLoading(false)
+                                setIsLoading(false)
+                                console.log(error.response.data.error)
+                                toast.error(`${error.response.data.error}`)
 
                             })
                     }
@@ -161,7 +193,7 @@ const Login = () => {
                                 resend && <div className='mb-[-20px] mt-5 text-lg'><p className='text-gray-500'>didn't get a mail?</p></div>
                             }
                             <div className="mt-10 mb-5 p-0 relative overflow-hidde rounded-[49px] h-[49px]">
-                                <input name='signup' type="submit" className="btnn bg-gradient-to-tr from-indigo-800 via-cyan-500 button-custom hover:scale-105 hover:tracking-[2px]" value={resend ? "resend mail" : "Sign up"} />
+                                <input name='signup' type="submit" className="btnn bg-gradient-to-tr from-indigo-800 via-cyan-500 to-indigo-800 button-custom hover:scale-105 hover:tracking-[2px]" value={resend ? "resend mail" : "Sign up"} />
                                 {
                                     isLoading && <div class="loaderb m-0 absolute bottom-[-3px]">
                                         <div class="loaderBar"></div>

@@ -24,13 +24,14 @@ const Form_test = () => {
     const [totalMarks, setTotalMarks] = useState(0);
     const { state } = useLocation();
     const { date, startTime, endTime, teacherName, courseName, markingType } = state;
-    console.log('form',markingType);
+    // console.log('form',markingType);
     const getInGlobalFormat = (date, time) => {
         return `${date} ${time}`;
     };
     const newStartTime = getInGlobalFormat(date?.$d?.toDateString(), startTime?.$d?.toLocaleTimeString());
     const newEndTime = getInGlobalFormat(date?.$d?.toDateString(), endTime?.$d?.toLocaleTimeString());
     // console.log(newStartTime)
+    // console.log(newEndTime)
 
     const addQuestion = (value) => {
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -112,13 +113,13 @@ useEffect(() => {
                         createdAt: new Date(),
                         questions: questionFormData
                     }
-                    console.log(room)
+                    // console.log(room)
 
                     async function sendData(room) {
-                        console.log('called')
+                        // console.log('called')
                         await axios.post(`https://excited-foal-raincoat.cyclic.app/room/add-room`, room)
                             .then(response => {
-                                console.log('weqweq')
+                            
                                 setGetRoomCode(response.data.roomCode)
                                 setTimeout(() => {
                                     Swal.fire({

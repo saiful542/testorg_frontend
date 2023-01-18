@@ -9,7 +9,7 @@ import ParticlesBackground from '../../Particle/ParticlesBackground';
 const Home = () => {
     const navigate = useNavigate();
     const particlesInit = useCallback(async engine => {
-        console.log(engine);
+        // console.log(engine);
         await loadFull(engine);
     }, []);
 

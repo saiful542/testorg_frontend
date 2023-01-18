@@ -6,6 +6,7 @@ import useAuth from '../../Hooks/useAuth';
 import ExamTimer from './ExamTimer/ExamTimer';
 import Loader from '../../Loader/Loader';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Exam = () => {
     const { validUser } = useAuth()
@@ -61,12 +62,13 @@ const Exam = () => {
                 Swal.fire({
                     icon: 'success',
                     title: 'Great!',
-                    text: 'result submitted successfully',
+                    text: 'Result submitted successfully',
             
                 })
             })
             .catch((error) => {
                 console.log(error)
+                toast.error(`${error.message}`)
             })
 
     }
@@ -93,9 +95,9 @@ const Exam = () => {
         }
     }
 
-    let startTime = new Date(`${room.startTime}`).getTime();
-    let endTime = new Date(`${room.endTime}`).getTime();
-    let currentTime = new Date().getTime();
+    const startTime = new Date(`${room.startTime}`).getTime();
+    const endTime = new Date(`${room.endTime}`).getTime();
+    const currentTime = new Date().getTime();
 
     if (firstime) {
         if (startTime > currentTime) {

@@ -8,6 +8,7 @@ import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 axios.defaults.withCredentials = true
 const useLogin = () => {
+
     const [validUser, setValidUser] = useState({})
     const [resend, setResend] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
@@ -20,12 +21,13 @@ const useLogin = () => {
                 await instance.post(`https://excited-foal-raincoat.cyclic.app/${data.method}`, data, { withCredentials: true })
                     .then(response => {
                         setIsLoading(false);
-                        setValidUser({
-                            userName: response.data.name,
-                            userMail: response.data.email,
-                            token: response.data.token,
-                            usertype: response.data.usertype
-                        })
+                        
+                            setValidUser({
+                                userName: response.data.name,
+                                userMail: response.data.email,
+                                token: response.data.token,
+                                usertype: response.data.usertype
+                            })
                         localStorage.setItem('user', JSON.stringify({
                             userName: response.data.name,
                             userMail: response.data.email,
@@ -58,7 +60,7 @@ const useLogin = () => {
                 // })
                 await axios.post(`https://excited-foal-raincoat.cyclic.app/${data.method}`, data)
                     .then(response => {
-                        console.log(response);
+                        // console.log(response);
                         setIsLoading(false);
                         toast.success(response.data.msg, {
                             autoClose: 2000,
