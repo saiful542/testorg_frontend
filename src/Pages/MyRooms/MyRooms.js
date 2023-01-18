@@ -4,15 +4,26 @@ import { toast } from 'react-toastify';
 import useAuth from '../../Hooks/useAuth';
 import Loader from '../../Loader/Loader';
 import SingleRoom from '../SingleRoom/SingleRoom';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const MyRooms = () => {
-    const { counter, setCounter } = useState()
+    const navigate = useNavigate()
     const { validUser } = useAuth()
     const [rooms, setRooms] = useState(null)
     useEffect(() => {
         const fetchRooms = async () => {
             await axios.post(`https://excited-foal-raincoat.cyclic.app/room/my-room`, { token: validUser?.token })
                 .then(response => {
+                    if (response.data[0].myRooms.length == 0) {
+                        Swal.fire({
+                            title: "You didn't attend any exam yet",
+                            icon: "warning",
+                        }).then(() => {
+                            navigate("/home");
+                        })
+                    }
+
                     setRooms(response.data[0].myRooms)
                 })
                 .catch(err => {

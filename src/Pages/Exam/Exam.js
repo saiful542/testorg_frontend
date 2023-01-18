@@ -47,7 +47,6 @@ const Exam = () => {
     const [input, setInput] = useState(false)
 
     const submitResult = async () => {
-        Swal.showLoading()
         const result = {
             token: validUser.token,
             negMarks: room.negMarks,
@@ -58,12 +57,10 @@ const Exam = () => {
 
         await axios.post(`https://excited-foal-raincoat.cyclic.app/room/submit-result`, result)
             .then((response) => {
-                // console.log(response)
                 Swal.fire({
                     icon: 'success',
                     title: 'Great!',
                     text: 'Result submitted successfully',
-            
                 })
             })
             .catch((error) => {
@@ -81,7 +78,7 @@ const Exam = () => {
         setNewQuestion(filtered_questions)
 
         if (count >= questions.length) {
-            submitResult();
+
             setIsFinished(true);
             Swal.fire({
                 icon: 'success',
@@ -91,7 +88,10 @@ const Exam = () => {
                 <p className='animate-pulse'>You can find your result in your room</p>`,
                 confirmButtonText: 'Ok',
             })
-
+            Swal.showLoading()
+            setTimeout(() => {
+                submitResult();
+            }, 3000)
         }
     }
 
