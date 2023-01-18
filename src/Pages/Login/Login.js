@@ -95,29 +95,26 @@ const Login = () => {
                 }
                 else if (resend) {
                     setIsLoading(true)
-                    console.log('resend calling')
                     const reSend = async () => {
                         axios.post(`https://excited-foal-raincoat.cyclic.app/resend-mail`, { email: submitted_data.email })
                             .then(response => {
                                 setIsLoading(false)
-                                console.log(response)
                                 toast.success(`${response.data.msg}`, {
                                     position: "top-left",
                                     autoClose: 2000,
                                     theme: "light",
+                                    toastId: 'customId',
                                 })
 
                             })
                             .catch(error => {
                                 setIsLoading(false)
-                                console.log(error.response.data.error)
                                 toast.error(`${error.response.data.error}`)
 
                             })
                     }
                     reSend();
                 }
-
             }
         }
     };

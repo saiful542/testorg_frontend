@@ -63,7 +63,7 @@ const useLogin = () => {
                         // console.log(response);
                         setIsLoading(false);
                         toast.success(response.data.msg, {
-                            autoClose: 2000,
+                            autoClose: 5000,
                             toastId: 'customId',
                             position: 'top-left',
                             theme: 'colored'
