@@ -16,12 +16,23 @@ const MyRooms = () => {
             await axios.post(`https://excited-foal-raincoat.cyclic.app/room/my-room`, { token: validUser?.token })
                 .then(response => {
                     if (response.data[0].myRooms.length == 0) {
-                        Swal.fire({
-                            title: "You didn't attend any exam yet",
-                            icon: "warning",
-                        }).then(() => {
-                            navigate("/home");
-                        })
+                        if (validUser.usertype == "teacher") {
+                            Swal.fire({
+                                title: "You didn't create any exam yet",
+                                icon: "warning",
+                            }).then(() => {
+                                navigate("/home");
+                            })
+                        }
+                        else {
+                            Swal.fire({
+                                title: "You didn't attend any exam yet",
+                                icon: "warning",
+                            }).then(() => {
+                                navigate("/home");
+                            })
+                        }
+
                     }
 
                     setRooms(response.data[0].myRooms)
@@ -46,16 +57,16 @@ const MyRooms = () => {
                         <div className='w-full shadow-md rounded-lg p-4 text-start mb-20 border-l-cyan-700 border-l-8 '>
                             <h1 className='animate__animated  animate__fadeInRight text-4xl font-semibold'>My rooms <span className='text-lg text-stone-500'> ( {rooms.length} {(rooms.length < 2) ? 'exam' : 'exams'} )</span></h1>
                         </div>
-                        <div className='flex flex-wrap gap-y-10 gap-x-20 justify-evenly'>
+                        <div className='flex flex-wrap gap-y-16 justify-between'>
                             {
-                                rooms.map(room => {
+                                rooms.map((room, index) => {
                                     return (
-                                        <SingleRoom room={room} setRooms={setRooms}></SingleRoom>
+                                        <SingleRoom room={room} setRooms={setRooms} key={index}></SingleRoom>
                                     )
                                 })
                             }
                         </div>
-                    </div> : <div className='pt-56 m-auto flex flex-col items-center justify-center gap-10'><Loader /> <h1>Getting Room Data ...</h1></div>
+                    </div> : <div className='pt-72 m-auto flex flex-col items-center justify-center gap-10'><Loader /> <h1>Getting Room Data ...</h1></div>
                 }
             </div>
         </div>

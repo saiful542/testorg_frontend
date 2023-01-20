@@ -5,8 +5,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import AnimatedText from 'react-animated-text-content';
 import './Home.scss';
 import ParticlesBackground from '../../Particle/ParticlesBackground';
+import useAuth from '../../Hooks/useAuth';
 
 const Home = () => {
+    const { validUser } = useAuth()
     const navigate = useNavigate();
     const particlesInit = useCallback(async engine => {
         // console.log(engine);
@@ -61,14 +63,16 @@ const Home = () => {
                         the faculties and students.
                     </p>
                 </div>
-                <div className="button-group-wrapper flex md:gap-72 pt-20 flex-col sm:flex-row">
-                    <div className="button-wrapper pt-10">
-                        <div onClick={() => { toSignUp() }} className="lg:text-xl sm:text-lg btn bg-transparent px-16 text-gray-300 hover:text-gray-100 hover:bg-cyan-800 hover:scale-110 hover:tracking-[4px] hover:bg-transparent hover:border-white transition-all w-72 h-16">Sign up</div>
+                {
+                    !validUser?.userName && <div className="button-group-wrapper flex md:gap-72 pt-20 flex-col sm:flex-row">
+                        <div className="button-wrapper pt-10">
+                            <div onClick={() => { toSignUp() }} className="lg:text-xl sm:text-lg btn bg-transparent px-16 text-gray-300 hover:text-gray-100 hover:bg-cyan-800 hover:scale-110 hover:tracking-[4px] hover:bg-transparent hover:border-white transition-all w-72 h-16">Sign up</div>
+                        </div>
+                        <div className="button-wrapper pt-10">
+                            <div onClick={() => { toSignIn() }} className="lg:text-xl sm:text-lg btn bg-transparent px-16 text-gray-300 hover:text-gray-100 hover:bg-cyan-800 hover:scale-110 hover:tracking-[4px] hover:bg-transparent hover:border-white transition-all w-72 h-16">Login</div>
+                        </div>
                     </div>
-                    <div className="button-wrapper pt-10">
-                        <div onClick={() => { toSignIn() }} className="lg:text-xl sm:text-lg btn bg-transparent px-16 text-gray-300 hover:text-gray-100 hover:bg-cyan-800 hover:scale-110 hover:tracking-[4px] hover:bg-transparent hover:border-white transition-all w-72 h-16">Login</div>
-                    </div>
-                </div>
+                }
 
             </div>
 

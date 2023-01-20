@@ -61,6 +61,8 @@ const Exam = () => {
                     icon: 'success',
                     title: 'Great!',
                     text: 'Result submitted successfully',
+                }).then(()=>{
+                    navigate("/student")
                 })
             })
             .catch((error) => {
@@ -332,11 +334,11 @@ const ShowQuiz = (props) => {
             <div className='flex justify-between'>
                 <span className='flex gap-5 text-start'>
                     <p className='text-2xl'>{index}.</p>
-                    <h3 className='break-all pr-10'>{question} ?</h3>
+                    <h3 className='break-all pr-10 font-semibold text-2xl'>{question} ?</h3>
                 </span>
                 <p className='text-success'>{marks}<span className='text-sm'> marks</span></p>
             </div>
-            <div className='flex flex-col gap-5'>
+            <div className='flex flex-col gap-6'>
                 {
                     options.map((option, index) => {
                         return (
@@ -355,7 +357,7 @@ const Option = (props) => {
     return (
         <div className="radio-group flex gap-4 items-center ">
             <input onInput={() => { inputValue(option) }} type="radio" name="radio" className="radio-field radio border-2 border-cyan-600 radio-accent" />
-            <p>{option}</p>
+            <p className='break-all'>{option}</p>
         </div>
     )
 }
@@ -397,8 +399,8 @@ const ShowGaps = (props) => {
         <div className='rounded-lg flex flex-col gap-10 p-10 py-16 shadow-lg border-l-8 border-l-cyan-600 bg-white animate__animated animate__fadeIn'>
             <div className='flex justify-between'>
                 <span className='flex gap-5 text-start'>
-                    <p>{index}.</p>
-                    <h3 className='break-all pr-10'>{question} ?</h3>
+                    <p className='text-2xl'>{index}.</p>
+                    <h3 className='break-all pr-10 font-semibold text-2xl'>{question} ?</h3>
                 </span>
                 <p className='text-success'>{marks}<span className='text-sm'> marks</span></p>
             </div>
@@ -446,8 +448,8 @@ const ShowTrue = (props) => {
         <div className='rounded-lg flex flex-col gap-10 p-10 py-16 shadow-lg border-l-8 border-l-cyan-600 bg-white animate__animated animate__fadeIn'>
             <div className='flex justify-between'>
                 <span className='flex gap-5 text-start'>
-                    <p>{index}.</p>
-                    <h3 className='break-all pr-10'>{question} ?</h3>
+                    <p className='text-2xl'>{index}.</p>
+                    <h3 className='break-all pr-10 font-semibold text-2xl'>{question} ?</h3>
                 </span>
                 <p className='text-success'>{marks}<span className='text-sm'> marks</span></p>
             </div>

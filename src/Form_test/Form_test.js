@@ -57,7 +57,7 @@ const Form_test = () => {
             return question.q_id === id;
         })
         setTotalMarks(totalMarks - parseInt(filterForMarks[0].marks));
-        console.log("total marks", totalMarks);
+        // console.log("total marks", totalMarks);
 
 
         const filterForShow = questionForm.filter((question) => {
@@ -156,7 +156,7 @@ useEffect(() => {
                                                     position: 'top-right',
                                                     theme: 'colored'
                                                 })
-                                                navigate('/Home')
+                                                navigate('/myRooms')
 
                                             })
                                         }, 2000)

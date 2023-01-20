@@ -20,6 +20,7 @@ import MyRooms from './Pages/MyRooms/MyRooms';
 import useAuth from './Hooks/useAuth';
 import MyProfile from './Pages/MyProfile/MyProfile';
 import Confirmed from './Pages/Confirmed/Confirmed';
+import ExamDetails from './Pages/ExamDetails/ExamDetails';
 
 function App() {
 
@@ -41,6 +42,7 @@ function App() {
             <Route path="/student/exam" element={<Exam />} />
             <Route path="/login" element={<Login />} />
             <Route path="/confirmed" element={<Confirmed />} />
+            <Route path="/examDetails" element={<ExamDetails />} />
             <Route path="*" element={<Invalid />} />
           </Routes>
           <Footer />

@@ -96,7 +96,7 @@ const Login = () => {
                 else if (resend) {
                     setIsLoading(true)
                     const reSend = async () => {
-                        axios.post(`https://excited-foal-raincoat.cyclic.app/resend-mail`, { email: submitted_data.email })
+                        axios.post(`https://testorg-backend-service.onrender.com/resend-mail`, { email: submitted_data.email })
                             .then(response => {
                                 setIsLoading(false)
                                 toast.success(`${response.data.msg}`, {

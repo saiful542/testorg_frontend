@@ -7,8 +7,8 @@ const Timer = () => {
     const navigate = useNavigate()
     const { state } = useLocation();
     const { room } = state;
-    // let startTime = new Date(`${room.startTime}`).getTime();
-    let endTime = new Date(`${room.endTime}`).getTime();
+    let startTime = new Date(`${room.startTime}`).getTime();
+    // let endTime = new Date(`${room.endTime}`).getTime();
     let currentTime = new Date().getTime();
     const expiryTimestamp = new Date();
     const remainingTime = (time) => {
@@ -26,7 +26,7 @@ const Timer = () => {
             navigate('/Student/Exam', { state: { room: room } });
         },
     });
-    remainingTime(endTime - currentTime)
+    remainingTime(startTime - currentTime)
     return (
         <div className='m-auto min-h-screen py-20'>
             <div className='flex container items-center m-auto justify-between lg:pt-28 flex-col-reverse lg:flex-row gap-10 lg:gap-0'>

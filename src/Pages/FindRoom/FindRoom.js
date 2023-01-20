@@ -14,65 +14,9 @@ const FindRoom = () => {
     const { validUser } = useAuth()
     const [code, getCode] = useState(null);
     const navigate = useNavigate()
-    // const room = {
-    //     room_id: '618240',
-    //     startTime: "mon Jan 02 2023 4:00:00 PM",
-    //     endTime: "mon Jan 02 2023 6:00:00 PM",
-    //     courseName: "dasd",
-    //     teacherName: "saiful542d",
-    //     totalMarks: 14,
-    //     createdAt: "2023-01-01T07:14:59.885Z",
-    //     question: [
-    //         {
-    //             "question": "how are you?",
-    //             "marks": "3",
-    //             "correct_answer": "true",
-    //             "options": [
-    //                 "true",
-    //                 "false"
-    //             ],
-    //             "question_type": "true-false",
-    //             "q_id": 1
-    //         },
-    //         {
-    //             "question": "vbfdb",
-    //             "marks": "3",
-    //             "correct_answer": "aa",
-    //             "question_type": "fill-blanks",
-    //             "q_id": 2
-    //         },
-    //         {
-    //             "question": "how are you?",
-    //             "marks": "3",
-    //             "correct_answer": "aa",
-    //             "question_type": "fill-blanks",
-    //             "q_id": 3
-    //         },
-    //         {
-    //             "question": "ads",
-    //             "marks": "2",
-    //             "correct_answer": "a",
-    //             "question_type": "fill-blanks",
-    //             "q_id": 4
-    //         },
-    //         {
-    //             "question": "vbfdb",
-    //             "marks": "3",
-    //             "correct_answer": "true",
-    //             "options": [
-    //                 "true",
-    //                 "false"
-    //             ],
-    //             "question_type": "true-false",
-    //             "q_id": 5
-    //         }
-    //     ]
-    // }
-    const checkRoom = () => {
 
+    const checkRoom = () => {
         Swal.showLoading()
-        // console.log(validUser.token)
-        // console.log(code)
         async function getRoom() {
             await axios.post(`https://excited-foal-raincoat.cyclic.app/room/join-room`, {
                 token: validUser.token,
@@ -87,10 +31,10 @@ const FindRoom = () => {
                         text: `${response.data.msg}`,
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
-                        confirmButtonText: `got to my room`
+                        confirmButtonText: `go to my room`
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            navigate('/Student/MyRoom')
+                            navigate('/myRooms')
                         }
                     })
                     // if (response.data.msg = 'token invalid') {

@@ -18,16 +18,16 @@ const useLogin = () => {
     async function sendData(data) {
         if (data) {
             if (data.method === 'login') {
-                await instance.post(`https://excited-foal-raincoat.cyclic.app/${data.method}`, data, { withCredentials: true })
+                await instance.post(`https://excited-foal-raincoat.cyclic.app/login`, data, { withCredentials: true })
                     .then(response => {
                         setIsLoading(false);
-                        
-                            setValidUser({
-                                userName: response.data.name,
-                                userMail: response.data.email,
-                                token: response.data.token,
-                                usertype: response.data.usertype
-                            })
+
+                        setValidUser({
+                            userName: response.data.name,
+                            userMail: response.data.email,
+                            token: response.data.token,
+                            usertype: response.data.usertype
+                        })
                         localStorage.setItem('user', JSON.stringify({
                             userName: response.data.name,
                             userMail: response.data.email,
@@ -55,10 +55,7 @@ const useLogin = () => {
 
             }
             else if (data.method === 'signup') {
-                // await axios.get(`https://excited-foal-raincoat.cyclic.app/resend-mail`, {
-                //     "email" : "mahinhossen001@gmail.com"
-                // })
-                await axios.post(`https://excited-foal-raincoat.cyclic.app/${data.method}`, data)
+                await axios.post(`https://testorg-backend-service.onrender.com/signup`, data)
                     .then(response => {
                         // console.log(response);
                         setIsLoading(false);
@@ -72,9 +69,10 @@ const useLogin = () => {
 
                     })
                     .catch(err => {
+                        setResend(false)
                         setIsLoading(false);
                         toast.error(err.response.data.error, {
-                            autoClose: 2000,
+                            autoClose: 3000,
                             toastId: 'customId',
                             position: 'top-left',
                             theme: 'colored'
