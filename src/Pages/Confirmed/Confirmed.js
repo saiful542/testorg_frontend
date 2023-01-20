@@ -1,8 +1,12 @@
 import { Alert } from '@mui/material';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Confirmed = () => {
+    const navigate = useNavigate()
+    const toSignIn = () => {
+        navigate("/login", { state: { value: true } })
+    }
     return (
         <div>
             <div className="container c-mt min-h-screen m-auto">
@@ -14,7 +18,8 @@ const Confirmed = () => {
                         <span className='mt-[-60px] animate__animated animate__fadeIn'><Alert variant="filled" severity="success">
                             You are all done!
                         </Alert></span>
-                        <span className='animate__animated animate__slideInRight'><Link className='shadow-lg text-xl bg-gradient-to-tr from-indigo-800 via-cyan-500 to-indigo-800 button-custom transition-all hover:tracking-[2px] btn border-none text-white px-20' to={"/home"}>Home</Link></span>
+                        <p className='mb-[-60px] animate__animated animate__fadeIn'>Please login ...</p>
+                        <span className='animate__animated animate__slideInRight'><span onClick={() => { toSignIn() }} className='shadow-lg text-xl bg-gradient-to-tr from-indigo-800 via-cyan-500 to-indigo-800 button-custom transition-all hover:tracking-[2px] btn border-none text-white px-20'>Login</span></span>
                     </div>
                 </div>
             </div>

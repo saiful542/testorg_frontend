@@ -1,18 +1,11 @@
 import React from 'react';
-import { useState } from 'react';
 import { useTimer } from 'react-timer-hook';
 import Swal from 'sweetalert2';
-import { CountdownCircleTimer } from "react-countdown-circle-timer";
-import { ButtonRoot } from '@mui/joy/Button/Button';
-import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
+
 const ExamTimer = (props) => {
     const { remainingTime, expired, submitResult, setIsFinished } = props
     const expiryTimestamp = new Date();
     expiryTimestamp.setTime(expiryTimestamp.getTime() + remainingTime);
-    // const remainingTime = (time) => {
-    //     // console.log('from exam', time)
-    //     expiryTimestamp.setTime(expiryTimestamp.getTime() + time);
-    // }
 
     const {
         seconds,
@@ -23,16 +16,20 @@ const ExamTimer = (props) => {
     } = useTimer({
         expiryTimestamp, onExpire: () => {
             if (!expired) {
-                submitResult();
-                setIsFinished(true);
                 Swal.fire({
                     icon: 'success',
                     title: 'Good job!',
+                    text: 'You can find your result in your room',
                     // html: `<h1><b>You have answred ${answers.length} questions! out of ${questions.length}</b></h1>
                     // <br>
                     // <p className='animate-pulse'>You can find your result in your room</p>`,
                     confirmButtonText: 'Ok',
                 })
+                Swal.showLoading()
+                setTimeout(() => {
+                    submitResult();
+                }, 3000)
+                setIsFinished(true);
             }
         }
     });

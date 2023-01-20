@@ -108,7 +108,7 @@ const Exam = () => {
                 width: '40vw',
                 icon: 'info',
                 title: 'This exam has not started yet',
-                text: `Exam will start on  ${new Date(`${room.startTime}`).toDateString().split('T')[0]}  at  ${new Date(`${room.startTime}`).toLocaleTimeString()}`,
+                text: `Exam will start on  ${new Date(`${room.startTime}`).toDateString()}  at  ${new Date(`${room.startTime}`).toLocaleTimeString()}`,
                 showCancelButton: true,
                 confirmButtonText: 'Go to waiting room',
             })
@@ -120,7 +120,6 @@ const Exam = () => {
             Swal.fire({
                 width: '50vw',
                 title: `Exam has been started ${new Date(currentTime)?.getHours() - new Date(startTime)?.getHours()} hours  ${new Date(currentTime - startTime).getMinutes()} minutes ago`,
-                // html: `<p style='color:green'>you have ${new Date(endTime)?.getHours() - new Date(currentTime)?.getHours()} hours ${new Date(endTime - currentTime)?.getMinutes()} minutes to finish the exam</p>`,
                 confirmButtonText:
                     'Continue Exam',
             })
@@ -130,7 +129,7 @@ const Exam = () => {
         else {
             setIsFinished(true);
             Swal.fire({
-                width: '40%',
+                width: '50%',
                 title: 'This exam has already ended',
                 text: 'to see result go to your room!',
                 icon: 'error',
@@ -239,27 +238,6 @@ const Exam = () => {
                     </div>
                 </div>
 
-                {/* <div className='border-2 border-cyan-700 px-5 py-2 bg-white flex-1 rounded-bl-lg'>
-                    <p className='text-gray-500 text-xl'>Exam Date</p>
-                    <p className='text-gray-700 text-lg'>{date.$d.toDateString()}</p>
-                </div>
-                <div className='border-2 border-cyan-700 px-5 py-2  bg-white flex-1'>
-                    <p className='text-gray-500 text-xl'>Start at</p>
-                    <p className='text-gray-700 text-lg'>{startTime.$d.toLocaleTimeString()}</p>
-                </div>
-                <div className='border-2 border-cyan-700 px-5 py-2 bg-white flex-1'>
-                    <p className='text-gray-500 text-xl'>End at</p>
-                    <p className='text-gray-700 text-lg'>{endTime.$d.toLocaleTimeString()}</p>
-                    
-                </div>
-                <div className='border-2 border-cyan-700 px-5 py-2  bg-white flex-1'>
-                    <p className='text-gray-500 text-xl'>Teacher</p>
-                    <p className='text-gray-700 text-lg'>{teacherName}</p>
-                </div>
-                <div className='border-2 border-cyan-700 px-5 py-2  bg-white flex-1 rounded-br-lg'>
-                    <p className='text-gray-500 text-xl'>Course</p>
-                    
-                </div> */}
             </div>
             {
                 running ? <div>{

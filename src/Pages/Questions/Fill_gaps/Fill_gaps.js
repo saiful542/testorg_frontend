@@ -94,7 +94,3 @@ const Fill_gaps = (props) => {
 export default Fill_gaps;
 
 
-
-// {
-//     done ? <span onClick={() => { deleteQuestion(q_id) }} className="cursor-pointer inline-flex text-white btn bg-red-500 hover:bg-red-700 rounded-md py-3 px-6 mx-20 my-10">delete</span> : <input type="submit" className="cursor-pointer inline-block text-white btn bg-gray-500 hover:bg-gray-700 rounded-md py-3 px-6 mx-20 my-10" value="done" />
-// }

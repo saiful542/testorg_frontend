@@ -21,7 +21,7 @@ const MyRooms = () => {
                                 title: "You didn't create any exam yet",
                                 icon: "warning",
                             }).then(() => {
-                                navigate("/home");
+                                navigate("/student");
                             })
                         }
                         else {
@@ -29,7 +29,7 @@ const MyRooms = () => {
                                 title: "You didn't attend any exam yet",
                                 icon: "warning",
                             }).then(() => {
-                                navigate("/home");
+                                navigate("/student");
                             })
                         }
 
@@ -57,7 +57,7 @@ const MyRooms = () => {
                         <div className='w-full shadow-md rounded-lg p-4 text-start mb-20 border-l-cyan-700 border-l-8 '>
                             <h1 className='animate__animated  animate__fadeInRight text-4xl font-semibold'>My rooms <span className='text-lg text-stone-500'> ( {rooms.length} {(rooms.length < 2) ? 'exam' : 'exams'} )</span></h1>
                         </div>
-                        <div className='flex flex-wrap gap-y-16 justify-between'>
+                        <div className='flex flex-wrap gap-y-16 justify-betwee gap-x-44 m-auto'>
                             {
                                 rooms.map((room, index) => {
                                     return (

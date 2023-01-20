@@ -8,15 +8,14 @@ const SingleRoom = (props) => {
     const { validUser } = useAuth()
     const navigate = useNavigate()
     const { room, setRooms } = props;
-    // const moment = require("moment-timezone");
-    // const st = new Date(`${room.startTime}`);
-    // st.setHours(st.getHours() - 6);
-    // const startTime = st.getTime()
     const startTime = new Date(`${room.startTime}`).getTime();
-    // console.log(startTime)
+
     const endTime = new Date(`${room.endTime}`).getTime();
     const currentTime = new Date().getTime();
-    // console.log(room.endTime)
+    const examDays = new Date(endTime).getDay() - new Date(startTime).getDay()
+    const examHours = new Date(endTime).getHours() - new Date(startTime).getHours()
+    const examMinutes = new Date(endTime - startTime).getMinutes()
+    // console.log(examDays, examHours, examMinutes)
 
     const getStatus = (room) => {
         if (startTime > currentTime) {
@@ -193,26 +192,29 @@ const SingleRoom = (props) => {
 
     return (
         <div title='click me' className={`animate__animated animate__fadeInUp `}>
-            <div data-tip="hello" onClick={() => { showRoom() }} className=" card w-96 shadow-xl image-full h-64 cursor-pointer hover:scale-105 transition-all " data-theme="halloween" >
-                <figure><img src="https://placeimg.com/400/225/arch" alt="Shoes" /></figure>
-                <div className={`card-body ${getStatus(room).animation}`}>
-                    <h2 className="card-title text-gray-200">
-                        {room.CourseName}
-                        <div className='text-end w-full'>
-                            <div className={`float-right badge ${getStatus(room).color} `}>{getStatus(room).status}</div>
-                        </div>
-                    </h2>
-                    <div className='justify-start'>
-                        <p className='text-start font-thin '>Instructor : {room.teacherName}</p>
-                        <p className='text-start font-thin '>Total marks of exam : {room.totalMarks}</p>
+            <div data-tip="hello" onClick={() => { showRoom() }} className=" card w-96 shadow-xl image-full h-72 cursor-pointer hover:scale-105 transition-all " data-theme="halloween" >
+                <figure><img src="https://placeimg.com/400/225/nature" alt="exams" /></figure>
+                <div className={`card-body ${getStatus(room).animation} justify-between`}>
+                    <div>
+                        <h2 className="card-title text-gray-200">
+                            {room.CourseName}
+                            <div className='text-end w-full'>
+                                <div className={`float-right badge ${getStatus(room).color} `}>{getStatus(room).status}</div>
+                            </div>
+                        </h2>
+                        <div className='justify-start pt-2'>
+                            <p className='text-start font-thin '>Instructor : <span className='font-normal'>{room.teacherName}</span></p>
+                            <p className='text-start font-thin '>Total marks of exam : <span className='font-normal'>{room.totalMarks}</span></p>
+                            <p className='text-start font-thin '>Exam duration : <span className='font-normal'>{examDays ? `${examDays} day` : ''} {examHours ? `${examHours} hour` : ''} {examMinutes ? `${examMinutes} minute` : ''}</span></p>
 
-                        {
-                            validUser.usertype == 'student' ? <p className='text-start font-thin'>I got : <span className='font-normal'>{room.gotMarks}</span> marks</p> : <p className='text-start font-thin '></p>
-                        }
+                            {
+                                (validUser.usertype == 'student' && getStatus(room).status == "ended") ? <p className='text-start font-thin'>result : <span className='font-normal'>{room.gotMarks}</span> marks</p> : <p className='text-start font-thin '></p>
+                            }
+                        </div>
                     </div>
-                    <div className="card-actions justify-start items-end h-full">
-                        <div className="badge badge-outline">{new Date(`${room.startTime}`).toDateString()}</div>
-                        <div className="badge badge-outline">{new Date(`${room.startTime}`).toLocaleTimeString()}</div>
+                    <div className="card-actions justify-start items-center">
+                        <div className="badge badge-outline">{new Date(`${room.startTime}`).toDateString()}</div> at 
+                        <div className="badge badge-outline ">{new Date(`${room.startTime}`).toLocaleTimeString()}</div>
                     </div>
                 </div>
             </div>

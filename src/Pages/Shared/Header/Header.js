@@ -9,7 +9,7 @@ const Header = () => {
     const { validUser, logout } = useAuth()
     const navigate = useNavigate()
     const toSignIn = () => {
-        navigate("/Login", { state: { value: true } })
+        navigate("/login", { state: { value: true } })
     }
 
     return (
