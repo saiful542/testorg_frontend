@@ -7,12 +7,12 @@ import { toast } from 'react-toastify';
 import './Mcq.css'
 
 const Mcq = (props) => {
-    const [idd, setIdd] = useState()
+    const [cross, setCross] = useState(true)
     const [done, setDone] = useState(false)
     const [correctAnswer, setCorrectAnswer] = useState()
     const [optionArray, setOptionArray] = useState([])
     const [options, setOptions] = useState([{ id: 'wn2' }, { id: 'qw1' }])
-    const { q_id, setQuestionFormData, questionFormData, deleteQuestion, index, setIsValidQsn, totalMarks, setTotalMarks, addQuestion } = props
+    const { q_id, setQuestionFormData, questionFormData, deleteQuestion, index, setIsValidQsn, totalMarks, setTotalMarks, addQuestion, questionForm, setQuestionForm } = props
     const { register, handleSubmit } = useForm();
 
     const addOption = () => {
@@ -41,7 +41,6 @@ const Mcq = (props) => {
     }
 
     const onSubmit = (data) => {
-
         const test = () => {
             for (let option of optionArray) {
 
@@ -51,10 +50,11 @@ const Mcq = (props) => {
             }
             return true;
         }
-        
+
         if (test() && (data.question) && (data.marks) && (options.length == optionArray.length)) {
             // console.log(correctAnswer)
             if (correctAnswer) {
+                setCross(false)
                 data.options = optionArray;
                 const indexForCorrect = optionArray.filter(option => {
                     return option.id == correctAnswer
@@ -86,6 +86,15 @@ const Mcq = (props) => {
         }
 
     };
+
+    const crossClick = (q_id) => {
+        const filterForShow = questionForm.filter((question) => {
+            return question.q_id !== q_id;
+        });
+        setQuestionForm(filterForShow);
+        setIsValidQsn(true)
+    }
+
     const editQuestion = (q_id) => {
         const index = questionFormData.filter(question => {
             return question.q_id == q_id
@@ -99,12 +108,17 @@ const Mcq = (props) => {
         <div className='shadow-lg rounded-md border-t-8 border-t-cyan-600 text-slate-500 bg-white pt-5 animate__animated animate__fadeIn'>
             {/* mcq */}
             <form onSubmit={handleSubmit(onSubmit)} className="w-full rounded-md question-form px-8" name='mcq'>
-                <div className='flex items-center pb-5 w-full justify-between'>
+                <div className='flex items-center pb-5 w-full justify-between px-5'>
                     <span></span>
                     <h2 className="title font-semibold"><span className=' text-slate-400'>M</span>CQ</h2>
-                    <div>
+                    <div className='contents'>
                         {
-                            done && <i tabIndex={0} class="fas fa-duotone fa-sliders cursor-pointer dropdown dropdown-left">
+                            cross && <i title='cancel' onClick={() => { crossClick(q_id) }} class="fas fa fa-close cursor-pointer text-3xl"></i>
+                        }
+                    </div>
+                    <div className=' contents'>
+                        {
+                            done && <i tabIndex={0} class="fas fa-duotone fa-sliders cursor-pointer dropdown dropdown-left text-xl">
                                 <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-40">
                                     <li onClick={() => { deleteQuestion(q_id) }} className='text-gray-400 t-lowercase'>
                                         <span className='flex items-center justify-between'>

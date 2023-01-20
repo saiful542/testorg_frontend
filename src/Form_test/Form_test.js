@@ -12,6 +12,7 @@ import Mcq from '../Pages/Questions/Mcq/Mcq';
 import True_false from '../Pages/Questions/True_false/True_false';
 
 const Form_test = () => {
+
     let b;
     const navigate = useNavigate()
     const { validUser } = useAuth()
@@ -74,9 +75,9 @@ const Form_test = () => {
         // console.log("form data", filterForData);
     }
 
-useEffect(() => {
-    
-}, [validUser]);
+    useEffect(() => {
+
+    }, [validUser]);
     const saveData = () => {
         Swal.fire({
             html: `This exam is consist of total <b>${questionFormData.length}</b> questions`,
@@ -119,7 +120,7 @@ useEffect(() => {
                         // console.log('called')
                         await axios.post(`https://excited-foal-raincoat.cyclic.app/room/add-room`, room)
                             .then(response => {
-                            
+
                                 setGetRoomCode(response.data.roomCode)
                                 setTimeout(() => {
                                     Swal.fire({
@@ -186,6 +187,15 @@ useEffect(() => {
     }
 
 
+
+    // const crossClick = (q_id) => {
+    //     console.log(q_id)
+    //     console.log(questionForm)
+    //     const filterForShow = questionForm.filter((question) => {
+    //         return question.q_id !== q_id;
+    //     });
+    //     setQuestionForm(filterForShow);
+    // }
 
     return (
         <div className='m-auto mb-20 c-mt py-5 min-h-screen container relative'>
@@ -332,22 +342,22 @@ useEffect(() => {
 
 
             <div className="container flex flex-col gap-10 m-auto justify-between min-h-screen animate__animated animate__fadeInUp animate__faster">
-                <div className="bottom flex flex-col lg:w-4/5 gap-20 w-full pt-2 m-auto">
+                <div className="bottom flex flex-col lg:w-4/5 gap-20 w-full pt-20 pb-40 m-auto">
                     {
                         questionForm.map((question, index) => {
                             if (question.value === 'mcq') {
                                 return (
-                                    <Mcq className='border-2' index={index + 1} questionFormData={questionFormData} setQuestionFormData={setQuestionFormData} q_id={question.q_id} key={question.q_id + 1} deleteQuestion={deleteQuestion} setIsValidQsn={setIsValidQsn} totalMarks={totalMarks} setTotalMarks={setTotalMarks} addQuestion={addQuestion} ></Mcq>
+                                    <Mcq  setQuestionForm={setQuestionForm} questionForm={questionForm} index={index + 1} questionFormData={questionFormData} setQuestionFormData={setQuestionFormData} q_id={question.q_id} key={question.q_id + 1} deleteQuestion={deleteQuestion} setIsValidQsn={setIsValidQsn} totalMarks={totalMarks} setTotalMarks={setTotalMarks} addQuestion={addQuestion} ></Mcq>
                                 )
                             }
                             else if (question.value === 'true-false') {
                                 return (
-                                    <True_false index={index + 1} questionFormData={questionFormData} setQuestionFormData={setQuestionFormData} q_id={question.q_id} key={question.q_id + 1} deleteQuestion={deleteQuestion} setIsValidQsn={setIsValidQsn} totalMarks={totalMarks} setTotalMarks={setTotalMarks} addQuestion={addQuestion}></True_false>
+                                    <True_false setQuestionForm={setQuestionForm} questionForm={questionForm} index={index + 1} questionFormData={questionFormData} setQuestionFormData={setQuestionFormData} q_id={question.q_id} key={question.q_id + 1} deleteQuestion={deleteQuestion} setIsValidQsn={setIsValidQsn} totalMarks={totalMarks} setTotalMarks={setTotalMarks} addQuestion={addQuestion}></True_false>
                                 )
                             }
                             else if (question.value === 'fill-blanks') {
                                 return (
-                                    <Fill_gaps index={index + 1} questionFormData={questionFormData} setQuestionFormData={setQuestionFormData} q_id={question.q_id} key={question.q_id + 1} deleteQuestion={deleteQuestion} setIsValidQsn={setIsValidQsn} totalMarks={totalMarks} setTotalMarks={setTotalMarks} addQuestion={addQuestion}  ></Fill_gaps>
+                                    <Fill_gaps setQuestionForm={setQuestionForm} questionForm={questionForm} index={index + 1} questionFormData={questionFormData} setQuestionFormData={setQuestionFormData} q_id={question.q_id} key={question.q_id + 1} deleteQuestion={deleteQuestion} setIsValidQsn={setIsValidQsn} totalMarks={totalMarks} setTotalMarks={setTotalMarks} addQuestion={addQuestion}  ></Fill_gaps>
                                 )
                             }
                         })

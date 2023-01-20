@@ -12,11 +12,3 @@ const Loader = () => {
 
 export default Loader;
 
-
-{/* <div className='container m-auto'>
-            <div class="loader">
-                <div class="outer"></div>
-                <div class="middle"></div>
-                <div class="inner"></div>
-            </div>
-        </div> */}

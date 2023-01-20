@@ -5,11 +5,12 @@ import Swal from 'sweetalert2';
 import useAuth from '../../Hooks/useAuth';
 
 const SingleRoom = (props) => {
+
+
     const { validUser } = useAuth()
     const navigate = useNavigate()
     const { room, setRooms } = props;
     const startTime = new Date(`${room.startTime}`).getTime();
-
     const endTime = new Date(`${room.endTime}`).getTime();
     const currentTime = new Date().getTime();
     const examDays = new Date(endTime).getDay() - new Date(startTime).getDay()
@@ -54,6 +55,18 @@ const SingleRoom = (props) => {
                 confirmButtonText: 'Exam Details',
             }).then((result) => {
                 if (result.isConfirmed) {
+                    let timerInterval
+                    Swal.fire({
+                        text: 'Please wait...',
+                        didOpen: () => {
+                            Swal.showLoading()
+                            timerInterval = setInterval(() => {
+                            }, 1000)
+                        },
+                        willClose: () => {
+                            clearInterval(timerInterval)
+                        }
+                    })
                     const sendDetails = async () => {
                         await axios.post(`https://excited-foal-raincoat.cyclic.app/room/view-room`, { token: validUser.token, roomID: room.roomID })
                             .then(response => {
@@ -155,16 +168,57 @@ const SingleRoom = (props) => {
                     confirmButtonText: 'details',
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        Swal.fire({
-                            width: '40vw',
-                            title: `${room.CourseName}`,
-                            html:
-                                `Instructor : <b>${room.teacherName}</b>` + '</br>' +
-                                `<p className='text-red-400'>You have scored <b>${room.gotMarks}</b> out of ${room.totalMarks} </p> ` +
-                                `This exam was taken on <b>${new Date(`${room.startTime}`).toLocaleDateString()}</b>` + '</br>' +
-                                'Better luck next time!',
-                            icon: 'info'
-                        })
+                        if (room.participated) {
+                            // console.log(room)
+                            let timerInterval
+                            Swal.fire({
+                                text: 'Please wait...',
+                                didOpen: () => {
+                                    Swal.showLoading()
+                                    timerInterval = setInterval(() => {
+                                    }, 1000)
+                                },
+                                willClose: () => {
+                                    clearInterval(timerInterval)
+                                }
+                            })
+                            const sendDetails = async () => {
+                                await axios.post(`https://excited-foal-raincoat.cyclic.app/room/view-room`, { token: validUser.token, roomID: room.roomID })
+                                    .then(response => {
+                                        // console.log(response.data)
+                                        navigate('/examDetails', { state: { room: response.data, gotMarks: room.gotMarks } })
+
+                                    })
+                                    .catch(error => {
+                                        // console.log(error)
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'something went wrong',
+                                            text: 'please try again later'
+                                        })
+                                    })
+                            }
+                            sendDetails();
+                            // Swal.fire({
+                            //     width: '40vw',
+                            //     title: `${room.CourseName}`,
+                            //     html:
+                            //         `Instructor : <b>${room.teacherName}</b>` + '</br>' +
+                            //         `<p className='text-red-400'>You have scored <b>${room.gotMarks}</b> out of ${room.totalMarks} </p> ` +
+                            //         `This exam was taken on <b>${new Date(`${room.startTime}`).toLocaleDateString()}</b>` + '</br>' +
+                            //         'Better luck next time!',
+                            //     icon: 'info'
+                            // })
+                        }
+                        else {
+                            Swal.fire({
+                                icon: "error",
+                                title: "access denied !!",
+                                text: "You have not participated in this exam",
+                            })
+
+                        }
+
                     } else if (result.isDenied) {
                         Swal.fire('Changes are not saved', '', 'info')
                     }
@@ -213,7 +267,7 @@ const SingleRoom = (props) => {
                         </div>
                     </div>
                     <div className="card-actions justify-start items-center">
-                        <div className="badge badge-outline">{new Date(`${room.startTime}`).toDateString()}</div> at 
+                        <div className="badge badge-outline">{new Date(`${room.startTime}`).toDateString()}</div> at
                         <div className="badge badge-outline ">{new Date(`${room.startTime}`).toLocaleTimeString()}</div>
                     </div>
                 </div>

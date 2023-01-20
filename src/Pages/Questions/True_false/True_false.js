@@ -3,8 +3,9 @@ import { set, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
 const True_false = (props) => {
+    const [cross, setCross] = useState(true)
     const [done, setDone] = useState(false)
-    const { q_id, setQuestionFormData, questionFormData, deleteQuestion, index, setIsValidQsn, totalMarks, setTotalMarks, addQuestion } = props
+    const { q_id, setQuestionFormData, questionFormData, deleteQuestion, index, setIsValidQsn, totalMarks, setTotalMarks, addQuestion, questionForm, setQuestionForm } = props
     const { register, handleSubmit } = useForm();
 
     const onSubmit = (data) => {
@@ -17,6 +18,7 @@ const True_false = (props) => {
                 setDone(true)
                 setIsValidQsn(true)
                 setTotalMarks(totalMarks + parseInt(data.marks))
+                setCross(false)
             }
             else {
                 toast.error('select at-least one option', {
@@ -44,6 +46,16 @@ const True_false = (props) => {
         questionFormData.splice(questionFormData.indexOf(index[0]), 1)
         setDone(false)
     }
+
+
+    const crossClick = (q_id) => {
+
+        const filterForShow = questionForm.filter((question) => {
+            return question.q_id !== q_id;
+        });
+        setQuestionForm(filterForShow);
+        setIsValidQsn(true)
+    }
     return (
         <div className='shadow-lg rounded-md border-t-8 border-t-cyan-600 text-slate-500 bg-white pt-5 animate__animated animate__fadeIn'>
             {/* true-false */}
@@ -51,9 +63,14 @@ const True_false = (props) => {
                 <div className='flex items-center pb-5 w-full justify-between'>
                     <span></span>
                     <h2 className="title font-semibold"><span className=' text-slate-400'>True </span>False</h2>
-                    <div>
+                    <div className='contents'>
                         {
-                            done && <i tabIndex={0} class="fas fa-duotone fa-sliders cursor-pointer dropdown dropdown-left">
+                            cross && <i title='cancel' onClick={() => { crossClick(q_id) }} class="fas fa fa-close cursor-pointer text-3xl"></i>
+                        }
+                    </div>
+                    <div className='contents'>
+                        {
+                            done && <i tabIndex={0} class="fas fa-duotone fa-sliders cursor-pointer dropdown dropdown-left text-xl">
                                 <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-40">
                                     <li onClick={() => { deleteQuestion(q_id) }} className='text-gray-400 t-lowercase'>
                                         <span className='flex items-center justify-between'>
