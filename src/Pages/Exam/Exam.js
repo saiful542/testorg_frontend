@@ -147,7 +147,7 @@ const Exam = () => {
                     <div tabIndex={0} class="cursor-pointer dropdown animate__animated animate__slideInRight z-40 transition-all">
                         <span className='shadow-inner rounded-2xl px-20 py-2 flex items-baseline gap-10 bg-gray-200 hover:bg-slate-300  hover:text-blue-600 hover:shadow-2xl transition-all'><h1 className='text-xl font-semibold'>Details</h1><i class="fas fa-duotone fa-circle-info"></i></span>
                         <div tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-40 transition-all">
-                            <div className="overflow-x-auto rounded-lg">
+                            <div className="overflow-x-auto rounded-lg shadow-2xl">
                                 <table className="table w-full">
                                     <thead>
                                         <tr>
