@@ -107,10 +107,11 @@ code {
 
 .MuiOutlinedInput-notchedOutline {
   border-color: #0e7490 !important;
+
 }
 
 .MuiSvgIcon-root {
-  color: #0e7490
+  color: #0e7490 !important
 }
 
 

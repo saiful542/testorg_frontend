@@ -100,6 +100,9 @@ const Exam = () => {
     const startTime = new Date(`${room.startTime}`).getTime();
     const endTime = new Date(`${room.endTime}`).getTime();
     const currentTime = new Date().getTime();
+    const examDays = new Date(endTime).getDay() - new Date(startTime).getDay()
+    const examHours = new Date(endTime).getHours() - new Date(startTime).getHours()
+    const examMinutes = new Date(endTime - startTime).getMinutes()
 
     if (firstime) {
         if (startTime > currentTime) {
@@ -144,7 +147,7 @@ const Exam = () => {
                     <div tabIndex={0} class="cursor-pointer dropdown animate__animated animate__slideInRight z-40 transition-all">
                         <span className='shadow-inner rounded-2xl px-20 py-2 flex items-baseline gap-10 bg-gray-200 hover:bg-slate-300  hover:text-blue-600 hover:shadow-2xl transition-all'><h1 className='text-xl font-semibold'>Details</h1><i class="fas fa-duotone fa-circle-info"></i></span>
                         <div tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-40 transition-all">
-                            <div className="overflow-x-auto">
+                            <div className="overflow-x-auto rounded-lg">
                                 <table className="table w-full">
                                     <thead>
                                         <tr>
@@ -166,25 +169,7 @@ const Exam = () => {
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td className='text-2xl'>Total marks</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td><p className='text-gray-300 text-xl pr-20'>{room.totalMarks}</p></td>
-                                        </tr>
-
-
-                                        <tr>
-                                            <td className='text-2xl'>Teacher</td>
+                                            <td className='text-2xl pl-10'>Teacher</td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -200,7 +185,7 @@ const Exam = () => {
                                             <td><p className='text-gray-300 text-xl pr-20'>{room.teacherName}</p></td>
                                         </tr>
                                         <tr>
-                                            <td className='text-2xl'>Course</td>
+                                            <td className='text-2xl pl-10'>Course</td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -216,7 +201,56 @@ const Exam = () => {
                                             <td><p className='text-gray-300 text-xl pr-20'>{room.CourseName}</p></td>
                                         </tr>
                                         <tr>
-                                            <td className='text-2xl'>Ending at</td>
+                                            <td className='text-2xl pl-10'>Marking type</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><p className=' text-xl pr-0'>{room.negMarks ? "Negative Marking Scheme" : "Normal Marking Scheme"}</p></td>
+                                        </tr>
+                                        <tr>
+                                            <td className='text-2xl pl-10'>Total marks</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><p className='text-gray-300 text-xl pr-20'>{room.totalMarks}</p></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td className='text-2xl pl-10'>Exam duration</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><p className=' text-xl pr-0'>{examDays ? `${examDays} day` : ''} {examHours ? `${examHours} hour` : ''} {examMinutes ? `${examMinutes} minute` : ''}</p></td>
+                                        </tr>
+                                        <tr>
+                                            <td className='text-2xl pl-10'>Ending at</td>
                                             <td></td>
                                             <td></td>
                                             <td></td>

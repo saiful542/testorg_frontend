@@ -25,14 +25,19 @@ const Form_test = () => {
     const [totalMarks, setTotalMarks] = useState(0);
     const { state } = useLocation();
     const { date, startTime, endTime, teacherName, courseName, markingType } = state;
-    // console.log('form',markingType);
+
     const getInGlobalFormat = (date, time) => {
         return `${date} ${time}`;
     };
     const newStartTime = getInGlobalFormat(date?.$d?.toDateString(), startTime?.$d?.toLocaleTimeString());
     const newEndTime = getInGlobalFormat(date?.$d?.toDateString(), endTime?.$d?.toLocaleTimeString());
-    // console.log(newStartTime)
-    // console.log(newEndTime)
+
+    const sTime = new Date(`${newStartTime}`).getTime();
+    const eTime = new Date(`${newEndTime}`).getTime();
+    const examDays = new Date(eTime).getDay() - new Date(sTime).getDay()
+    const examHours = new Date(eTime).getHours() - new Date(sTime).getHours()
+    const examMinutes = new Date(eTime - sTime).getMinutes()
+
 
     const addQuestion = (value) => {
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -204,7 +209,7 @@ const Form_test = () => {
                     <div tabIndex={0} class="cursor-pointer dropdown animate__animated animate__slideInRight z-40">
                         <span className='shadow-inner rounded-2xl px-20 py-2 flex items-baseline gap-10 bg-gray-200 hover:bg-slate-300  hover:text-blue-600 hover:shadow-2xl transition-all'><h1 className='text-xl font-semibold'>Details</h1><i class="fas fa-duotone fa-circle-info"></i></span>
                         <div tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-40">
-                            <div className="overflow-x-auto">
+                            <div className="overflow-x-auto rounded-lg">
                                 <table className="table w-full">
                                     <thead>
                                         <tr>
@@ -226,7 +231,39 @@ const Form_test = () => {
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td className='text-2xl'>Exam date</td>
+                                            <td className='text-2xl pl-10'>Teacher</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><p className='text-gray-300 text-xl'>{teacherName}</p></td>
+                                        </tr>
+                                        <tr>
+                                            <td className='text-2xl pl-10'>Course</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><p className='text-gray-300 text-xl'>{courseName}</p></td>
+                                        </tr>
+                                        <tr>
+                                            <td className='text-2xl pl-10'>Exam date</td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -243,7 +280,7 @@ const Form_test = () => {
                                         </tr>
 
                                         <tr>
-                                            <td className='text-2xl'>Starting time</td>
+                                            <td className='text-2xl pl-10'>Starting time</td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -260,7 +297,7 @@ const Form_test = () => {
                                         </tr>
 
                                         <tr>
-                                            <td className='text-2xl'>Ending time</td>
+                                            <td className='text-2xl pl-10'>Ending time</td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -276,7 +313,7 @@ const Form_test = () => {
                                             <td><p className='text-gray-300 text-xl'>{endTime.$d.toLocaleTimeString()}</p></td>
                                         </tr>
                                         <tr>
-                                            <td className='text-2xl'>Teacher</td>
+                                            <td className='text-2xl pl-10'>Exam duration</td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -289,10 +326,10 @@ const Form_test = () => {
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            <td><p className='text-gray-300 text-xl'>{teacherName}</p></td>
+                                            <td><p className='text-gray-300 text-xl'>{examDays ? `${examDays} day` : ''} {examHours ? `${examHours} hour` : ''} {examMinutes ? `${examMinutes} minute` : ''}</p></td>
                                         </tr>
                                         <tr>
-                                            <td className='text-2xl'>Course</td>
+                                            <td className='text-2xl pl-10'>Marking type</td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -305,8 +342,9 @@ const Form_test = () => {
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            <td><p className='text-gray-300 text-xl'>{courseName}</p></td>
+                                            <td><p className=' text-xl pr-16 text-gray-300'>{markingType ? "Negative Marking Scheme" : "Normal Marking Scheme"}</p></td>
                                         </tr>
+
                                     </tbody>
                                 </table>
                             </div>
@@ -347,7 +385,7 @@ const Form_test = () => {
                         questionForm.map((question, index) => {
                             if (question.value === 'mcq') {
                                 return (
-                                    <Mcq  setQuestionForm={setQuestionForm} questionForm={questionForm} index={index + 1} questionFormData={questionFormData} setQuestionFormData={setQuestionFormData} q_id={question.q_id} key={question.q_id + 1} deleteQuestion={deleteQuestion} setIsValidQsn={setIsValidQsn} totalMarks={totalMarks} setTotalMarks={setTotalMarks} addQuestion={addQuestion} ></Mcq>
+                                    <Mcq setQuestionForm={setQuestionForm} questionForm={questionForm} index={index + 1} questionFormData={questionFormData} setQuestionFormData={setQuestionFormData} q_id={question.q_id} key={question.q_id + 1} deleteQuestion={deleteQuestion} setIsValidQsn={setIsValidQsn} totalMarks={totalMarks} setTotalMarks={setTotalMarks} addQuestion={addQuestion} ></Mcq>
                                 )
                             }
                             else if (question.value === 'true-false') {

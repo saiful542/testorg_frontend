@@ -31,10 +31,10 @@ const ExamDetails = () => {
 
 
             {
-                validUser.usertype == "teacher" ? <div className='teacher'><div className='pb-40 overflow-hidden rounded-lg animate__animated animate__fadeInUp'>
-                    <div className="overflow-x-auto " data-theme="garden">
+                validUser.usertype == "teacher" ? <div className='teacher'><div className='pb-40 animate__animated animate__fadeInUp'>
+                    <div className="overflow-x-auto pb-10 border-b-4 border-b-stone-300 rounded-md shadow-2xl " data-theme="corporate">
                         <table className="table w-full">
-                            <thead  >
+                            <thead data-theme="aqua">
                                 <tr>
                                     <th className='text-2xl pl-10'>Exam information</th>
                                     <th></th>
@@ -258,8 +258,8 @@ const ExamDetails = () => {
                     </div>
 
                 </div>
-                    <div className='m-auto flex flex-col rounded-md text-gray-800 text-xl overflow-hidden bg-white'>
-                        <h1 data-theme="dracula" className='text-3xl py-10'>Questions</h1>
+                    <div className='m-auto flex flex-col rounded-md text-gray-800 text-xl overflow-hidden shadow-2xl'>
+                        <h1 data-theme="aqua" className='text-3xl py-10'>Questions</h1>
                         {/* <span className='border-2 border-gray-400 mb-10 w-1/2 m-auto'></span> */}
                         {
                             room.questions.map((element, index) => {
@@ -282,10 +282,10 @@ const ExamDetails = () => {
                             })
                         }
                     </div>
-                </div> : <div className='student'><div className='pb-40 overflow-hidden rounded-lg animate__animated animate__fadeInUp'>
-                    <div className="overflow-x-auto " data-theme="garden">
+                </div> : <div className='student '><div className='pb-40 rounded-md animate__animated animate__fadeInUp '>
+                    <div className="overflow-x-auto pb-10 border-b-4 border-b-stone-300 rounded-md shadow-2xl" data-theme="corporate">
                         <table className="table w-full">
-                            <thead  >
+                            <thead data-theme="aqua">
                                 <tr>
                                     <th className='text-2xl pl-10'>Exam information</th>
                                     <th></th>
@@ -471,8 +471,8 @@ const ExamDetails = () => {
                     </div>
 
                 </div>
-                    <div className='m-auto flex flex-col rounded-md text-gray-800 text-xl overflow-hidden bg-white'>
-                        <h1 data-theme="dracula" className='text-3xl py-10'>Questions</h1>
+                    <div className='m-auto flex flex-col rounded-md text-gray-800 text-xl overflow-hidden shadow-2xl'>
+                        <h1 data-theme="aqua" className='text-3xl py-10'>Questions</h1>
                         {/* <span className='border-2 border-gray-400 mb-10 w-1/2 m-auto'></span> */}
                         {
                             room.questions.map((element, index) => {
@@ -544,7 +544,7 @@ const Option = (props) => {
 
     return (
         <div className="radio-group flex gap-4 items-cente ">
-            <p>{index}.</p>
+            <p className='min-w-[20px] text-center'>{index}.</p>
             <p className='break-all text-justify'>{option}</p>
         </div>
     )
