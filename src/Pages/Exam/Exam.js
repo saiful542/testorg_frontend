@@ -61,7 +61,7 @@ const Exam = () => {
                     icon: 'success',
                     title: 'Great!',
                     text: 'Result submitted successfully',
-                }).then(()=>{
+                }).then(() => {
                     navigate("/student")
                 })
             })

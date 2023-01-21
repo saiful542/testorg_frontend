@@ -57,12 +57,12 @@ const Fill_gaps = (props) => {
                     <h2 className="title font-semibold"><span className=' text-slate-400'>fill </span>blanks</h2>
                     <div className='contents'>
                         {
-                            cross && <i title='cancel' onClick={() => { crossClick(q_id) }} class="fas fa fa-close cursor-pointer text-3xl"></i>
+                            cross && <span title='cancel' onClick={() => { crossClick(q_id) }} className='px-2 rounded-md hover:bg-slate-200 transition-all cursor-pointer hover:text-orange-600'><i class="fas fa fa-close text-3xl"></i></span>
                         }
                     </div>
                     <div className='contents'>
                         {
-                            done && <i tabIndex={0} class="fas fa-duotone fa-sliders cursor-pointer dropdown dropdown-left text-xl">
+                            done && <span tabIndex={0} title="options" className='dropdown dropdown-left  px-2 py-1 rounded-md hover:bg-slate-200 transition-all cursor-pointer hover:text-cyan-600'><i class="fas fa-duotone fa-sliders text-xl">
                                 <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-40">
                                     <li onClick={() => { deleteQuestion(q_id) }} className='text-gray-400 t-lowercase'>
                                         <span className='flex items-center justify-between'>
@@ -77,7 +77,7 @@ const Fill_gaps = (props) => {
                                         </span>
                                     </li>
                                 </ul>
-                            </i>
+                            </i></span>
                         }
                     </div>
                 </div>
