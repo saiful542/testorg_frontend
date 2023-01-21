@@ -111,9 +111,9 @@ const Mcq = (props) => {
                 <div className='flex items-center pb-5 w-full justify-between px-5'>
                     <span></span>
                     <h2 className="title font-semibold"><span className=' text-slate-400'>M</span>CQ</h2>
-                    <div className='contents'>
+                    <div className={`${done && "contents"}`}>
                         {
-                            cross && <span title='cancel' onClick={() => { crossClick(q_id) }} className='px-2 rounded-md hover:bg-slate-200 transition-all cursor-pointer hover:text-orange-600'><i class="fas fa fa-close text-3xl"></i></span>
+                            cross && <span title='cancel' onClick={() => { crossClick(q_id) }} className='px-2 flex items-center justify-center rounded-md hover:bg-slate-200 transition-all cursor-pointer hover:text-orange-600'><i class="fas fa fa-close text-3xl"></i></span>
                         }
                     </div>
                     <div className=' contents'>
